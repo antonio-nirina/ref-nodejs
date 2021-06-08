@@ -1,0 +1,75 @@
+﻿<block-ui [message]="'chargement...'" [template]="blockTemplate">
+<login [(redirect_route)]="redirect_route" (outputEvent)="onComponentChange($event)"></login>
+<!-- help -->
+<help-section></help-section>
+<main role="main">
+    <div class="container">
+        <div class="nav-menu hidden-xs hidden-sm">
+            <div class="row">
+                <div class="col-md-12">
+                   <navigation [(redirect_route)]="redirect_route" (outputEvent)= "onComponentChange($event)"></navigation>
+                </div>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="row footer-content">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h5><a href="https://www.servicepostal.com/nos-services">Nos services</a></h5>
+                        <a href="https://www.servicepostal.com/lettre-en-ligne/envoi-courrier-recommande">Lettre recommandée</a>
+                        <br><a href="https://www.servicepostal.com/lettre-en-ligne/envoi-courrier-par-internet">Courrier simple</a>
+                        <br><a href="https://www.servicepostal.com/lettre-en-ligne/envoi-courrier-publipostage">Publipostage</a>
+                        <br><a href="https://www.servicepostal.com/modeles-de-lettres/">Modèles de courrier</a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h5><a href="https://www.servicepostal.com/lettre-en-ligne/particuliers">Particuliers</a></h5>
+                        <a href="https://www.servicepostal.com/lettre-en-ligne/particuliers">Nos services aux particuliers</a>
+                        <h5><a href="https://www.servicepostal.com/lettre-en-ligne/professionnels">Professionnels</a></h5>
+                        <a href="https://www.servicepostal.com/lettre-en-ligne/professionnels">Nos offres aux professionnels</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <h5><a href="https://www.servicepostal.com/lettre-en-ligne/entreprises">Entreprises</a></h5>
+                        <a href="https://www.servicepostal.com/lettre-en-ligne/entreprises">Nos offres d’externalisation</a>
+                        <h5><a href="https://www.servicepostal.com/lettre-en-ligne/partenaires">Partenaires</a></h5>
+                        <a href="https://www.servicepostal.com/lettre-en-ligne/partenaires">Nos offres d’intégration</a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <h5><a href="https://www.servicepostal.com/nos-outils">Nos outils</a></h5>
+                        <a href="https://www.servicepostal.com/lettre-en-ligne/archivage">Archivage</a>
+                        <br><a href="https://www.servicepostal.com/lettre-en-ligne/imprimante-postale">Imprimante postale</a>
+                        <br><a href="https://www.servicepostal.com/lettre-en-ligne/google-drive">Google drive</a>
+                        <br><a href="https://www.servicepostal.com/lettre-en-ligne/api">API</a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <h5><a href="https://www.servicepostal.com/societe/qui-sommes-nous">Service Postal</a></h5>
+                        <a href="https://www.servicepostal.com/aide/questions-frequentes">Questions fréquentes</a>
+                        <br><a href="https://www.servicepostal.com/societe/qui-sommes-nous">Qui sommes nous</a>
+                        <br><a href="https://www.servicepostal.com/societe/conditions-generales">Conditions générales</a>
+                        <br><a href="https://www.servicepostal.com/societe/confidentialite">Confidentialité</a>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="social-icons-footer">
+            <span>Retrouvez-nous sur </span>
+            <a target="_blank" class="twitter" href="https://twitter.com/Service_Postal"><img src="/Images/twitter-icon.png" width="26"></a>
+            <a target="_blank" class="facebook" href="https://www.facebook.com/ServicePostal"><img src="/Images/facebook-icon.png" width="26"></a>
+        </div>
+    </div>
+</footer>
+</block-ui>
+
+<video-tutorial></video-tutorial>
+<modal-login [(redirect_route)]="redirect_route"></modal-login>
+<modal-register [(redirect_route)]="redirect_route"></modal-register>
+<modal-password-forget></modal-password-forget>

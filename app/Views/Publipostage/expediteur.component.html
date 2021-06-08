@@ -1,0 +1,156 @@
+﻿<section class="main-content">
+	<div class="content">
+		<div class="mailing-wrapper">
+
+			<div class="mailing-search">
+				<div class="row">
+					<div class="col-sm-8">
+						<h3 class="page-title">ADRESSES EXPéDITEURS</h3>
+					</div>
+					<div class="col-sm-4 pull-right">
+						<div class="input-group">
+							<input type="text" class="form-control" [(ngModel)]="keyword" placeholder="Rechercher un expéditeur...">
+							<i class="fa  fa-times remove-search" *ngIf="keyword != ''" (click)="removeSearch()"></i>
+							<span class="input-group-btn">
+								<button class="btn btn-primary" (click)="searchAddress()" type="button"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">                    
+					<div class="col-sm-4 pull-right">
+						<a href="#" (click)="addNewAddress()" class="prevent btn btn-white-tiny" data-toggle="modal" data-target="#NewAdress" title="Ajouter un expéditeur">+ Ajouter un expéditeur</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="mess-adresses relative">
+			<div class="mes-adresses-group-name">
+				{{(selectedAddressGroup)? selectedAddressGroup.GroupName : "Toutes mes adresses"}}
+				<a *ngIf="selectedAddressGroup" class="pointer edit-group" data-target="#EditGroup" data-toggle="modal" title="Edit Group" (click)="editAddressGroupName()"><span></span></a>
+				<a *ngIf="selectedAddressGroup" class="pointer delete-group" title="Delete Group" (click)="deleteAddressGroup()"><span></span></a>
+			</div>
+			<div class="mess-adresses-header clearfix hidden-xs hidden-sm">
+				<div class="nom-header">
+					Nom & Prénom
+				</div>
+				<div class="societe-header">
+					Société
+				</div>
+				<div class="adresse-header">
+					Adresse
+				</div>
+				<div class="complement-header">
+					Complément d’adresse
+				</div>
+				<div class="code-postal-header">
+					Code Postal
+				</div>
+				<div class="city-header">
+					Ville
+				</div>
+				<div class="country-header">
+					Pays
+				</div>
+				<div class="gerer-header">
+					Gérer
+				</div>
+			</div>
+			<div class="relative">
+				<div class="no-data" *ngIf="addresses?.length == 0">Aucune donnée !</div>
+				<div class="loading-message h100 minh-50" [hidden]="!showLoading">
+					<img src="Images/spin.svg" width="32" />
+				</div>
+				<div *ngFor="let adr of addresses | paginate: PagingConfig; let i = index" class="mess-adresses-item clearfix" [ngClass]="{'archived': adr.Deleted == true }">
+					<div class="nom">
+						{{adr.Firstname}} {{adr.Lastname}}
+					</div>
+					<div class="societe">
+						{{adr.Company}}
+					</div>
+					<div class="second-informations" [hidden]="!toggle[i]">
+						<div class="adresse">
+							{{adr.Address1}}
+						</div>
+						<div class="complement">
+							{{adr.Address2}}
+						</div>
+						<div class="code-postal">
+							{{adr.ZipPostalCode}}
+						</div>
+						<div class="city">
+							{{adr.City}}
+						</div>
+						<div class="country">
+							{{adr.CountryID | country: countries}}
+						</div>
+						<a href="#" (click)="onSelect(adr)" class="prevent edit-adress" data-toggle="modal" data-target="#EditAdress" title="Modifier l'adresse">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button (click)="archiveDestinationAddressToggle(adr)" type="button" class="archive-button">
+							<ng-container *ngIf="adr.Deleted == true">
+								<!--<span class="unarchive-new" popoverPlacement="top" popover="Restaurer" [popoverOnHover]="true"></span>-->
+								<span class="glyphicon glyphicon-folder-open font18" popoverPlacement="top" popover="Restaurer" [popoverOnHover]="true"></span>
+							</ng-container>
+							<ng-container *ngIf="adr.Deleted == false">
+								<span class="glyphicon glyphicon-trash font18" popoverPlacement="top" popover="Archive" [popoverOnHover]="true"></span>
+								<!--<span class="archive-new" popoverPlacement="top" popover="Archive" [popoverOnHover]="true"></span>-->
+							</ng-container>
+						</button>
+					</div>
+					<a class="prevent arrow-down-adress visible-xs visible-sm" (click)="toggle[i] = !toggle[i]" [ngClass]="{'rotate180': toggle[i] }"><span></span></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="cgv">
+			<label for="cgv">Afficher les adresses archivées <input type="checkbox" id="cgv" [checked]="showArchived" (change)="toggleShowArchived()"></label>
+		</div>
+		<pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="onPageChange($event)" id="expediteurs"></pagination-controls>
+
+		<nav class="pagination-mess-adresses clearfix">
+			<span class="pages-of">
+				Afficher {{pageSize*(PagingConfig.currentPage - 1) + 1}} à {{PagingConfig.totalItems > pageSize*PagingConfig.currentPage? pageSize*PagingConfig.currentPage: PagingConfig.totalItems}} de <span>{{PagingConfig.totalItems}}</span>
+			</span>
+			<span class="show-number-of-items">
+				Nombre d'enregistrement:
+				<select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
+					<option value="10">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+					<option value="250">250</option>
+					<option value="500">500</option>
+				</select>
+			</span>
+		</nav>
+	</div>
+</section>
+
+<div class="modal" id="EditAdress" tabindex="-1" role="dialog" aria-labelledby="EditAdress" aria-hidden="false">
+	<div class="modal-dialog edit-adress-modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="reloadAddressForm()">×</button>
+				<h3 class="modal-title blue">Modifier un expéditeur</h3>
+			</div>
+			<div class="modal-body">
+				<addressFormExpediteur *ngIf="selectedAddress" [adr]="selectedAddress" [user]="user" (reloadParent)="getPagedAddresses()"></addressFormExpediteur>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="NewAdress" tabindex="-1" role="dialog" aria-labelledby="NewAdress" aria-hidden="false">
+	<div class="modal-dialog new-adress-modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="reloadAddressForm()">×</button>
+				<h3 class="modal-title blue">+ Ajouter un expéditeur</h3>
+			</div>
+			<div class="modal-body">
+				<addressFormExpediteur *ngIf="selectedAddress" [adr]="selectedAddress" [user]="user" (reloadParent)="getPagedAddresses()"></addressFormExpediteur>
+			</div>
+		</div>
+	</div>
+</div>

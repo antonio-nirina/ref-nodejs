@@ -1,0 +1,44 @@
+﻿<tr>
+    <td>
+        <input type="text" [formControl]="addressForm.controls[index].controls.FirstName" />
+        <div *ngIf="addressForm.controls[index].errors?.noDest" class="error">Le prénom, le nom ou la société est obligatoire</div>
+        <div *ngIf="addressForm.controls[index].errors?.firstNameMax" class="error">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+    </td>
+    <td>
+        <input type="text" [formControl]="addressForm.controls[index].controls.LastName" />
+        <div *ngIf="addressForm.controls[index].errors?.noDest" class="error">Le prénom, le nom ou la société est obligatoire</div>
+        <div *ngIf="addressForm.controls[index].errors?.lastNameMax" class="error">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+    </td>
+    <td>
+        <input type="text" [formControl]="addressForm.controls[index].controls.Company" />
+        <div *ngIf="addressForm.controls[index].errors?.noDest" class="error">Le prénom, le nom ou la société est obligatoire</div>
+        <div *ngIf="addressForm.controls[index].errors?.companyMax" class="error">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+    </td>
+    <td>
+        <input type="text" [formControl]="addressForm.controls[index].controls.Address1" />
+        <div class="error" *ngIf="addressForm.controls[index].controls.Address1.hasError('required')">L'adresse est obligatoire</div>
+        <div *ngIf="addressForm.controls[index].errors?.address1Max" class="error">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+    </td>
+    <td>
+        <input type="text" [formControl]="addressForm.controls[index].controls.Address2" />
+        <div *ngIf="addressForm.controls[index].errors?.address2Max" class="error">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+    </td>
+    <td class="code-postal-publi">
+        <input type="text" [formControl]="addressForm.controls[index].controls.ZipPostalCode">
+        <div class="error" *ngIf="addressForm.controls[index].controls.ZipPostalCode.hasError('required')">Le code postal est obligatoire</div>
+        <div *ngIf="addressForm.controls[index].errors?.zipCodeLenghtD" class="error">Le code postal doit comporter 5 chiffres</div>
+        <div *ngIf="addressForm.controls[index].errors?.zipMaxLength" class="error">L'entrée ne doit pas contenir plus de {{10}} caractères</div>
+    </td>
+    <td>
+        <input type="text" [formControl]="addressForm.controls[index].controls.City" />
+        <div class="error" *ngIf="addressForm.controls[index].controls.City.hasError('required')">La ville est obligatoire</div>
+        <div *ngIf="addressForm.controls[index].errors?.cityMaxLength" class="error">L'entrée ne doit pas contenir plus de {{27}} caractères</div>
+    </td>
+    <td>
+        <select [formControl]="addressForm.controls[index].controls.CountryID">
+            <option *ngFor="let country of countries" [ngValue]="country.CountryID"> {{country.CountryName }}</option>
+        </select>
+        <div class="error" *ngIf="addressForm.controls[index].errors?.noCountryDest">Le pays est obligatoire</div>
+    </td>
+    <td> <a href="javascript:;" (click)="delete(adr, addresses)"> <span class="glyphicon glyphicon-remove red font16"> </span></a> </td>
+</tr>

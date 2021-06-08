@@ -1,0 +1,45 @@
+﻿<div class="selectable-wrapper relative when-is-matched dropdown"
+     [ngClass]="{'selectable-wrapper': true, 'relative': true, 'when-is-matched':(headerMapper.MandatoryHeaderID != null || headerMapper.DocumentVariables.length > 0)}">
+    <button class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <!--(click)="collapse = !collapse"--> {{showSelected(headerMapper)}}<span class="glyphicon glyphicon-chevron-down"></span></button>
+    <div class="dropdown-menu selectable-dropdown" aria-labelledby="dropdownMenu1">  <!--class="selectable-dropdown"-->
+		<div> <!--[hidden]="!collapse"-->
+			<ul *blockUI="'selectable-dropdown2'">
+				<li *ngFor="let header of mandatoryHeaders; let i = index" [ngClass]="{'disabled-li':((headerMapper.MandatoryHeaderID != null && headerMapper.MandatoryHeaderID != header.MandatoryHeaderID) ||
+                       (header.Disabled && headerMapper.MandatoryHeaderID != header.MandatoryHeaderID)),
+                        'yellow-square': (header.MandatoryStatus == 'halfMandatory'),
+                        'red-square': (header.MandatoryStatus == 'mandatory'),
+                        'green-square': (header.MandatoryStatus == 'notMandatory')}">
+					<input id="mandatory_{{index}}{{i}}" type="checkbox"
+						   [ngClass]="{'disabled-label':(headerMapper.MandatoryHeaderID != null && headerMapper.MandatoryHeaderID != header.MandatoryHeaderID) ||
+                       (header.Disabled && headerMapper.MandatoryHeaderID != header.MandatoryHeaderID)}"
+						   [value]="header.MandatoryHeaderID"
+						   [disabled]="(headerMapper.MandatoryHeaderID != null && headerMapper.MandatoryHeaderID != header.MandatoryHeaderID) ||
+                       (header.Disabled && headerMapper.MandatoryHeaderID != header.MandatoryHeaderID)"
+						   [checked]="headerMapper.MandatoryHeaderID == header.MandatoryHeaderID"
+						   (change)="changeMandatory($event, headerMapper)" />
+					<label for="mandatory_{{index}}{{i}}">
+						{{header.MandatoryHeaderName}}
+					</label>
+					<span></span>
+				</li>
+			</ul>
+			<ul class="non-mandatory"  *blockUI="'selectable-dropdown3'">
+				<li *ngFor="let variable of documentVariables; let i = index" [ngClass]="{'disabled-li': variable.Disabled, 'blue-square': true}">
+					<input id="custom_{{index}}{{i}}" type="checkbox"
+						   [value]="variable.DocumentVariableID"
+						   [disabled]="(variable.Disabled && !isMatched(variable))"
+						   [checked]="isMatched(variable)"
+						   (change)="changeMandatory($event, headerMapper)" />
+					<label for="custom_{{index}}{{i}}">{{variable.VariableName}}</label>
+					<span></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div *ngFor="let docVar of headerMapper?.DocumentVariables; let k = index">
+		<div class="matched-fields" *ngIf="!(headerMapper.MandatoryHeaderID == null && k == 0)">
+			{{docVar.VariableName}}
+		</div>
+	</div>
+    
+</div>

@@ -1,0 +1,11 @@
+﻿<div *ngIf="auth.userLoggedIn" class="btn-width-new">
+    <button [routerLink]="['/confirmation']" class="btn-orange-big mb-10" id="confirmation1">Confirmation</button>
+	<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#MainAddressModal">Call Modal</button>-->
+</div>
+
+<div *ngIf="!auth.userLoggedIn"  class="btn-width-new">
+    <button data-target="#LoginModal" (click)="savelink('confirmation')" data-toggle="modal" class="btn-orange-big mb-10" popoverPlacement="top" popover="Se connecter pour accéder" [popoverOnHover]="true" id="confirmation2">Confirmation</button>
+	<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#MainAddressModal">Call Modal</button>-->
+</div>
+
+<modal-login [(redirect_route)]="redirect_route"></modal-login>

@@ -1,0 +1,1398 @@
+﻿<div class="overlay-modal-add"></div>
+<div class="modal-add-document" style="display: none;">
+	<div class="modal-add-document-content">
+		<a href="javascript:;" class="prevent close-modal">X</a>
+		<div class="title-add" id="main-title">CHOISIR UN MODÈLE DE LETTRE</div>
+		<div class="modal-add-document-append">
+			<div class="row letters-wrapper" style="display:none;">
+				<div class="col-sm-4">
+					<div class="letter-box">
+						<a href="javascript:;" id="uploadbutton2" onclick="ClickUploaderButton()">
+							<span>Ajouter un ou des documents</span>
+							<img src="/Images/upload-document.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="letter-box">
+						<a href="javascript:;" class="prevent letter-model">
+							<!--<a href="javascript:;" class="prevent nouveau"></a>-->
+							<span>Sélectionner un modèle de lettre</span>
+							<img src="/Images/select-lettre-modele.png" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="letter-box">
+						<a href="javascript:;" class="prevent nouveau"></a>
+						<a href="javascript:;" class="prevent tiny-model">
+							<span>Rédiger une page du courrier en ligne</span>
+							<img src="/Images/rediger-courier.png" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="modeles-des-lettres-section" style="display: block;">
+				<div class="modeles-des-lettres-wrapper">
+					<div class="modeles-des-lettres-search">
+						<div class="search-box">
+							<div class="ui-widget">
+								<input type="text" class="form-control ui-autocomplete-input" id="searchkeyword" name="searchkeyword" value="" placeholder="Rechercher un modèle de lettre" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+							</div>
+							<button type="button" onclick="FindModele()" class="btn-blue-small fright">RECHERCHER</button>
+							<div class="clear"></div>
+						</div>
+						<a href="javascript:;" class="prevent more-letters">plus...</a>
+						<div class="clear"></div>
+					</div>
+					<div class="modeles-des-lettres-content">
+						<div class="modeles-letters">
+							<h3 class="modeles-title">Resultat de recherche</h3>
+							<p id="result-search">
+							</p>
+						</div>
+					</div>
+					<div class="modeles-des-lettres-content">
+						<h3 class="modeles-title">Particuliers</h3>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="modeles-letters">
+									<h4><a href="javascript:;">Lettres de Motivations, CV</a></h4>
+									<p>
+										<a href="javascript:;" id="2">Candidature Spontanée</a>,
+										<a href="javascript:;" id="3">Demande de Stage</a>,
+										<a href="javascript:;" id="4">Secrétaire Commerciale</a>,
+										<a href="javascript:;" id="6">Modèle CV</a>,
+										<a href="javascript:;" id="233">novimodeljo</a>,
+										<a href="javascript:;" id="236">Demande de Stage</a>,
+										<a href="javascript:;" id="238">novi</a>,
+										<a href="javascript:;" id="239">novi</a>,
+										<a href="javascript:;" id="240">novimodel</a>,
+										<a href="javascript:;" id="241">newmod</a>,
+										<a href="javascript:;" id="242">NOVIMODEL</a>,
+										<a href="javascript:;" id="243">NOVIMODEL2</a>,
+									</p>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="modeles-letters">
+									<h4><a href="javascript:;">Lettre de résiliation</a></h4>
+									<p>
+										<a href="javascript:;" id="7">Résiliation bail (3 mois)</a>,
+										<a href="javascript:;" id="8">Résiliation assurance</a>,
+										<a href="javascript:;" id="9">Résiliation Internet</a>,
+										<a href="javascript:;" id="10">Résiliation Mobile</a>,
+									</p>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="modeles-letters">
+									<h4><a href="javascript:;">Vie Professionnelle, Emploi</a></h4>
+									<p>
+										<a href="javascript:;" id="13">Démission</a>,
+										<a href="javascript:;" id="14">Démission CDI</a>,
+										<a href="javascript:;" id="15">Demande de Congés</a>,
+										<a href="javascript:;" id="16">Démission CDD</a>,
+										<a href="javascript:;" id="17">Congé parental</a>,
+										<a href="javascript:;" id="18">Mutation</a>,
+									</p>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="modeles-letters">
+									<h4><a href="javascript:;">Banque, Assurance</a></h4>
+									<p>
+										<a href="javascript:;" id="19">Clôture de compte</a>,
+										<a href="javascript:;" id="20">Banque</a>,
+										<a href="javascript:;" id="21">Assurance</a>,
+										<a href="javascript:;" id="22">Crédit</a>,
+									</p>
+								</div>
+							</div>
+						</div>
+						<h3 class="modeles-title">Professionnels</h3>
+						<div class="row">
+						</div>
+						<h3 class="modeles-title">Les + utilisés</h3>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="modeles-letters mb-0">
+									<ul>
+										<li><a href="javascript:;" id="233">1. novimodeljo</a></li>
+										<li><a href="javascript:;" id="9">2. Résiliation Internet</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="modeles-letters mb-0">
+									<ul></ul>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="modeles-letters mb-0">
+									<ul></ul>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tiny-mce-wrapper">
+				<div class="blue-title-box" style="">
+					RÉDIGER UNE LETTRE EN LIGNE
+				</div>
+				<div class="tiny-mce-box"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!--PROGRESSBAR ADD-->
+<div [hidden]="hiddenProgressBarPrev" class="main-progress-bar">
+	<div class="block-ui-template">
+		<div class="loader"></div>
+		<div><strong>chargement...</strong></div>
+		<div *ngIf="message == 'address'"><strong></strong></div>
+	</div>
+	<div class="progress progress-striped active">
+		<div id="progressbarPrev" [style.width]="progressPercentagePrev + '%'" [ngClass]="{'progress-bar': true, 'progress-bar-success':true, 'width0':true, 'active': progressActivePrev}">{{progressPercentagePrev}} %</div>
+	</div>
+</div>
+<!--PROGRESSBAR ADD END-->
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#ErrorModal">Open Modal</button>
+<div class="modal fade in" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="ErrorModal" aria-hidden="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<div class="modal-title mb-10 text-center text-uppercase">
+					<strong>{{errorMessageAdr}}</strong>
+				</div>
+			</div>
+			<div class="modal-body">
+				<p id="cute-error">
+					SEULS CES TYPES DE DOCUMENTS: DOC, DOCX
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal in" id="PublipostageInsert" tabindex="-1" role="dialog" aria-labelledby="PublipostageInsert" aria-hidden="false">
+	<div class="modal-dialog publipostage-modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" #closeModal class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title blue">Publipostage</h3>
+			</div>
+			<div class="modal-body upload-file-errors">
+				<div class="step-box wb">
+
+
+					<div class="tabs-for-upload">
+						<!-- *ngIf="showUpload || showImporter"
+						choose letter type  -->
+						<!--<div class="choose-type" *ngIf="this.steps && returnActiveStep().state==3">
+							<div class="title-modal">Choisir le type d'affranchissement</div>
+							<select class="form-control width-290" (change)="updateModel()" [(ngModel)]="_model.LetterTypeID">
+								<option *ngFor="let letterType of letterTypes" [ngValue]="letterType.LetterTypeID">{{letterType.LetterTypeName}}</option>
+							</select>
+							<div class="row">
+								<div class="col-sm-4" *ngFor="let letterType of letterTypes">
+									<a class="pointer letter-type" (click)="promptForRestart(letterType.LetterTypeID); chooseLetterType=!chooseLetterType">
+										<span *ngIf="letterType.LetterTypeID==1"><img src="../../../Images/lrarbck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==2"><img src="../../../Images/lrbck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==3"><img src="../../../Images/prioritairebck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==4"><img src="../../../Images/lettrevertebck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==5"><img src="../../../Images/ecoplibck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==6"><img src="../../../Images/courrier-suivi.jpg" /></span>
+										{{letterType.LetterTypeName}}
+									</a>
+								</div>
+							</div>
+						</div>-->
+
+						<!-- choose method -->
+						<!--<div class="choose-method" *ngIf="this.steps && returnActiveStep().state==5">
+							<div class="title-modal">Sélectionnez votre méthode</div>
+
+							<div class="action-wrapper">
+								<div class="row">
+									<div class="col-sm-6">
+										<a [ngClass]="{'pointer select-action select-action-upload': true}" (mouseenter)="mouseEnterUpload()" (mouseleave)="mouseLeaveUpload()" (click)="showUploader()">
+											<span class="upload-action-img"></span> Importer un fichier d'adresses (CSV ou Excel)
+											<i class="info-tooltip" popoverPlacement="bottom" popover="Ici vous pouvez télécharger votre fichier CSV ou EXCEL" [popoverOnHover]="true">
+												<img src="../../../../Images/help.png" />
+											</i>
+										</a>
+									</div>
+									<div class="col-sm-6">
+										<login-complete *ngIf="ShowLoginInside && !auth.userLoggedIn"></login-complete>
+
+										<a *ngIf="!auth.userLoggedIn && !ShowLoginInside" [ngClass]="{'pointer select-action select-action-import': true}" (mouseenter)="mouseEnterImport()" (mouseleave)="mouseLeaveImport()" (click)="ShowLoginInside=!ShowLoginInside">
+											<span class="select-action-img"></span>Sélectionner des destinataires dans ma liste Mes Adresses
+											<i class="info-tooltip" popoverPlacement="bottom" popover='Ici vous pouvez importer les contacts de "mes adresses"' [popoverOnHover]="true">
+												<img src="../../../../Images/help.png" />
+											</i>
+										</a>
+
+										<a *ngIf="auth.userLoggedIn" [ngClass]="{'pointer select-action select-action-import': true}" (mouseenter)="mouseEnterImport()" (mouseleave)="mouseLeaveImport()" (click)="showChooseGroups()">
+											<span class="select-action-img"></span>Sélectionner des destinataires dans ma liste Mes Adresses
+											<i class="info-tooltip" popoverPlacement="bottom" popover='Ici vous pouvez importer les contacts de "mes adresses"' [popoverOnHover]="true">
+												<img src="../../../../Images/help.png" />
+											</i>
+										</a>
+									</div>
+								</div>
+							</div>-->
+						<!--<a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+								<span class="glyphicon glyphicon-chevron-left"></span> Retour
+							</a>
+							<div class="clear"></div>
+
+						</div>-->
+						<!-- Upload CSV with addresses. If selected upload method show this upload step -->
+						<div class="UploadStep" [hidden]="!(returnActiveStep() != null && returnActiveStep().state==6)">
+							<div class="title-modal">Importer les adresses</div>
+							<div class="messages-info">
+								<div [hidden]="hideErrorMessageAdr" class="alert alert-danger" [innerHTML]="errorMessageAdr">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div [hidden]="hideOkMessageAdr" class="alert alert-success">
+									Le fichier est envoyé avec succès
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+							</div>
+							<div class="upload-file" *ngIf="((filesAdr.length > 0 && isEdge==false) && (_model.CSVDocumentName == ''));">
+								<div class="progress-bar-container">
+									<div class="bar" [style.width]="filesAdr[0].progress.data.percentage + '%'" [ngClass]="{ 'green': filesAdr[0].progress.data.percentage === 100 }">{{filesAdr[0].progress.data.percentage}} %</div>
+								</div>
+							</div>
+
+							<div class="upload-file" *ngIf="((filesAdr.length > 0 && isEdge==true) && (_model.CSVDocumentName == ''));">
+								<div class="meter blue-progress">
+									<span style="width: 100%"></span>
+								</div>
+							</div>
+
+							<div *ngIf="(_model.CSVDocumentName != '')" class="document-name-title">
+								<span>{{_model.CSVDocumentName}}</span>
+								<span class="glyphicon glyphicon-trash remove-item" (click)="removeAddresses()"></span>
+							</div>
+							<div class="clear"></div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="import-box-modal" id="dropzone"
+										 ngFileDrop
+										 (uploadOutput)="check($event, 'address')"
+										 [uploadInput]="uploadInputAdr"
+										 [ngClass]="{ 'drop-container': tree, 'is-drop-over': dragOverAdr }">
+										<div>
+											<label for="uploadfilebutton" class="import-file-btn">
+												<span class="glyphicon glyphicon-cloud-upload"></span>
+												IMPORTER LES ADRESSES
+												<input type="file" #uploadfilebutton id="uploadfilebutton" style="visibility:hidden;"
+													   ngFileSelect
+													   (uploadOutput)="check($event, 'address')"
+													   [uploadInput]="uploadInputAdr" />
+											</label>
+										</div>
+									</div>
+									<div class="clear"></div>
+									<a href="javascript:;" class="btn-blue proceed-btn" (click)="showMappHeaders()" *ngIf="_model.CSVDocumentName != ''">
+										Continuer <span class="glyphicon glyphicon-chevron-right"></span>
+									</a>
+
+									<!--<a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+										<span class="glyphicon glyphicon-chevron-left"></span> Retour
+									</a>-->
+								</div>
+
+							</div>
+						</div>
+
+						<!-- Mapp headers step. If selected upload method show this upload step -->
+						<div class="UploadStep row relative" [hidden]="!(returnActiveStep() && returnActiveStep().state == 11)">
+							<div class="col-xs-12 row">
+								<div class="legend-mappings">
+									<ul>
+										<li class="yellow-square"><span></span>L'un des champs est obligatoire</li>
+										<li class="red-square"><span></span>Champs obligatoire</li>
+										<li class="green-square"><span></span>Champs non obligatoires</li>
+										<li class="blue-square"><span></span>Champs du document docx / doc (Les champs personnalisés)</li>
+									</ul>
+								</div>
+								<div class="matching-box">
+									<div class="matching-box-top">
+										<ul>
+											<li class="pull-left">Données disponibles</li>
+											<li class="pull-left">Importer en tant que</li>
+										</ul>
+									</div>
+									<!--*ngIf="!_model.IsMapped || ((mapper.MandatoryHeaderID > 0 || variablesCheck(mapper)) && _model.IsMapped))"-->
+									<div *ngFor="let mapper of mappers; let j = index">
+										<div *ngIf="!_model?.IsMapped || ((mapper.MandatoryHeaderID > 0 || variablesCheck(mapper)) && _model?.IsMapped)" [ngClass]="{'one-field-property clearfix': true, 'status-matched': mapper.MandatoryHeaderID != null || mapper.DocumentVariables.length > 0}">
+											<div class="show-download-files smaller-download" *ngIf="mapper.InternationalFile != null">
+												<a [href]="transformToLink(mapper.InternationalFile)" [download]="'Fichier_International.csv'">
+													<span class="glyphicon glyphicon-download-alt"></span> Télécharger le document
+												</a>
+											</div>
+											<dl class="pull-left">
+												<dt>{{mapper?.Header?.HeaderName}}</dt>
+												<dd *ngFor="let example of getHeaderWithExamples(mapper.Header) | slice:0:3; let i=index">
+													{{example.Value}}
+												</dd>
+											</dl>
+											<div class="property-matching pull-right" *ngIf="!_model?.IsMapped;else allready_mapped">
+												<!--<div class="d-inline-block">-->
+												<selectable-Dropdown [mandatoryHeaders]="mandatoryHeaders"
+																	 (avaliableHeaders)="changeHeaders($event)"
+																	 [headerMapper]="mapper"
+																	 [index]="j"
+																	 (mappers)="changeListMandatory($event)"
+																	 [documentVariables]="variables"
+																	 (availableVariables)="changeVariables($event)">
+												</selectable-Dropdown>
+												<!--</div>-->
+											</div>
+											<ng-template #allready_mapped>
+												<div class="property-matching pull-right">
+													<div class="selectable-wrapper relative when-is-matched"
+														 [ngClass]="{'selectable-wrapper': true, 'relative': true, 'when-is-matched':true}">
+														<div class="matched-fields" *ngIf="mapper.MandatoryHeaderID != null">
+															{{findMandatoryName(mapper)}}
+														</div>
+														<div *ngFor="let item of variables | variable : mapper">
+															<div class="matched-fields">
+																{{item.VariableName}}
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+									</div>
+								</div>
+								<div class="max-width-600">
+									<div *ngIf="!_model?.IsMapped" class="grey-box">
+										<span class="blue mb-10 block-span">Appliquer le pays destinataire à toutes les adresses(optionnel)</span>
+
+										<select class="form-control" [(ngModel)]="destinationCountrySelected" [ngModelOptions]="{standalone: true}">
+											<option *ngFor="let c of countriesMapping" [ngValue]="c" [selected]="c.CountyID == 0">
+												{{c.CountryName}}
+											</option>
+										</select>
+									</div>
+									<div class="alert alert-danger mt-20" *ngIf="headerValidation?.length > 0">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<ul>
+											<li *ngFor="let message of headerValidation">{{message}}</li>
+										</ul>
+									</div>
+								</div>
+
+
+								<div class="clear"></div>
+								<div class="col-xs-12">
+									<a href="javascript:void(0);" class="btn-blue proceed-btn" (click)="showSenderImport()" *ngIf="_model.CSVDocumentName != ''">
+										Continuer <span class="glyphicon glyphicon-chevron-right"></span>
+									</a>
+									<a href="javascript:void(0);" *ngIf="_model.IsMapped" class="btn-blue proceed-btn mr-20" (click)="editMapping()">
+										Modifier <span class="glyphicon glyphicon-edit"></span>
+									</a>
+									<a href="javascript:void(0);" class="btn-blue back-btn" (click)="goBack()">
+										<span class="glyphicon glyphicon-chevron-left"></span> Retour
+									</a>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Select groups. When he select seneder now he need to choose groups and addresses -->
+						<div class="selectGroups" *ngIf="returnActiveStep() != null && returnActiveStep().state==7">
+
+							<div class="title-modal">Sélectionnez des groupes et des adresses</div>
+							<div>Nombre total d'adresses distinctes sélectionnées: {{totalSelectedAddresses}}</div>
+
+							<div class="form-group new-multiselect" style="width:50%;">
+								<div class="d-inline-block">
+									<leo-dropdown-treeview [config]="configAddressGroup" [items]="addressGroupsMultiselectItems" (selectedChange)="checkNumberOfAddresses($event)">
+									</leo-dropdown-treeview>
+								</div>
+							</div>
+
+							<div class="alert alert-danger" *ngIf="this.customHeadersForAddressGroups && this.customHeadersForAddressGroups.length > 0 && this.customHeadersForAddressGroups[0].Values.length > 0"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Si vous apportez des modifications, les données des champs personnalisés seront perdues</div>
+
+							<!--<div class="alert alert-success" role="alert">
+								Selected address groups IDs:
+								<div>{{addressGroupsMultiselectValues}}</div>
+							</div>-->
+
+							<div id="preview-template" style="display: none;"></div>
+							<!--<a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+								<span class="glyphicon glyphicon-chevron-left"></span> Retour
+							</a>-->
+
+							<a href="javascript:;" class="btn-blue proceed-btn" (click)="showSender()" *ngIf="totalSelectedAddresses > 0">
+								Continuer <span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+							<div class="clear"></div>
+						</div>
+
+						<!-- select Sender. This is showing when he upload file and if he select import addresses -->
+						<div class="selectSender" *ngIf="returnActiveStep() != null && returnActiveStep().state==4">
+							<div class="title-modal" *ngIf="auth.userLoggedIn">Choisissez l'expéditeur</div>
+							<div class="title-modal" *ngIf="!auth.userLoggedIn" [ngClass]="{ 'text-center': !auth.userLoggedIn }">Créer un expéditeur</div>
+							<div class="row mb-20">
+								<div class="col-sm-4">
+									<div *ngIf="auth.userLoggedIn">
+										<select class="form-control mb-10" (change)="updateSender($event.target.value)">
+											<option *ngIf="!(_model.LetterTypeID != 1 && _model.LetterTypeID != 2)" disabled [value]="-1" [selected]='-1 == _model.SenderID'>-- sélectionner --</option>
+											<option *ngIf="(_model.LetterTypeID != 1 && _model.LetterTypeID != 2)" [value]="-1" [selected]="-1 == _model.SenderID">Pas d'expéditeur</option>
+											<option *ngFor="let sender of senderAddresses" [value]="sender.AddressID" [selected]="sender.AddressID == _model.SenderID">{{sender.Firstname}} {{sender.Lastname}}{{sender.Company != null? ', ' + sender.Company : ''}}</option>
+										</select>
+									</div>
+
+									<div *ngIf="!auth.userLoggedIn && !(_model.LetterTypeID == 1 || _model.LetterTypeID == 2)">
+										<div class="no-sender-box">
+											<input type="checkbox" id="noSender" [(ngModel)]="noSender" />
+											<label for="noSender" class="pointer">Sans expéditeur</label>
+										</div>
+									</div>
+								</div>
+
+								<div [ngClass]="{ 'col-sm-8': !auth.userLoggedIn && !(_model.LetterTypeID == 1 || _model.LetterTypeID == 2), 'create-sender': true  }">
+									<a class="pointer btn-white-tiny" *ngIf="!showNewSenderForm && auth.userLoggedIn" (click)="showNewSenderForm=!showNewSenderForm">Ajouter un expéditeur</a>
+									<div *ngIf="!auth.userLoggedIn">
+										<div class="add-new-sender">
+											<div class="clear"></div>
+											<addressForm [adr]="newSenderAddress" [user]="_modelUser" [countries]="countriesListNewSender" (senderID)="setSender($event)" [parentContoroller]="controllerName"></addressForm>
+										</div>
+
+									</div>
+
+									<div *ngIf="showNewSenderForm && auth.userLoggedIn">
+										<div class="add-new-sender pull-right">
+											<div class="clear"></div>
+											<addressForm [adr]="newSenderAddress" [user]="_modelUser" [countries]="countriesListNewSender" (reloadTabs)="selectNewSender();showNewSenderForm=!showNewSenderForm" [parentContoroller]="controllerName"></addressForm>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="alert alert-danger" *ngIf="!importerStep && this.customHeadersForAddressGroups && this.customHeadersForAddressGroups.length > 0 && this.customHeadersForAddressGroups[0].Values.length > 0"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> If you make any changes, data in custom fields will be lost</div>
+							<div class="alert alert-success" *ngIf="_model.SenderID > 0"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> L'adresse est importée avec succès</div>
+							<div class="alert alert-danger" *ngIf="_model.SenderID == 0"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Il y a eu une erreur, l'adresse n'a pas été entrée</div>
+							<a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+								<span class="glyphicon glyphicon-chevron-left"></span> Retour
+							</a>
+							<!--  *ngIf="(values != '')" -->
+							<a href="javascript:;" class="btn-blue proceed-btn" (click)="showStepAfterSenderChoice()"
+							   *ngIf="((_model.SenderID != null && _model.SenderID != -1) || ((_model.LetterTypeID != 1 && _model.LetterTypeID != 2) && noSender) || ((_model.LetterTypeID != 1 && _model.LetterTypeID != 2) && auth.userLoggedIn))">
+								Continuer <span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+							<div class="clear"></div>
+
+						</div>
+
+						<!-- Fix addresses if there is some problem with it -->
+						<!--<div class="fixAdresses" *ngIf="returnActiveStep().state==8">-->
+						<div class="fixAdresses" [hidden]="!(returnActiveStep() != null && returnActiveStep().state==8)">
+							<div class="alert alert-danger" *ngIf="!addressForm.valid"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Les adresses ne sont pas correctes. Veuillez les corriger</div>
+							<div class="alert alert-success" *ngIf="addressForm.valid"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Les adresses sont maintenant correctes, vous pouvez continuer</div>
+							<div *ngIf="numberOfCorrectAddresses == 0 && incorrectAddresses.length == 1 && !addressForm.valid" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> La dernière adresse ne peut pas être supprimée</div>
+							<div *ngIf="numberOfCorrectAddresses == 0 && incorrectAddresses.length == 1 && addressForm.valid" class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> La dernière adresse ne peut pas être supprimée</div>
+
+							<form [formGroup]="addressForm" (ngSubmit)="onSubmit(addressForm.value)" novalidate>
+								<div class="table-responsive">
+									<table class="table table-bordered address-list-publipostage type-of-adresses">
+										<thead>
+											<tr>
+												<th>Exp. / Dest.</th>
+												<th>Nom</th>
+												<th>Prenom</th>
+												<th>Société</th>
+												<th>Adresse</th>
+												<th>Complément d’adresse</th>
+												<th>Code Postal</th>
+												<th>Ville</th>
+												<th>
+													Pays
+												</th>
+												<th>Gérer</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="5">
+													<span>Définir le pays pour toutes les adresses destinaire incorrectes</span>
+												</td>
+												<td colspan="5">
+													<select class="form-control" [(ngModel)]="countryIncorrect" [ngModelOptions]="{standalone: true}" (change)="setCountryForAllIncorrect(countryIncorrect)">
+														<option *ngFor="let c of countriesListNewSender" [ngValue]="c" [selected]="c.CountyID == 0">
+															{{c.CountryName}}
+														</option>
+													</select>
+												</td>
+
+											</tr>
+										</tbody>
+										<tbody my-tbody *ngFor="let adr of incorrectAddresses; let i = index" [index]="i" [(adrFr)]="addressForm" [address]="adr" [countries]="countries" [(list)]="incorrectAddresses" [letterType]="_model.LetterTypeID" [showSender]="!askForSender" [newCountry]="IncorrectCountry" [numberOfCorrectAddresses]="numberOfCorrectAddresses"></tbody>
+
+									</table>
+								</div>
+								<a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+									<span class="glyphicon glyphicon-chevron-left"></span> Retour
+								</a>
+								<button type="submit" [disabled]="!addressForm.valid" (click)="updateIncorrect()" class="btn-blue proceed-btn">Continuer <span class="glyphicon glyphicon-chevron-right"></span></button>
+								<div class="clear"></div>
+							</form>
+						</div>
+
+
+
+						<!-- Fill in custom fields -->
+						<div class="fill-in-step" [hidden]="!(returnActiveStep() != null && returnActiveStep().state==10)">
+							<div class="title-modal">Remplissez les champs personnalisés</div>
+
+							<form [formGroup]="customFieldsForm" (ngSubmit)="onSubmit(customFieldsForm.value)" novalidate>
+								<div *ngIf="!customHeadersValuesValid" class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>L'entrée ne doit pas contenir plus de {{maxLenghtCustomField}} caractères</div>
+								<table class="table table-bordered address-list-publipostage type-of-adresses">
+									<thead>
+										<tr>
+											<th>Nom & Prenom</th>
+											<th *ngFor="let header of customHeadersForAddressGroups; let i = index">##{{header.HeaderName}}##</th>
+										</tr>
+									</thead>
+									<!--<tbody my-tbody-custom-field *ngFor="let adr of tempAddressesForAddressGroups; let i = index" [index]="i" [(adrFr)]="customFieldsForm" [address]="adr" [customHeadersForAddressGroups]="customHeadersForAddressGroups" [countries]="countries"></tbody>-->
+									<tbody my-tbody-custom-field *ngFor="let adr of pagedItems; let i = index" [index]="i" [maxLenght]="maxLenghtCustomField" [page]="pager.currentPage" [pageSize]="pageSize" [(adrFr)]="customFieldsForm" [address]="adr" [customHeadersForAddressGroups]="customHeadersForAddressGroups" [countries]="countries" (valueChanged)="addressModalNotFinished()"></tbody>
+								</table>
+								<!--<p>Form values: {{ customFieldsForm.value | json}}</p>-->
+								<nav class="pagination-mess-adresses clearfix">
+									<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+										<li [ngClass]="{disabled:pager.currentPage === 1}" style="display:none;">
+											<a (click)="setPage(1)">Premier</a>
+										</li>
+										<li [ngClass]="{disabled:pager.currentPage === 1}">
+											<a (click)="setPage(pager.currentPage - 1)"><span class="glyphicon glyphicon-chevron-left"></span></a>
+										</li>
+										<li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+											<a (click)="setPage(page)">{{page}}</a>
+										</li>
+										<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+											<a (click)="setPage(pager.currentPage + 1)"><span class="glyphicon glyphicon-chevron-right"></span></a>
+										</li>
+										<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" style="display:none;">
+											<a (click)="setPage(pager.totalPages)">Dernier</a>
+										</li>
+									</ul>
+									<span class="pages-of">
+										Afficher {{(pager.currentPage - 1)*pageSize + 1}} à {{totalTempAddressesForGroups > pager.currentPage*pageSize? pager.currentPage*pageSize : totalTempAddressesForGroups}} de <span>{{totalTempAddressesForGroups}}</span>
+									</span>
+								</nav>
+							</form>
+							<a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+								<span class="glyphicon glyphicon-chevron-left"></span> Retour
+							</a>
+
+							<div class="btn-import-adresses clearfix">
+								<button type="button" class="btn-blue proceed-btn" [disabled]="!customHeadersValuesValid" (click)="customFieldsForm.valid && showPreviewStep()">Continuer <span class="glyphicon glyphicon-chevron-right"></span></button>
+							</div>
+							<div class="clear"></div>
+						</div>
+
+						<!-- Last step preview of addresses -->
+						<div class="preview-addresses" *ngIf="returnActiveStep() && (returnActiveStep().state==1 || returnActiveStep().state==2)">
+							<div *ngIf="returnActiveStep() != null && returnActiveStep().state==2" class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Adresses imported avec succès</div>
+							<div class="title-modal">Prévisualisation des données expéditeur</div>
+							<div class="table-responsive">
+								<table class="table table-bordered address-list-publipostage type-of-adresses">
+									<thead>
+										<tr>
+											<th>Exp. / Dest.</th>
+											<th>Nom</th>
+											<th>Prenom</th>
+											<th>Société</th>
+											<th>Adresse</th>
+											<th>Complément d’adresse</th>
+											<th>Code Postal</th>
+											<th>Ville</th>
+											<th>Pays</th>
+											<!--<th>Gérer</th>-->
+										</tr>
+									</thead>
+									<tbody *ngIf="_model.SenderID > -1">
+										<tr>
+											<td>Expéditeur</td>
+											<td>{{senderAddress?.Firstname}}</td>
+											<td>{{senderAddress?.Lastname}}</td>
+											<td>{{senderAddress?.Company}}</td>
+											<td>{{senderAddress?.Address1}}</td>
+											<td>{{senderAddress?.Address2}}</td>
+											<td>{{senderAddress?.ZipPostalCode}}</td>
+											<td>{{senderAddress?.City}}</td>
+											<td>{{senderAddress?.CountryID | country: countries}}</td>
+										</tr>
+									</tbody>
+									<tbody *ngFor="let adr of previewAddress; let i = index">
+										<tr *ngIf="(importerStep && !askForSender)">
+											<td>Expéditeur</td>
+											<td>{{adr.FirstNameSender}}</td>
+											<td>{{adr.LastNameSender}}</td>
+											<td>{{adr.CompanySender}}</td>
+											<td>{{adr.AddressSender1}}</td>
+											<td>{{adr.AddressSender2}}</td>
+											<td>{{adr.ZipPostalCodeSender}}</td>
+											<td>{{adr.CitySender}}</td>
+											<td>{{adr.CountrySenderID | country: countries}}</td>
+										</tr>
+										<tr>
+											<td>Destinataire</td>
+											<td>{{adr.FirstNameDest}}</td>
+											<td>{{adr.LastNameDest}}</td>
+											<td>{{adr.CompanyDest}}</td>
+											<td>{{adr.AddressDest1}}</td>
+											<td>{{adr.AddressDest2}}</td>
+											<td>{{adr.ZipPostalCodeDest}}</td>
+											<td>{{adr.CityDest}}</td>
+											<td>{{adr.CountryDestID | country: countries}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="show-download-files static" *ngIf="arrangedCsvFile != null">
+								<a [href]="transformToLink(arrangedCsvFile)" [download]="'Fichier_Final.csv'">
+									<span class="glyphicon glyphicon-download-alt"></span> Télécharger le document
+								</a>
+							</div>
+							<a href="javascript:;" *ngIf="addressesModalLocked == false" class="btn-blue back-btn" (click)="goBack()">
+								<span class="glyphicon glyphicon-chevron-left"></span> Retour
+							</a>
+							<a href="javascript:;" *ngIf="addressesModalLocked == true" class="btn-blue back-btn" (click)="restartAddressesModal()">
+								<span class="glyphicon glyphicon-chevron-left"></span> Redémarrer (supprimer le précédent)
+							</a>
+							<div *ngIf="returnActiveStep() != null && returnActiveStep().state==1" class="proceed-btn">
+								<button type="button" class="prevent btn-blue" (click)="markCompleted()">IMPORTER LES ADRESSES <span class="glyphicon glyphicon-chevron-right"></span></button>
+							</div>
+							<a *ngIf="returnActiveStep() != null && returnActiveStep().state==2" href="javascript:;" class="btn-blue proceed-btn" data-dismiss="modal">
+								Continuer <span class="glyphicon glyphicon-chevron-right"></span>
+							</a>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section class="main-content">
+	<div class="row">
+		<div class="col-md-4 aside-section">
+			<aside class="sidebar">
+				<div class="sticky affix-top" id="sticky-component">
+					<mon-mailing [mailingGroup]="_model" [letterTypes]="letterTypes" (reset)="ResetMailingGroup($event)" [parentContoroller]="controllerName"></mon-mailing>
+					<button *ngIf="_model.AdminStatusID == 8" type="submit" id="previsualiser" name="Command" popoverPlacement="bottom" popover="Finaliser le chargement du document et des adresses pour prévisualiser" [popoverOnHover]="_model.AdminStatusID == 8" class="btn btn-orange-previsualiser">Prévisualiser mon mailing <img src="/Images/prev-icon.png" /></button>
+					<button *ngIf="_model.AdminStatusID != 8" type="submit" id="previsualiser" name="Command" class="btn btn-orange-previsualiser" (click)="previsualiser(_model.MailingGroupID)">Prévisualiser mon mailing <img src="/Images/prev-icon.png" /></button>
+					<div class="clear"></div>
+				</div>
+			</aside>
+		</div>
+		<div class="col-md-8">
+			<div class="steps hidden-xs hidden-sm">
+				<div class="step active">1 Préparer <span class="next-arrow"></span></div>
+				<a href="javascript:;" id="previsuliserLink" disabled="disabled" class="disableLink">
+					<div class="step">
+						2 Prévisualiser
+						<span class="next-arrow"></span>
+					</div>
+				</a>
+				<div class="step">3 Confirmation</div>
+				<div class="clear"></div>
+			</div>
+
+			<div class="content">
+				<div class="heading">
+					<h1 class="inline-block">Préparer un ENVOI EN NOMBRE</h1>
+					<h3 class="blue lineheight20-mobile semibold-mont">
+						En finalisant votre publipostage
+						<span *ngIf="countdownMessage == 'sera posté aujourd\'hui avant 18h'">
+							<span id="cntdwn">
+								avant
+								<b><countdownCustom [time]="timeoutInterval" [object]="'1'" (onStart)="onStart($event)" (onComplete)="onComplete($event)"></countdownCustom></b>,
+								il sera posté aujourd'hui avant 18h
+							</span>
+						</span>
+						<span *ngIf="countdownMessage != 'sera posté aujourd\'hui avant 18h'">
+							<span id="postheader">
+								maintenant, il
+								<span id="postheader">
+									{{countdownMessage}}
+								</span>
+							</span>
+						</span>
+					</h3>
+					<hr>
+				</div>
+				<ul class="bullets">
+					<li class="first">
+						<div class="title-step clearfix">
+							<i class="info-tooltip" popoverPlacement="right" popover="Choisir le type d'affranchissement " [popoverOnHover]="true">
+								<img src="/Images/tooltip-q.png" />
+							</i>
+							<span>1</span>
+							<img src="/Images/title-letter.png" /> Choisir le type d'affranchissement
+						</div>
+						<div class="row">
+							<div class="choose-type">
+								<div class="col-sm-6" *ngFor="let letterType of letterTypes; let i = index">
+									<a class="pointer letter-type" (click)="promptForRestart(i+1); chooseLetterType=!chooseLetterType">
+										<span *ngIf="letterType.LetterTypeID==1" [ngClass]="{'showChecked' : _model.LetterTypeID === 1 }" id="1525932" ><img src="/Images/checked.png" class="checked-type" /> <img src="../../../Images/lrarbck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==2" [ngClass]="{'showChecked' : _model.LetterTypeID === 2 }"  id="1526989" ><img src="/Images/checked.png" class="checked-type" /> <img src="../../../Images/lrbck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==3" [ngClass]="{'showChecked' : _model.LetterTypeID === 3 }"  id="1526040" ><img src="/Images/checked.png" class="checked-type"/> <img src="../../../Images/prioritairebck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==4" [ngClass]="{'showChecked' : _model.LetterTypeID === 4 }"  id="1526433" ><img src="/Images/checked.png" class="checked-type"/> <img src="../../../Images/lettrevertebck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==5" [ngClass]="{'showChecked' : _model.LetterTypeID === 5 }"  id="1526496" ><img src="/Images/checked.png" class="checked-type" /> <img src="../../../Images/ecoplibck.png" /></span>
+										<span *ngIf="letterType.LetterTypeID==6" [ngClass]="{'showChecked' : _model.LetterTypeID === 6 }"  id="1526557" ><img src="/Images/checked.png" class="checked-type"/> <img src="../../../Images/courrier-suivi.jpg" /></span>
+										{{letterType.LetterTypeName}}
+									</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="title-step">
+							<i class="info-tooltip" popoverPlacement="right" popover="Télécharger vos documents" [popoverOnHover]="true">
+								<img src="/Images/tooltip-q.png" />
+							</i>
+							<span>2</span> <img src="/Images/upload-doc-new-title.png" /> Télécharger vos documents
+						</div>
+						<div class="row letters-wrapper" [hidden]="_model.LetterTypeID == 0">
+							<div class="col-sm-6">
+								<div [ngClass]="{'unlinked': !_model.AnnexLinked,'document-wrapper border-right':true }">
+									<h3 class="blue">
+										Document principal
+										<i class="info-tooltip" popoverPlacement="right" popover="Document principal" [popoverOnHover]="true">
+											<img src="/Images/tooltip-q-grey.png" />
+										</i>
+									</h3>
+									<div class="height-doc">
+										<div class="letter-box" [hidden]="!(_model.MainDocumentName == '')">
+											<a href="javascript:;" id="uploadbutton">
+												<label for="uploadTemplatebutton" class="pointer"
+													   ngFileDrop
+													   (uploadOutput)="check($event, 'template')"
+													   [uploadInput]="uploadInputTmpl"
+													   [ngClass]="{ 'drop-container': tree, 'is-drop-over': dragOver }">
+													<span>Charger le document principal</span>
+													<img src="/Images/upload-document.png" alt="">
+													<input type="file" #uploadTemplatebutton id="uploadTemplatebutton" style="visibility:hidden;"
+														   ngFileSelect
+														   (uploadOutput)="check($event, 'template')"
+														   [uploadInput]="uploadInputTmpl" />
+												</label>
+											</a>
+											<!--  -->
+											<div class="upload-file" *ngIf="((files.length > 0 && isEdge==false) && (_model.MainDocumentName == ''));">
+												<div class="progress-bar-container">
+													<div class="bar" [style.width]="files[0].progress.data.percentage + '%'" [ngClass]="{ 'green': files[0].progress.data.percentage === 100 }">{{files[0].progress.data.percentage}} %</div>
+												</div>
+											</div>
+
+											<div class="upload-file" *ngIf="((files.length > 0 && isEdge==true) && (_model.MainDocumentName == ''));">
+
+												<div class="meter blue-progress">
+													<span style="width: 100%"></span>
+												</div>
+
+											</div>
+										</div>
+										<div *ngIf="(_model.MainDocumentName != '')" class="document-name">
+											<span>{{_model.MainDocumentName}}</span>
+											<!--<span (click)="removeTemplate()" class="pointer edit-file"><img src="../../../../Images/edit-file.png" height="16" /></span>-->
+											<span (click)="removeTemplate()" class="icon icon-delete pointer"></span>
+										</div>
+									</div>
+
+									<!--<div class="show-options" (click)="showDocumentOptionsDiv()">
+										Choisir les options <span class="arrow-bottom arrow-doc"></span>
+									</div>
+									<span class="link-doc" (click)="linkAnnex()"><img src="../../../../Images/link-icon.png" /></span>
+									<span class="unlink-doc" (click)="linkAnnex()"><img src="../../../../Images/unlink-icon.png" /></span>-->
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="annex-wrapper">
+									<h3 class="blue">
+										Annexes
+										<i class="info-tooltip" popoverPlacement="right" popover="En plus du document principal, il y a également la possibilité de télécharger des fichiers annexes qui eux seront inchangeables -> certains utilisateurs souhaitent envoyer un document avec des données variables auquel ils annexent un ou des document(s) identiques pour chaque destinataire. Conseil : si vous souhaitez envoyer un document avec des champs de fusion (variables), vous devez auparavant penser comment votre fichier DOC/DOCX devra se présenter (où est-ce que le contenu sera variable/changé) et tous les documents qui n’auront aucune variables devront être considérés comme annexes. Les annexes sont acceptées en divers formats, vous pouvez donc télécharger n’importe quel document : feuille de calcul, pdf, n’importe quelle image, fichiers Office, fichiers Open Office etc…" [popoverOnHover]="true">
+											<img src="/Images/tooltip-q-grey.png" />
+										</i>
+									</h3>
+									<!--  [hidden]="!hideNonCustomDoc" -->
+									<div class="height-doc">
+										<div id="non-personalize">
+											<!-- class="height-doc" -->
+											<!--  -->
+											<div #sortBox sortable appSortable (orderChanged)="orderChanged($event)">
+												<div class="annex-box-wrapper">
+													<div class="" draggable="true" *ngFor="let doc of _model.AnnexList">
+														<!--<div class="col-sm-4" *ngFor="let doc of indices">-->
+														<!--<div class="letter-box add-box">
+															<a href="javascript:;" id="uploadbutton">
+																<label class="pointer" for="uploadTemplatebutton4">
+																	<span>UPLOADED</span>
+																	<img alt="" src="/Images/upload-document.png">
+																</label>
+															</a>
+														</div>-->
+														<div class="document-name">
+															<span>{{ doc.FileName }}</span>
+															<!--<span (click)="removeAnnex(doc)" class="pointer edit-file"><img src="../../../../Images/edit-file.png" height="16" /></span>-->
+															<span (click)="removeAnnex(doc)" class="icon icon-delete pointer"></span>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div [ngClass]="{ 'new-letter-box': (_model?.AnnexList?.length > 0), 'letter-box': true }">
+											<a href="javascript:;" id="uploadbutton">
+												<label for="uploadTemplatebutton3" class="pointer"
+													   ngFileDrop
+													   (uploadOutput)="check($event, 'document')"
+													   [uploadInput]="uploadInputDoc"
+													   [ngClass]="{ 'drop-container': tree, 'is-drop-over': dragOverDoc }">
+													<span class="visible-old">Ajouter un ou des annexes</span>
+													<i class="visible-new">Ajouter des annexes</i> <span class="glyphicon glyphicon-plus visible-new"></span>
+													<img src="/Images/multifiles.png" alt="" *ngIf="(_model?.AnnexList?.length < 1)">
+													<!--<img alt="" src="/Images/addDoc.png" *ngIf="(_model?.AnnexList?.length > 0)">-->
+													<input type="file" #uploadTemplatebutton3 id="uploadTemplatebutton3" class="upload-style" style="visibility:hidden;"
+														   ngFileSelect
+														   (uploadOutput)="check($event, 'document')"
+														   [uploadInput]="uploadInputDoc" multiple />
+												</label>
+											</a>
+											<div class="upload-file" *ngIf="((filesDoc.length > 0 && isEdge==false) && (_model?.AnnexList?.length < documentNum))">
+												<div class="progress-bar-container">
+													<div class="bar" [style.width]="filesDoc[0].progress.data.percentage + '%'" [ngClass]="{ 'green': filesDoc[0].progress.data.percentage === 100 }">{{filesDoc[0].progress.data.percentage}} %</div>
+												</div>
+											</div>
+											<div class="upload-file" *ngIf="((filesDoc.length > 0 && isEdge==true) && (_model?.AnnexList?.length < documentNum))">
+
+
+												<div class="meter blue-progress">
+													<span style="width: 100%"></span>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div *ngIf="!_model.AnnexLinked" class="show-options" (click)="showAnnexOptionsDiv()">
+										Choisir les options <span class="arrow-bottom arrow-annex"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+					</li>
+					<li>
+						<div class="title-step one-line">
+							<i class="info-tooltip" popoverPlacement="right" popover="Ajouter votre liste de destinataires" [popoverOnHover]="true">
+								<img src="/Images/tooltip-q.png" />
+							</i>
+							<span>3</span> <img src="/Images/user-title.png" /> Ajouter votre liste de destinataires
+						</div>
+						<!-- choose method -->
+
+						<div *ngIf="!addressesModalLocked" class="import-file-box name-single" [hidden]="_model.CSVDocumentName == ''" data-toggle="modal" data-target="#PublipostageInsert">
+							<div>
+								Finaliser le chargement du document et des adresses pour prévisualiser
+								{{_model.CSVDocumentName}}
+							</div>
+							<div *ngIf="_model.AdminStatusID != 8" class="bold blue">Nombre de destinataires ajoutés: {{totalSelectedAddresses}}</div>
+							<span class="icon icon-delete pointer" (click)="removeAddresses()"></span>
+						</div>
+						<div *ngIf="addressesModalLocked" class="import-file-box name-of-file" data-toggle="modal" data-target="#PublipostageInsert">
+							<div *ngIf="_model.CSVDocumentName != ''">
+								{{_model.CSVDocumentName}}
+							</div>
+							<div *ngIf="totalSelectedAddresses > 0">
+								<div class="bold blue">Sélection de toutes les adresses distinctes: {{totalSelectedAddresses}}</div>
+							</div>
+							<span class="icon icon-delete pointer" (click)="removeAddresses()"></span>
+							<!--<span class="icon icon-delete pointer" (click)="restartAddressesModal()"></span>-->
+						</div>
+						<div class="choose-method" [hidden]="((_model.MainDocumentName == '') || addressesModalLocked)">
+							<div *ngIf="(_model.MainDocumentName == '');">
+								<div class="title-modal-new">Sélectionnez votre méthode</div>
+								<div class="action-wrapper">
+									<div class="row">
+										<div class="col-sm-6">
+											<a class="pointer select-action select-action-upload" popoverPlacement="top" popover="Please upload doc,docx file first" [popoverOnHover]="true">
+												<span class="upload-action-img"></span> Importer un fichier d'adresses <br />(CSV ou Excel)
+											</a>
+										</div>
+										<div class="col-sm-6">
+											<a class="pointer select-action select-action-import" popoverPlacement="top" popover='Please upload doc,docx file first"' [popoverOnHover]="true">
+												<span class="select-action-img"></span>Sélectionner des destinataires <br />dans ma liste Mes Adresses
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div *ngIf="_model.MainDocumentName != ''" [hidden]="hideAfterShowingAdresses">
+								<div class="action-wrapper mt-30">
+									<div class="row">
+										<div class="col-sm-6">
+											<!--<div *ngIf="!(_model.MainDocumentName != '');" class="overlay_csv_upload">
+											</div>-->
+											<!-- data-toggle="modal" data-target="#PublipostageInsert" (click)="showUploader()" -->
+											<a [ngClass]="{'pointer select-action select-action-upload': true}" (mouseenter)="mouseEnterUpload()" (mouseleave)="mouseLeaveUpload()" (click)="showUploader()" data-toggle="modal" data-target="#PublipostageInsert">
+												<span class="upload-action-img"></span> Importer un fichier d'adresses <br />(CSV ou Excel)
+												<i class="info-tooltip" popoverPlacement="bottom" popover="Ici vous pouvez télécharger votre fichier CSV ou EXCEL" [popoverOnHover]="true">
+													<img src="../../../../Images/help.png" />
+												</i>
+											</a>
+										</div>
+										<div class="col-sm-6">
+											<!--<div *ngIf="!(_model.MainDocumentName != '');" class="overlay_csv_upload">
+											</div>-->
+											<!--<login-complete *ngIf="!auth.userLoggedIn"></login-complete>-->
+
+											<a *ngIf="!auth.userLoggedIn" [ngClass]="{'pointer select-action select-action-import POKAZILOGIN': true}" (mouseenter)="mouseEnterImport()" (mouseleave)="mouseLeaveImport()" (click)="savelink('home')" data-target="#LoginModal" data-toggle="modal">
+												<span class="select-action-img"></span>Sélectionner des destinataires <br />dans ma liste Mes Adresses
+												<i class="info-tooltip" popoverPlacement="bottom" popover='Ici vous pouvez importer les contacts de "mes adresses"' [popoverOnHover]="true">
+													<img src="../../../../Images/help.png" />
+												</i>
+											</a>
+
+											<a *ngIf="auth.userLoggedIn" [ngClass]="{'pointer select-action select-action-import': true}" (mouseenter)="mouseEnterImport()" (mouseleave)="mouseLeaveImport()" (click)="showChooseGroups()" data-toggle="modal" data-target="#PublipostageInsert">
+												<span class="select-action-img"></span>Sélectionner des destinataires dans ma liste Mes Adresses
+												<i class="info-tooltip" popoverPlacement="bottom" popover='Ici vous pouvez importer les contacts de "mes adresses"' [popoverOnHover]="true">
+													<img src="../../../../Images/help.png" />
+												</i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!--<div class="row import-file">
+							<div class="col-md-12">
+								<div class="disabled-element" popoverPlacement="top" popover="Télécharger le document en premier" [popoverOnHover]="true" *ngIf="_model.MainDocumentName == ''"></div>
+
+								<div *ngIf="!addressesModalLocked" class="import-file-box" data-toggle="modal" data-target="#PublipostageInsert" [hidden]="((_model.CSVDocumentName != '') || (totalSelectedAddresses > 0))" (click)="checkIfFirstStep()">
+									Affranchissement et liste des destinataires
+									<span><img src="../../../../Images/open-modal.png" height="30" /></span>
+								</div>
+								<div *ngIf="addressesModalLocked" class="import-file-box name-of-file" data-toggle="modal" data-target="#PublipostageInsert" (click)="checkIfFirstStep()">
+									<div *ngIf="_model.CSVDocumentName != ''">
+										{{_model.CSVDocumentName}}
+									</div>
+									<div *ngIf="totalSelectedAddresses">
+										Sélection de toutes les adresses distinctes: {{totalSelectedAddresses}}
+									</div>
+								</div>
+								<div *ngIf="!addressesModalLocked" class="import-file-box name-single" [hidden]="_model.CSVDocumentName == ''" data-toggle="modal" data-target="#PublipostageInsert" (click)="checkIfFirstStep()">
+									<div>
+										Finaliser le chargement du document et des adresses pour prévisualiser
+										{{_model.CSVDocumentName}}
+									</div>
+									<div *ngIf="_model.AdminStatusID != 8" class="bold blue">Nombre de destinataires ajoutés: {{totalSelectedAddresses}}</div>
+								</div>
+								<div *ngIf="!addressesModalLocked && _model.AdminStatusID != 8" data-toggle="modal" data-target="#PublipostageInsert" class="import-file-box name-single" [hidden]="_model.CSVDocumentName != ''" (click)="checkIfFirstStep()">
+
+									<div class="bold blue">Nombre de destinataires ajoutés: {{totalSelectedAddresses}}</div>
+								</div>
+								<div *ngIf="!addressesModalLocked" class="error-box" [hidden]="totalSelectedAddresses == 0 && _model.CSVDocumentName == ''">
+									<div data-toggle="modal" data-target="#PublipostageInsert" (click)="checkIfFirstStep()">
+										<div class="alert alert-danger alert-small" *ngIf="_model.AdminStatusID == 8">L'import des adresses est en cours, finalisez SVP</div>
+
+									</div>
+								</div>
+							</div>
+						</div>-->
+					</li>
+					<li>
+						<div class="title-step">
+							<i class="info-tooltip" popoverPlacement="right" popover="Options d'impression des documents" [popoverOnHover]="true">
+								<img src="/Images/tooltip-q.png" />
+							</i>
+							<span>4</span> <img src="/Images/title-printer.png" /> Options d'impression des documents
+						</div>
+						<div class="options-for-documents" [hidden]="_model.MainDocumentName == ''">
+							<!-- [hidden]="!showDocumentOptions" -->
+							<div class="row" id="new-options">
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="blanc" id="show-bw">
+													<input type="radio" id="blanc" name="letter.OrdinaryLetter.ColorID" [(ngModel)]="_model.ColorID" [value]="0" (ngModelChange)="updateModel()" />Noir et blanc
+													<br><span class="e-sprite e-sprite-bw hidden-xs"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="color" id="show-color">
+													<input type="radio" id="color" name="letter.OrdinaryLetter.ColorID" [(ngModel)]="_model.ColorID" [value]="1" (ngModelChange)="updateModel()" /> Couleur
+													<br><span class="e-sprite e-sprite-color hidden-xs"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="recto">
+													<input type="radio" id="recto" name="letter.OrdinaryLetter.RectoVersoID" [(ngModel)]="_model.RectoVersoID" [value]="0" (ngModelChange)="updateModel()" />Recto
+													<br>
+													<span class="e-sprite e-sprite-bw hidden-xs bw-envelope-recto" *ngIf="_model.ColorID == 0"></span>
+													<span class="e-sprite e-sprite-color hidden-xs color-envelope-recto" *ngIf="_model.ColorID == 1"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="verso">
+													<input type="radio" id="verso" name="letter.OrdinaryLetter.RectoVersoID" [(ngModel)]="_model.RectoVersoID" [value]="1" (ngModelChange)="updateModel()" />Recto-verso
+													<br>
+													<span class="e-sprite e-sprite-verso-bw hidden-xs" *ngIf="_model.ColorID == 0"></span>
+													<span class="e-sprite e-sprite-verso-color hidden-xs" *ngIf="_model.ColorID == 1"></span>
+
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li *ngIf="(_model?.AnnexList?.length > 0)">
+						<div class="title-step">
+							<i class="info-tooltip" popoverPlacement="right" popover="Options d'impression des annexes" [popoverOnHover]="true">
+								<img src="/Images/tooltip-q.png" />
+							</i>
+							<span>4<small>a</small></span> <img src="/Images/title-printer.png" /> Options d'impression des annexes
+						</div>
+						<div class="options-for-documents">
+							<!-- [hidden]="!showAnnexOptions" -->
+							<div class="row" id="new-options">
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="blanc2" id="show-bw2">
+													<!--<input checked="checked" data-val="true" data-val-number="The field ColorID must be a number." id="blanc2" name="letter.OrdinaryLetter.ColorID2" onclick="CheckBoxCouleur(this)" type="radio" value="0"> Noir et blanc-->
+													<input checked id="blanc2" type="radio" [(ngModel)]="_model.AccompColorID" [value]="0" (ngModelChange)="updateModel()" />Noir et blanc
+													<br><span class="e-sprite e-sprite-bw hidden-xs"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="color2" id="show-color2">
+													<!--<input id="color2" name="letter.OrdinaryLetter.ColorID2" onclick="CheckBoxCouleur(this)" type="radio" value="1"> Couleur-->
+													<input id="color2" type="radio" [(ngModel)]="_model.AccompColorID" [value]="1" (ngModelChange)="updateModel()" /> Couleur
+													<br><span class="e-sprite e-sprite-color hidden-xs"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="recto2">
+													<input [(ngModel)]="_model.AccompRectoVersoID" id="recto2" name="letter.OrdinaryLetter.RectoVersoID2" (ngModelChange)="updateModel()" type="radio" [value]="0"> Recto
+													<br><span class="e-sprite e-sprite-bw hidden-xs bw-envelope-recto2"></span> <span class="e-sprite e-sprite-color hidden-xs color-envelope-recto2" style="display:none;"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="radio">
+												<label for="verso2">
+													<input id="verso2" [(ngModel)]="_model.AccompRectoVersoID" name="letter.OrdinaryLetter.RectoVersoID2" (ngModelChange)="updateModel()" type="radio" [value]="1"> Recto-verso
+													<br><span class="e-sprite e-sprite-verso-color hidden-xs color-envelope-rectoverso2" style="display:none;"></span> <span class="e-sprite e-sprite-verso-bw hidden-xs bw-envelope-rectoverso2"></span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="choisir" id="letterAttributes">
+						<div class="title-step">
+							<i class="info-tooltip" popoverPlacement="right" popover="Mise sous pli et format d'enveloppe" [popoverOnHover]="true">
+								<img src="/Images/tooltip-q.png" />
+							</i>
+							<span>5</span> <img src="/Images/title-letter.png" /> Mise sous pli et format d'enveloppe
+						</div>
+						<div class="row" [hidden]="_model.MainDocumentName == ''">
+							<div class="col-sm-4">
+								<div class="radio">
+									<label for="dl">
+										<input type="radio" id="dl" #dl name="letter.OrdinaryLetter.EnvelopeID" [(ngModel)]="_model.EnvelopID" [value]="_model.PrintedEnvelope? 5 : 0" (ngModelChange)="updateModel()" /> A4 plié en trois
+										<br>DL (11x22 cm)
+										<br>
+										<!-- printed -->
+										<span class="e-sprite e-sprite-dl-color hidden-xs" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false && _model.PrintedEnvelope == true"></span>
+										<span class="e-sprite e-sprite-dl-bw hidden-xs" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false && _model.PrintedEnvelope == true"></span>
+										<span class="e-sprite e-sprite-dl-nosender hidden-xs" *ngIf="_model.SenderNotPrinted == true && _model.PrintedEnvelope == true"></span>
+
+										<!-- window -->
+										<span class="e-sprite e-sprite-windows-color hidden-xs" *ngIf="_model.ColorID == 1 && _model.PrintedEnvelope == false && _model.SenderNotPrinted == false"></span>
+										<span class="e-sprite e-sprite-windows-bw hidden-xs" *ngIf="_model.ColorID == 0 && _model.PrintedEnvelope == false && _model.SenderNotPrinted == false"></span>
+										<span class="e-sprite e-sprite-windows-nosender hidden-xs" *ngIf="_model.SenderNotPrinted == true && _model.PrintedEnvelope == false"></span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="radio">
+									<label for="c5">
+										<input type="radio" id="c5" #c5 name="letter.OrdinaryLetter.EnvelopeID" [(ngModel)]="_model.EnvelopID" [value]="_model.PrintedEnvelope? 6 : 1" (ngModelChange)="updateModel()" />A4 plié en deux(+0,10€)
+										<br>C5 (16.2x22.9 cm)
+										<br>
+										<!-- printed -->
+										<span class="e-sprite e-sprite-c5-color hidden-xs" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false && _model.PrintedEnvelope == true"></span>
+										<span class="e-sprite e-sprite-c5-bw hidden-xs" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false && _model.PrintedEnvelope == true"></span>
+										<span class="e-sprite e-sprite-c5-nosender hidden-xs" *ngIf="_model.SenderNotPrinted == true && _model.PrintedEnvelope == true"></span>
+
+										<!-- window -->
+										<span class="e-sprite e-sprite-c5-bw-window hidden-xs" *ngIf="_model.ColorID == 0 && _model.PrintedEnvelope == false && _model.SenderNotPrinted == false"></span>
+										<span class="e-sprite e-sprite-c5-color-window hidden-xs" *ngIf="_model.ColorID == 1 && _model.PrintedEnvelope == false && _model.SenderNotPrinted == false"></span>
+										<span class="e-sprite e-sprite-c5-nosender-window hidden-xs" *ngIf="_model.SenderNotPrinted == true && _model.PrintedEnvelope == false"></span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="radio">
+									<label for="c4">
+										<input type="radio" id="c4" name="letter.OrdinaryLetter.EnvelopeID" [(ngModel)]="_model.EnvelopID" [value]="_model.PrintedEnvelope? 7 : 2" (ngModelChange)="updateModel()" /> A4 non plié(+0,20€)
+										<br>C4 (22.9x32.4 cm)
+										<br>
+										<!-- printed -->
+										<span class="e-sprite e-sprite-c4-color hidden-xs" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false && _model.PrintedEnvelope == true"></span>
+										<span class="e-sprite e-sprite-c4-bw hidden-xs" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false && _model.PrintedEnvelope == true"></span>
+										<span class="e-sprite e-sprite-c4-nosender hidden-xs" *ngIf="_model.SenderNotPrinted == true && _model.PrintedEnvelope == true"></span>
+
+										<!-- window -->
+										<span class="e-sprite e-sprite-c4-bw-window hidden-xs" *ngIf="_model.ColorID == 0 && _model.PrintedEnvelope == false && _model.SenderNotPrinted == false"></span>
+										<span class="e-sprite e-sprite-c4-color-window hidden-xs" *ngIf="_model.ColorID == 1 && _model.PrintedEnvelope == false && _model.SenderNotPrinted == false"></span>
+										<span class="e-sprite e-sprite-c4-nosender-window hidden-xs" *ngIf="_model.SenderNotPrinted == true && _model.PrintedEnvelope == false"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</li>
+					<li class="last" *ngIf="_model.MainDocumentName != ''">
+
+						<h3 class="blue pointer visible-xs visible-sm visible-md visible-lg" id="show-more-options" [attr.data-selected]="false" (click)="hideAdvanceOptions=!hideAdvanceOptions"> Options des plis <span [ngClass]="{'rotate180': hideAdvanceOptions,'arrow-bottom':true }"></span></h3>
+						<div id="more-options" [hidden]="!hideAdvanceOptions">
+							<h4 class="blue">Type d'enveloppe</h4>
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="radio">
+										<label for="envelope-printed" id="printed-envelop">
+											<input data-val="true" data-val-required="The PrintedEnvelope field is required." id="envelope-printed" name="letter.OrdinaryLetter.Envelope.PrintedEnvelope" [(ngModel)]="_model.PrintedEnvelope" type="radio" [value]="true" (ngModelChange)="updateModel(true)"> Enveloppe Imprimée (+0,21€)
+											<br>
+											<span class="e-sprite e-sprite-dl-color hidden-xs" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false"></span>
+											<span class="e-sprite e-sprite-dl-bw hidden-xs" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false"></span>
+											<span class="e-sprite e-sprite-dl-nosender hidden-xs" *ngIf="_model.SenderNotPrinted == true"></span>
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="radio">
+										<label for="envelope-window" id="show-envelop-options">
+											<input id="envelope-window" name="letter.OrdinaryLetter.Envelope.PrintedEnvelope" [(ngModel)]="_model.PrintedEnvelope" type="radio" [value]="false" (ngModelChange)="updateModel(true)"> Enveloppe à fenêtre
+											<br>
+											<span class="e-sprite e-sprite-windows-bw hidden-xs" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false"></span>
+											<span class="e-sprite e-sprite-windows-color hidden-xs" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false"></span>
+											<span class="e-sprite e-sprite-windows-nosender hidden-xs" *ngIf="_model.SenderNotPrinted == true"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="envelope-windows-options" [ngClass]="{'hidePopover': _model.PorteAdress == false }" *ngIf="_model.PrintedEnvelope == false" id="envelop-windows">
+								<h4 class="blue">Enveloppe à fenêtre : ajout d'un porte adresse</h4>
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="radio">
+											<label for="adresse-oui">
+												<input checked="checked" id="adresse-oui" name="letter.OrdinaryLetter.PorteAdress" [(ngModel)]="_model.PorteAdress" type="radio" [value]="true" (ngModelChange)="updateModel()"> Oui
+												<br>
+												<span class="e-sprite e-sprite-porte-adresse-oui-color hidden-xs color-envelope" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-oui-bw hidden-xs bw-envelope" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-oui-nosender ns-envelope hidden-xs" *ngIf="_model.SenderNotPrinted == true"></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="radio tooltip-message" id="stiched" popoverPlacement="top" popover="Vous n'avez pas sélectionné l'option Ajout d'un porte adresse. En conséquence, les blocs adresses Expéditeur et Destinataire vont être automatiquement ajoutées à la première page de vos documents. Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi" [popoverOnHover]="true">
+											<label for="adresse-no" class="show-message-porte">
+												<input id="adresse-no" name="letter.OrdinaryLetter.PorteAdress" [(ngModel)]="_model.PorteAdress" type="radio" [value]="false" (ngModelChange)="updateModel()"> Non - pavés adresses en sur-impression
+												<br>
+												<span class="e-sprite e-sprite-porte-adresse-color hidden-xs color-envelope" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-bw hidden-xs bw-envelope" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-nosender ns-envelope hidden-xs" *ngIf="_model.SenderNotPrinted == true"></span>
+											</label>
+										</div>
+									</div>
+									<div [hidden]="_model.MainDocumentName.split('.').pop().toLowerCase() == 'pdf'" class="col-sm-4">
+										<div class="radio">
+											<label for="adresse-null">
+												<input id="adresse-null" name="letter.OrdinaryLetter.PorteAdress" [(ngModel)]="_model.PorteAdress" type="radio" [value]="null" (ngModelChange)="updateModel()"> Non avec uniquement des champs de fusion
+												<br>
+												<span class="e-sprite e-sprite-porte-adresse-color hidden-xs color-envelope" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-bw hidden-xs bw-envelope" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-nosender ns-envelope hidden-xs" *ngIf="_model.SenderNotPrinted == true"></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-12" *ngIf="_model.PorteAdress == false">
+										<p class="alert alert-info porte-adrese-description">
+											Vous n'avez pas sélectionné l'option Ajout d'un porte adresse. En conséquence, les blocs adresses Expéditeur et Destinataire vont être automatiquement ajoutées à la première page de vos documents.
+											<br>Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi
+										</p>
+									</div>
+									<div class="col-sm-12">
+										<p class="alert alert-danger fontsize13" id="non-porte" *ngIf="_model.PorteAdress == false"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Attention: L'adresse destinataire va être automatiquement ajoutée sur la première page du document</p>
+									</div>
+								</div>
+							</div>
+							<div id="visible-printed-envelope" *ngIf="_model.PrintedEnvelope == true" [ngClass]="{'hidePopover': _model.ExtraStitched == true }">
+								<h4 class="blue">Bloc adresse Expéditeur et destinataire</h4>
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="radio">
+											<label for="les-blocs-no">
+												<input checked="checked" id="les-blocs-no" name="letter.OrdinaryLetter.ExtraStitched" [(ngModel)]="_model.ExtraStitched" type="radio" [value]="false" (ngModelChange)="updateModel()"> Ne pas ajouter
+												<br>
+												<span class="e-sprite e-sprite-porte-adresse-noadress hidden-xs"></span>
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-8">
+										<div class="radio tooltip-message" popoverPlacement="top" popover="En sélectionnant cette option, les blocs adresses Expéditeur et Destinataire seront automatiquement ajoutés à la première page de vos documents.Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi" [popoverOnHover]="true" id="block">
+											<label for="les-blocs">
+												<input id="les-blocs" name="letter.OrdinaryLetter.ExtraStitched" [(ngModel)]="_model.ExtraStitched" type="radio" [value]="true" (ngModelChange)="updateModel()"> Ajouter
+												<br>
+												<span class="e-sprite e-sprite-porte-adresse-color hidden-xs color-envelope" *ngIf="_model.ColorID == 1 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-bw hidden-xs bw-envelope" *ngIf="_model.ColorID == 0 && _model.SenderNotPrinted == false"></span>
+												<span class="e-sprite e-sprite-porte-adresse-nosender ns-envelope hidden-xs" *ngIf="_model.SenderNotPrinted == true"></span>
+											</label>
+											<p class="porte-adrese-description2" *ngIf="_model.ExtraStitched == true">
+												Vous n'avez pas sélectionné l'option Ajout d'un porte adresse. En conséquence, les blocs adresses Expéditeur et Destinataire vont être automatiquement ajoutées à la première page de vos documents.
+												<br>Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi
+											</p>
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<p class="alert alert-danger fontsize13" id="bloc-info" *ngIf="_model.ExtraStitched == true"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Attention: L'adresse destinataire va être automatiquement ajoutée sur la première page du document</p>
+									</div>
+								</div>
+							</div>
+							<h4 class="blue mt-o">Mentions postales</h4>
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="radio">
+										<label for="senderprinted_avec" id="show-sender">
+											<input [disabled]="senderActivelyEmpty && senderActivelyEmpty == true" checked="checked" id="senderprinted_avec" name="letter.SenderNotPrinted" [(ngModel)]="_model.SenderNotPrinted" type="radio" [value]="false" (ngModelChange)="updateModel()"> Avec pavé expéditeur
+											<br>
+											<span class="e-sprite e-sprite-dl-bw hidden-xs" *ngIf="_model.ColorID == 0"></span>
+											<span class="e-sprite e-sprite-dl-color hidden-xs color-envelope-avec" *ngIf="_model.ColorID == 1"></span>
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="radio">
+										<label for="senderprinted_pave" id="show-without-sender">
+											<input id="senderprinted_pave" name="letter.SenderNotPrinted" [(ngModel)]="_model.SenderNotPrinted" type="radio" [value]="true" (ngModelChange)="updateModel()"> Sans pavé expéditeur
+											<br>
+											<span class="e-sprite e-sprite-dl-nosender hidden-xs"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<h4 class="blue">Ajout du code barre sur les pages des documents</h4>
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="radio">
+										<label for="barcode-printed">
+											<input id="barcode-printed" name="letter.OrdinaryLetter.BarCode" [(ngModel)]="_model.BarCode" type="radio" [value]="true" (ngModelChange)="updateModel()"> Oui
+											<br>
+											<span class="e-sprite e-sprite-barcode hidden-xs"></span>
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-4" id="non-barcode">
+									<div class="radio">
+										<label for="barcode-not-printed">
+											<input id="barcode-not-printed" name="letter.OrdinaryLetter.BarCode" [(ngModel)]="_model.BarCode" type="radio" [value]="false" (ngModelChange)="updateModel()"> Non
+											<br>
+											<span class="e-sprite e-sprite-porte-adresse-noadress hidden-xs"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</li>
+				</ul>
+
+
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal" id="NewAdress" tabindex="-1" role="dialog" aria-labelledby="NewAdress" aria-hidden="false">
+	<div class="modal-dialog new-adress-modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="modal-title blue">+ Ajouter un destinataire</h3>
+			</div>
+			<div class="modal-body">
+				<form action="">
+					<div class="form-group">
+						<label for="nom" class="control-label">Nom</label>
+						<input type="text" class="form-control error" id="nom" placeholder="Nom">
+					</div>
+					<div class="form-group">
+						<label for="prenom" class="control-label">Prénom</label>
+						<input type="text" class="form-control" id="prenom" placeholder="Prénom">
+					</div>
+					<div class="form-group">
+						<label for="societe" class="control-label">Société</label>
+						<input type="text" class="form-control" id="societe" placeholder="Société">
+					</div>
+					<div class="form-group">
+						<label for="adresse" class="control-label">Adresse</label>
+						<input type="text" class="form-control" id="adresse" placeholder="Adresse">
+					</div>
+					<div class="form-group">
+						<label for="complement" class="control-label">Complément d’adresse</label>
+						<input type="text" class="form-control" id="complement" placeholder="Complément d’adresse">
+					</div>
+					<div class="form-group">
+						<label for="codepostal" class="control-label">Code Postal</label>
+						<input type="text" class="form-control" id="codepostal" placeholder="Code Postal">
+					</div>
+					<div class="form-group">
+						<label for="ville" class="control-label">Ville</label>
+						<input type="text" class="form-control" id="ville" placeholder="Ville">
+					</div>
+					<div class="button-group">
+						<button type="button" class="btn btn-white" data-dismiss="modal" aria-hidden="true">Annuler</button>
+						<button type="submit" class="btn btn-blue">Sauvegarder</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

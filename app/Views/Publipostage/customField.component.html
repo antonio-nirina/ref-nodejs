@@ -1,0 +1,16 @@
+﻿<tr>
+    <div class="radio tooltip-message" popoverPlacement="top" popover="{{ adr.CompanyDest }}, 
+    {{ adr.AddressDest1 }}, 
+    {{ adr.AddressDest2 }}, 
+    {{ adr.ZipPostalCodeDest }}, 
+    {{ adr.CityDest }}, 
+    {{ adr.CountryDestID | country: countries }}" [popoverOnHover]="true" id="block">
+        <td width="110" class="text-center">
+            {{ adr.FirstNameDest }} {{ adr.LastNameDest }}
+        </td>
+    </div>
+    <td *ngFor="let header of customHeadersForAddressGroups; let i = index">
+        <input type="text" [formControl]="this.customFieldsForm.controls[index].controls[header.HeaderName]" />
+        <div class="error" *ngIf="!this.customFieldsForm.controls[index].controls[header.HeaderName].valid" [@enterAnimation]>L'entrée ne doit pas contenir plus de {{maxLenght}} caractères</div>
+    </td>
+</tr>

@@ -1,0 +1,155 @@
+﻿
+
+		<div class="mon-courrier test1">
+			<div class="loading" style="display: none;"> <img src="/Images/ajax-loading.gif" width="40" height="40" alt=""></div>
+			<div class="preparation-mocourrier-div">
+
+				<a href="javascript:void(0);" class="arrow-down-icon visible-xs visible-sm" (click)="showMobileSidebar=!showMobileSidebar" [ngClass]="{'rotate180': !showMobileSidebar }"></a>
+				<h2>Mon MAILING</h2>
+				<a href="javascript:;" *ngIf="parentContoroller == 'home'" class="new-letter" (click)="ResetMailingGroup();">
+					<div id="tooltip-sender" title="" class="icon icon-delete width17" data-original-title="Réinitialiser l'envoi"></div>
+				</a>
+
+			</div>
+			<div class="mon-courrier-content" [hidden]="showMobileSidebar">
+				<ul class="bullets">
+					<li class="first">
+						<span class="bullet"></span>
+						<p>
+							Mon(es) document(s)
+							<span class="blue block" *ngIf="!(_model.MainDocumentName != '' || _model.CSVDocumentName != '') && parentContoroller == 'home'">Télécharger un document</span>                            
+								<span class="blue block" *ngIf="_model.MainDocumentName != ''">{{_model.MainDocumentName}}</span>
+								<span class="blue block" *ngFor="let annex of _model.AnnexList">{{annex.FileName}}</span>                            
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<span class="bullet"></span>
+						<p>
+							Type de courrier 
+							<br>
+							<span *ngIf="_model?.LetterTypeID != 0;else noType" id="letterType" class="blue">{{_model?.LetterTypeID | letterType : letterTypes}}</span>
+							<ng-template #noType>
+								<span id="letterType" class="blue">
+									Choisir votre affranchissement
+								</span>
+							</ng-template>
+							
+						</p>
+						<div class="clear"></div>
+					</li>
+                    <li *ngIf="parentContoroller == 'previsualiser'">
+                        <span class="bullet"></span>
+                        <p>
+                            Date prévue de livraison
+                            <br>
+                            <span id="LetterEndDate" class="blue">{{estimateDateLaPoste}}</span>
+                        </p>
+                        <div class="clear"></div>
+                    </li>
+					<li>
+						<span class="bullet"></span>
+						<p>
+							Impression du (des) document(s)
+							<br>
+							<span class="blue" *ngIf="_model.ColorID == 0">N&amp;B /</span>
+							<span class="blue" *ngIf="_model.ColorID == 1">Couleur /</span>
+							<span class="blue" *ngIf="_model.RectoVersoID == 0">Recto</span>
+							<span class="blue" *ngIf="_model.RectoVersoID == 1">Recto-Verso</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<span class="bullet"></span>
+						<p>
+							Mise sous pli
+							<br>
+							<span class="blue" *ngIf="_model.EnvelopID == 0 || _model.EnvelopID == 5">A4 plié en trois</span>
+							<span class="blue" *ngIf="_model.EnvelopID == 1 || _model.EnvelopID == 6">A4 plié en deux</span>
+							<span class="blue" *ngIf="_model.EnvelopID == 2 || _model.EnvelopID == 7">A4 non plié</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li *ngIf="parentContoroller == 'previsualiser'">
+						<span class="bullet"></span>
+						<p>
+							Nombre de lettres
+							<br>
+							<span class="blue" id="NbLettres">{{totalSelectedAddress}}</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li *ngIf="parentContoroller == 'previsualiser'">
+						<span class="bullet"></span>
+						<p>
+							Nombre de page(s) par lettre
+							<br>
+							<span class="blue">{{estimatePagesPerLetter}}</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+				</ul>
+				<div class="show-options-mon-courrier pointer" id="show-more-options-mon-courrier" [attr.data-selected]="false" (click)="hideAdvanceOptionsSideBar=!hideAdvanceOptionsSideBar">
+					<span [ngClass]="{'rotate180': hideAdvanceOptionsSideBar,'prevent arrow-down-icon':true }"></span> Options avancées
+				</div>
+				<ul class="bullets" id="more-options-mon-courrier" [hidden]="!hideAdvanceOptionsSideBar">
+					<li>
+						<span class="bullet"></span>
+						<p>
+							Mentions postales
+							<br>
+							<span class="blue" *ngIf="_model.SenderNotPrinted == false">Avec pavé expéditeur</span>
+							<span class="blue" *ngIf="_model.SenderNotPrinted == true">Sans pavé expéditeur </span>
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<span class="bullet"></span>
+						<p>
+							Type d'enveloppe
+                            <br>
+							<span class="blue" *ngIf="_model.EnvelopID > 3">Enveloppe Imprimée</span>
+							<span class="blue" *ngIf="_model.EnvelopID < 3">Enveloppe à fenêtre </span>
+						</p><div class="clear">
+						</div>
+					</li>
+					<li id="addressStitchedBullet" *ngIf="_model.PrintedEnvelope == true">
+						<span class="bullet"></span>
+						<p>
+							Blocs adresses
+							<br>
+							<span class="blue" *ngIf="_model.ExtraStitched == false">Ne pas ajouter</span>
+							<span class="blue" *ngIf="_model.ExtraStitched == true">Ajouter</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li id="addressPorteBullet" *ngIf="_model.PrintedEnvelope == false">
+						<span class="bullet"></span>
+						<p>
+							Ajout d'un porte adresse
+							<br>
+							<span *ngIf="_model.PorteAdress == true" class="blue">Oui</span>
+							<span *ngIf="!(_model.PorteAdress == true)" class="blue">Non</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+					<li class="last">
+						<span class="bullet"></span>
+						<p>
+							Ajout du code barre
+							<br>
+							<span *ngIf="_model.BarCode == true" class="blue">Oui</span>
+							<span *ngIf="_model.BarCode == false" class="blue">Non</span>
+						</p>
+						<div class="clear"></div>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<!--  -->
+				<div class="prix" id="montant" *ngIf="parentContoroller == 'previsualiser'"> Coût de la prestation: <span id="montantAchat">{{_model.PriceEstimate}}</span>€ HT</div>
+			</div>
+			</div>
+
+		
+	
+

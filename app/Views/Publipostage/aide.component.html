@@ -1,0 +1,349 @@
+﻿<section class="aide-section">
+		<div class="row">
+			<div class="col-md-4 fright-desktop">
+				<!--<a simplePageScroll [pageScrollOffset]="0"  href="#myanchor">Go there</a>
+				<a class="pointer" (click)="goTo('destination')">Go TO DIV</a>-->
+				<div class="content white-bg" id="aide-component">
+					<ul class="list-unstyled list-cgv">
+						<li><a class="pointer blue" (click)="goTo('section0aide')">En résumé</a></li>
+						<li><a class="pointer blue" (click)="goTo('section1aide')">1. Le téléchargement du document principal, avec ou sans champs de fusion</a></li>
+						<li><a class="pointer blue" (click)="goTo('section2aide')">2. Le téléchargement des annexes</a></li>
+						<li><a class="pointer blue" (click)="goTo('section3aide')">3. Sélection de l’affranchissement</a></li>
+						<li><a class="pointer blue" (click)="goTo('section4aaide')">4a. Le téléchargement du fichier Excel/CSV</a></li>
+						<li><a class="pointer blue" (click)="goTo('section5aaide')">5a. L’association des valeurs obligatoires et des champs de fusion</a></li>
+						<li><a class="pointer blue" (click)="goTo('section6aaide')">6a. La sélection ou l’entrée des coordonnées de l’expéditeur</a></li>
+						<li><a class="pointer blue" (click)="goTo('section7aaide')">7a. La correction des adresses erronées</a></li>
+						<li><a class="pointer blue" (click)="goTo('section8aaide')">8a. La prévisualisation des adresses</a></li>
+						<li><a class="pointer blue" (click)="goTo('section4baide')">4b. La sélection des adresses dans la liste d’adresses enregistrées dans la page « mes adresses »</a></li>
+						<li><a class="pointer blue" (click)="goTo('section5baide')">5b. La saisie des valeurs des champs de fusion pour chaque destinataire</a></li>
+						<li><a class="pointer blue" (click)="goTo('section6baide')">6b. La sélection ou la saisie des coordonnées de l’expéditeur</a></li>
+						<li><a class="pointer blue" (click)="goTo('section8aide')">7b. La prévisualisation des adresses</a></li>
+						<li><a class="pointer blue" (click)="goTo('section9aide')">9. La sélection des options</a></li>
+						<li><a class="pointer blue" (click)="goTo('section10aide')">10. La prévisualisation des lettres</a></li>
+						<li><a class="pointer blue" (click)="goTo('section11aide')">11. La validation-> l’envoi de la requête pour le publipostage</a></li>
+						<li><a class="pointer blue" (click)="goTo('section12aide')">12. L’organisation du règlement</a></li>
+						<li><a class="pointer blue" (click)="goTo('section13aide')">13. Le règlement</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="content white-bg">
+					<h3 id="section0aide" class="blue mt-0">En résumé</h3>
+					<img src="/Images/help/introduction.png" class="imgMargin img-responsive">
+
+					<p>
+						Un publipostage consiste à envoyer le même courrier en nombre.
+						L’intérêt du publipostage est d’adresser à un grand nombre de destinataires différents la même lettre dont le contenu est « presque » identique. Pourquoi « presque » identique ? 
+					</p>
+					<p>
+						Le contenu du document principal (qui sera envoyé en tant que lettre) est essentiellement le même pour tous les destinataires.
+						Cependant, si on souhaite intégrer des parties variables à certains endroits du document, il faut créer <strong class="blue-color semibold-mont"> « des champs de fusion »</strong> entre le document et la liste de destinataires qui nous sera fournie en format Excel ou CSV et qui comportera une colonne dédiée pour lesdits champs de fusion.
+						Les colonnes du fichier <strong class="blue-color semibold-mont">Excel/CSV</strong> peuvent avoir n’importe quel intitulé car nous créerons le lien entre les champs de fusion et les colonnes du fichier <strong class="blue-color semibold-mont">Excel/CSV</strong>.
+					</p>
+
+					<p class="mb-20 mt-20">
+						<a class="btn btn-primary" href="../../../../Files/document_exemples.docx" download="document_exemples.docx">Télécharger le document word <span class="glyphicon glyphicon-save"></span></a>
+						<a class="btn btn-success" href="../../../../Files/exemples_csv.csv" download="exemples_csv.csv">Télécharger le CSV <span class="glyphicon glyphicon-save"></span></a>
+					</p>
+
+					<p>
+						Il est possible de ne pas utiliser de fichier Excel/CSV pour l’importation des champs d’adresses. Cela implique que vous ayez un compte sur notre site et que vous ayez ajouté les destinataires à la page « mes adresses ». Dans ce cas, s’il y a d’autres champs de fusion dans votre document, pour chaque adresse sélectionnée dans la liste des adresses, il faudra indiquer le contenu pour le champ de fusion. Par exemple, si vous avez 100 destinataires et 1 seule valeur pour le champ de fusion, il faudra indiquer 100 valeurs à fusionner, soit la valeur correspondant à chacun des 100 destinataires.
+					</p>
+					<p>
+						La création des champs de fusion se réalise en indiquant le nom du champ de fusion entre chaque symbole <strong class="blue-color semibold-mont">##</strong>.
+						Par exemple, si on souhaite indiquer la civilité dans chaque lettre par la valeur indiquée dans le fichier <strong class="blue-color semibold-mont"> Excel/CSV,</strong> il faudra ajouter <strong class="blue-color semibold-mont">##Civilité##</strong> dans le document à l’emplacement désiré.
+</p>
+					<p>
+						Quand vous importez les adresses par un fichier <strong class="blue-color semibold-mont">Excel/CSV, </strong> la colonne « civilité » doit être incluse dans le fichier avec la valeur correspondante pour chaque destinataire et donc pour chaque lettre nous pourrons changer la civilité dans le contenu. Si une cellule du fichier est vide, il y aura un espace à l’emplacement <strong class="blue-color semibold-mont">« civilité » </strong> du document.
+						Comme indiqué plus haut, si vous importez les adresses via la page « mes adresses » de votre compte, il vous faudra indiquer la valeur pour les champs de fusion.
+					</p>
+					<h3 class="blue">Les étapes pour l’envoi d’un publipostage sont:</h3>
+					<ul class="list-unstyled-padd">
+						<li>1. Requis : le téléchargement du document principal, avec ou sans champs de fusion</li>
+						<li>2. Optionnel : le téléchargement des annexes, on peut ajouter autant d’annexes que nécessaire au document principal qui sera l’élément fixe de la lettre.</li>
+						<li>3. Requis : la sélection de l’affranchissement (LRAR, LR, Lettre Verte, EcoPli, Suivi, Prioritaire)</li>
+						<li>4a.  Requis : le téléchargement du fichier Excel/CSV</li>
+						<li>5a.  Requis : l’ordonnance des valeurs obligatoires et des champs de fusion</li>
+						<li>6a.  Optionnel pour les lettres simples (LV EcoPli, Suivi, Prioritaire) et requis pour les lettres recommandées (LRAR et LR) : la sélection ou l’entrée des coordonnées de l’expéditeur (nom + adresse)</li>
+						<li>7a.  Optionnel (sauf si toutes les adresses sont correctes) : la correction des adresses erronées.</li>
+						<li>
+							8a.  La prévisualisation des adresses
+							<ul>
+								<li>4b.  Requis : la sélection des adresses dans la liste d’adresses ajoutées dans la page « mes adresses »</li>
+								<li>5b.  Optionnel si des champs de fusion ne sont pas à ajouter dans le document principal : le renseignement des entrées des champs de fusion pour chaque destinataire</li>
+								<li>6b.  Optionnel pour les lettres simples (LV EcoPli, Suivi, Prioritaire) et requis pour les lettres recommandées (LRAR et LR) : sélectionner ou entrer les coordonnées de l’expéditeur (nom + adresse)</li>
+								<li>7b.  La prévisualisation des adresses</li>
+							</ul>
+						</li>
+						<li>
+							9.   La sélection des options
+						</li>
+						<li>10. La prévisualisation des lettres</li>
+						<li>11. La confirmation -> l’envoi de la requête pour le publipostage</li>
+						<li>12. (étape administrative) : le contact d’un membre de notre équipe pour organiser le règlement</li>
+						<li>13. (étape administrative) : le règlement</li>
+					</ul>
+
+					<h3 id="section1aide" class="blue">1. Requis : le téléchargement du document principal, avec ou sans champs de fusion</h3>
+					<img src="/Images/help/step1.png" class="imgMargin img-responsive">
+
+					<p>
+						<strong>Le téléchargement du document principal, avec ou sans champs de fusion.</strong> <br />
+						Le document principal est le document commun que vous souhaitez envoyer aux différentes adresses. Nous acceptons les fichiers en format DOC/DOCX qui comportent des champs de fusion. Nous acceptons également des fichiers en format PDF pour le document principal mais dans ce cas précis nous ne pouvons accepter les champs de fusion étant donné que les PDF sont pour le moment non modifiables. Ainsi, si vous souhaitez envoyer exactement le même document en nombre, le format PDF est souhaitable, cependant le document peut également être en format DOC/DOCX mais sans champ de fusion. Comme indiqué dans l’introduction les champs de fusion doivent être ajoutés comme ceci: <strong class="semibold-mont blue-color">##NomDuChampDeFusion##</strong>
+
+					</p>
+
+
+					<h3 id="section2aide" class="blue">2. Optionnel : le téléchargement des annexes, on peut ajouter autant d’annexes que nécessaire au document principal qui sera l’élément fixe de la lettre.</h3>
+					<img src="/Images/help/step2.png" class="imgMargin img-responsive">
+
+					<p>
+						<span class="semibold-mont"> Le téléchargement des annexes</span>
+						En plus du document principal, il y a également la possibilité de télécharger des fichiers annexes qui eux seront inchangeables -> certains utilisateurs souhaitent envoyer un document avec des données variables auquel ils annexent un ou des document(s) identiques pour chaque destinataire.
+						Conseil : si vous souhaitez envoyer un document avec des champs de fusion (variables), vous devez auparavant penser comment votre fichier DOC/DOCX devra se présenter (où est-ce que le contenu sera variable/changé) et tous les documents qui n’auront aucune variables devront être considérés comme annexes.
+						Les annexes sont acceptées en divers formats, vous pouvez donc télécharger n’importe quel document : feuille de calcul, pdf, n’importe quelle image, fichiers Office, fichiers Open Office.
+					</p>
+
+					<h3 id="section3aide" class="blue">3. Sélection de l’affranchissement :</h3>
+					<img src="/Images/help/step3.png" class="imgMargin img-responsive">
+
+					<p>
+						A destination de la France métropole et des DOM-TOM, vous pouvez choisir entre 5 possibilités d’affranchissement classées en 2 catégories soit en lettre simple : EcoPli (J+4), Lettre Verte (J+2), Lettre Prioritaire (J+1) soit en lettre suivie : Suivi (J+1), LR (J+1), LRAR (J+1). <br /><br />
+						A destination de l’étranger (Zone Europe ou Zone Monde) : vous pouvez choisir entre la Lettre Prioritaire Internationale (LPI) ou la Lettre Recommandée Internationale (LRI).<br />
+						Si à cette étape « sélection de l’affranchissement » vous avez sélectionné un affranchissement autre que LR ou LP, par exemple Lettre Verte, et que envoi comporte des adresses à l’étranger, vous pouvez télécharger ces adresses avec un fichier Excel/CSV et envoyer les lettres avec un autre publipostage en sélectionnant l’affranchissement approprié (LRI ou LPI).<br />
+						Si vous avez sélectionné vos adresses dans la page « mes adresses », les adresses à l’étranger n’apparaîtront pas si vous avez choisi un affranchissement qui ne peut être envoyé à l’international.
+						Ce point sera traité plus en détail à l’étape 5a. <br /> <br />
+						Pour les lettres recommandées (LR, LRAR, LRI), les coordonnées de l’expéditeur sont obligatoires car l’accusé réception devra être retournée à l’adresse expéditeur.
+						Il y a plusieurs manières d’enregistrer l’expéditeur. Ce point sera traité aux étapes 6a et 6b.
+					</p>
+
+					<h3 id="section4aaide" class="blue">4a.  Le téléchargement du fichier Excel/CSV :</h3>
+					<img src="/Images/help/step4.png" class="imgMargin img-responsive">
+
+					<p>
+						Le téléchargement du fichier en lui-même est une étape très facile. En revanche, vous devrez vérifier que votre fichier Excel/CSV respecte bien les conditions demandées. Le plus important ici étant que toutes les colonnes correspondent à ce qui est exigé pour les adresses.
+					</p>
+					<p>
+						L’adresse destinataire chez Service Postal se compose ainsi : 
+					</p>
+					<ul>
+						<li>
+							<strong>Nom de la société ou prénom nom</strong> <br />
+							(il est capital d’indiquer à qui on envoie la lettre). Il faut donc une colonne pour au moins un de ces 3 éléments. Si dans le fichier Excel/CSV pour chacune de ces 3 colonnes les 3 cellules correspondantes sont vides, il vous sera demandé d’en renseigner au moins une à l’étape 7a.
+
+						</li>
+						<li>
+							<strong>Adresse 1</strong> <br />
+							est la première ligne d’adresse. La colonne avec les données relatives doit se trouver dans le fichier Excel/CSV. Si une cellule est vide, il vous faudra la corriger à l’étape 7a.
+						</li>
+						<li>
+							<strong>Adresse 2</strong> <br />
+							est une ligne optionnelle. La colonne relative dans le fichier Excel/CSV avec les données correspondantes n’est pas nécessaire. <br />
+							En revanche, vous devez savoir que cette ligne peut être utile dans le cas où l’ensemble des données de l’adresse dépasserait le champ de la ligne Adresse 1.
+						</li>
+						<li>
+							<strong>Code Postal :</strong> <br />
+							ligne de données requise pour votre envoi donc la colonne relative doit se trouver dans le fichier Excel/CSV avec des données à 5 chiffres (code postal) pour la France et les DOM-TOM au tout autre chiffre/lettre de moins de 10 caractères pour l’international. Pour les pays autres que la France, vous pouvez laisser les cellules dédiées au code postal vides si tel est le cas.
+
+						</li>
+						<li>
+							<strong>Ville :</strong> <br />
+							ligne de données requise pour votre envoi donc la colonne relative à la ville doit se trouver dans le fichier Excel/CSV. Pour chaque cellule vide de cette colonne, il vous sera demandé de la renseigner à l’étape 7a.
+						</li>
+						<li>
+							<strong>Pays :</strong> <br />
+							colonne relative possible dans le fichier Excel/CSV et c’est la meilleure façon de faire. Grace à notre expérience d’envois de nombreux publipostages, nous a fait avons pu constater que les utilisateurs qui envoient un courrier en tant qu’expéditeur de France pour un destinataire en France omettent souvent d’indiquer le pays dans les colonnes du fichier Excel/CSV. C’est pourquoi à l’étape 5a, nous proposons une sélection automatique du pays pour l’ensemble des adresses. Voir étape 5a pour plus de détails.
+
+						</li>
+					</ul>
+
+					<p>
+						L’adresse expéditeur : se compose exactement de la même façon que pour l’adresse du destinataire. Vous pouvez choisir d’ajouter les colonnes pour chaque champs de fusion dans votre fichier Excel/CSV (ce qui peut être utile si vous avez différentes adresses d’expéditeurs vers différentes adresses de destinataires. En revanche, d’une manière générale, l’adresse expéditeur d’un publipostage est souvent la même pour tous les destinataires et si les colonnes champs expéditeurs ne sont pas renseignées dans le fichier Excel/CSV, ils vous sera demander de sélectionner un destinataire à l’étape 6a. Voir étape 5a pour plus de détails.
+
+					</p>
+					<p>
+						A l’étape 5a, l’association des colonnes du fichier Excel/CSV se fera avec les champs d’adresses tels que nous l’avons décrit ci-dessus mais aussi l’association des champs de fusion avec les colonnes correspondantes. Ce point est expliqué plus en détail à l’étape 5a. Pour le moment, vous devez simplement savoir que l’association automatique existe, donc si vos colonnes ont été nommées telles que nous vous l’avons décrit, ces dernières seront automatiquement ordonnancées ce qui sera un gain de temps au moment de l’étape 5a.
+					</p>
+
+
+					<h3 id="section5aaide" class="blue">5a.  L’association des valeurs obligatoires et des champs de fusion</h3>
+					<img src="/Images/help/step5.png" class="imgMargin img-responsive">
+
+					<p>
+						Nous proposons cette étape pour vous permettre de lier les colonnes de votre
+						fichier Excel/CSV avec les champs de fusions correspondants et les parties requises ou optionnelles des adresses destinataires et expéditeurs. Ici, vous devez sélectionner une colonne du menu déroulant qui correspond à la colonne des valeurs de votre fichier.
+						L’association est automatique (comme expliqué plus haut) donc par exemple si le nom du champ de fusion est saisi à l’identique dans la cellule de tête de la colonne et dans le document (soit Civilité dans la colonne et <strong class="blue-color semibold-mont">##Civilité##</strong> dans le document), les civilités saisies pour chaque ligne de la colonne seront automatiquement ajoutées pour chaque destinataire dans les documents.
+					</p>
+					<p class="mb-20 mt-20">
+						<a class="btn btn-success" href="../../../../Files/step5a_exemples _csv_champs_de_fusion.csv" download="exemples _csv_champs_de_fusion.csv">Télécharger le CSV <span class="glyphicon glyphicon-save"></span></a>
+					</p>
+					<p>
+						Quand l’ association des pays est terminée, si des adresses à l’internationale sont détectées et que la sélection de l’affranchissement de l’étape 3 ne permet pas l’affranchissement à l’international (Lettre Verte, Ecopli, Lettre Suivi), vous pourrez télécharger l’extraction de ces adresses de votre fichier Excel/CSV afin de réaliser un autre publipostage en sélectionnant le bon affranchissement (Lettre Recommandée ou Lettre Prioritaire) à l’étape 3.
+					</p>
+					<p>
+						Quand l’association est finie cela signifie que l’import de vos adresses dans notre base de données est terminé. Une barre vous indique la progression de l’import pour que vous puissiez contrôler l’avancée. A titre indicatif, pour 200 lettres l’import des adresses dure environ 2 minutes. Vous pouvez ainsi estimer approximativement le temps que prendra votre import en fonction du nombre de destinataires de votre envoi ou bien prendre une pause-café si vous êtes sur le point de faire un envoi à 20 000 destinataires.
+					</p>
+
+					<h3 id="section6aaide" class="blue">6a.  La sélection ou l’entrée des coordonnées de l’expéditeur</h3>
+					<img src="/Images/help/step6.png" class="imgMargin img-responsive">
+
+					<p>
+						Cette étape apparaîtra si vous n’avez pas ajouté de colonnes « expéditeur » dans votre fichier Excel/CSV ou si vous n’avez pas associé tous les champs requis de l’adresse expéditeur à l’étape de l’association. 
+					</p>
+					<p>
+						Cette étape est facile en soi si vous avez déjà un compte et réalisez votre envoi en en étant connecté en tant qu’utilisateur et que vous avez déjà envoyé des courriers auparavant en enregistrant des adresses expéditeur, dans ce cas vous n’aurez plus qu’à sélectionner une d’entre elles puis à cliquer sur continuer. Les lettres recommandées (LR, LRAR ou LRI) doivent avoir une adresse expéditeur, les lettres simples (Lettre Prioritaire, Lettre Verte, EcoPli, Lettre Suivi) l’adresse expéditeur étant optionnel, vous pouvez soit sélectionner une adresse ou non selon votre souhait soit cocher « pas d’expéditeur ». 
+					</p>
+					<p>
+						Si aucune adresse expéditeur enregistrée au préalable ne convient, vous pouvez en saisir une nouvelle et l’attribuer à votre publipostage. Si vous n’avez pas de compte et/ou n’êtes pas authentifié, vous serez dans l’obligation de saisir un expéditeur pour les Lettres recommandées.
+					</p>
+
+					<h3 id="section7aaide" class="blue">7a.  La correction des adresses erronées</h3>
+					<img src="/Images/help/step7a.png" class="imgMargin img-responsive">
+
+					<p>
+						A cette étape et comme déjà mentionné en partie 4a, si un élément de l’adresse manque et que cet élément est requis, vous devrez saisir les données ici. Il y  également la possibilité de supprimer l’adresse erronée.
+					</p>
+					<p class="mb-20 mt-20">
+						<a class="btn btn-success" href="../../../../Files/step7a_exemples_correction_aresses_eronees.csv" download="exemples _csv_correction_aresses_eronees.csv">Télécharger le CSV <span class="glyphicon glyphicon-save"></span></a>
+					</p>
+
+
+					<h3 id="section8aaide" class="blue">8a.  La prévisualisation des adresses</h3>
+					<img src="/Images/help/step8.png" class="imgMargin img-responsive">
+
+					<p>
+						Vous pourrez pré-visualiser la liste comportant les différentes adresses afin de vérifier les adresses auxquelles vous allez faire votre envoi en nombre. 
+					</p>
+					<p>
+						Vous avez également la possibilité de télécharger le fichier Excel crée regroupant toutes les données de votre envoi mais avec en plus les titres de colonnes correspondant exactement pour la fusion automatique et dans lequel sont enregistrées toutes les valeurs que vous aurez saisies à l’étape 7a et donc ce fichier ne comportera plus aucune adresse erronée.
+					</p>
+					<p>
+						Cette prévisualisation  peut s’avérer très utile si vous vous apercevez tardivement que des adresses ont été omises. Cependant arrivé à cette étape, votre fichier Excel/CSV ayant été au préalable bien complété et renseigné pour la fusion, vous pouvez simplement y ajouter autant d’adresses que vous le souhaiter (en respectant les requis) et le télécharger à nouveau en recommençant la procédure depuis le début mais en passant plus facilement chaque étape. 
+					</p>
+					<p class="mb-20 mt-20">
+						<a class="btn btn-success" href="../../../../Files/step8a10_correct_adresses_exemples_avec_expediteur.csv" download="correct_adresses_exemples_avec_expediteur.csv">Télécharger le CSV <span class="glyphicon glyphicon-save"></span></a>
+					</p>
+
+					<h3 id="section4baide" class="blue">4b.  La sélection des adresses dans la liste d’adresses enregistrées dans la page « mes adresses »</h3>
+
+					<p>
+						Elle n’est possible que pour les utilisateurs authentifiés. Si vous n’êtes pas connecté ou n’avez pas un compte, vous devrez soit vous connecter soit créer un compte.
+					</p>
+					<p>
+						Dans la page Mes adresses -> Destinataires, disponible pour les utilisateurs authentifiés et connectés, il existe une option pour créer un groupe d’adresses et importer des adresses depuis un fichier Excel/csv et l’ajouter au groupe.
+					</p>
+					<p>
+						Si vous avez déjà saisi des groupes d’adresse à cette étape, vous pouvez leur envoyer un publipostage soit en utilisant une partie soit la totalité de ces adresses soit plusieurs groupes.
+					</p>
+
+
+					<h3 id="section5baide" class="blue">5b.  La saisie des valeurs des champs de fusion pour chaque destinataire</h3>
+
+					<p>
+						Si vous avez un défini votre document docx/doc à l’étape 1, vous devrez saisir les valeurs pour chaque champ de fusion pour chaque adresse que vous aurez importée à l’étape 5a.
+						La longueur des valeurs pour les champs de fusion est limitée à 30 caractères.
+					</p>
+
+					<h3 id="section6baide" class="blue">6b.  La sélection ou la saisie des coordonnées de l’expéditeur</h3>
+
+					<p>
+						A cette étape, vous serez forcément authentifié ainsi si vous avez déjà saisie une ou plusieurs adresses dans la page Mes adresses -> Expéditeurs, vous aurez la possibilité d’en sélectionner une pour votre envoi dans le cas où le choix de l’affranchissement nécessiterait un expéditeur (pour les lettres recommandées LR, LRAR et LRI). Si aucune adresse n’est enregistrée dans cette page, vous serez invité à en saisir une immédiatement dans cette étape et de la sélectionner pour votre publipostage.
+
+					</p>
+
+
+					<h3 id="section8aide" class="blue">7b.  La prévisualisation des adresses</h3>
+					<img src="/Images/help/step8.png" class="imgMargin img-responsive">
+					<p>
+						Vous pourrez pré-visualiser la liste comportant les différentes adresses afin de vérifier les adresses auxquelles vous allez faire votre envoi en nombre.
+
+					</p>
+
+
+					<h3 id="section9aide" class="blue">9.   La sélection des options</h3>
+					<p>
+						C’est une étape générale et autonome qui peut dont être traitée à n’importe quel moment.
+						Il existe plusieurs options possibles.
+					</p>
+					<ul>
+						<li>
+							Chaque document aura ses propres options. Les options choisies pour le document principal peuvent être liées ou non aux options des documents annexes. Si les options sont liées, celles choisies pour le document principal seront appliquées aux annexes. Si elles ne sont pas liées, les annexes auront des options qui leur seront propres.
+
+						</li>
+						<li>
+							Vous pouvez choisir une impression en noir & blanc ou en couleur, en recto ou en recto/verso.
+						</li>
+						<li>
+							Vous pouvez sélectionner l’enveloppe. Nous proposons 3 formats d’enveloppe (C6, C5, C4). 
+						</li>
+						<li>
+							Les formats C6 peuvent contenir un maximum de 4 pages recto ou 8 pages recto/verso.
+						</li>
+						<li>
+							Les formats C5 peuvent contenir un maximum de 9 pages recto ou 18 pages recto/verso.
+						</li>
+						<li>
+							Les lettres de plus de 9 pages recto ou 18 pages recto/verso sont automatiquement paramétrées pour être insérées dans un format C4. 
+						</li>
+						<li>
+							Donc si nous détectons qu’une lettre contient plus de pages que le format adéquat, la sélection du format sera automatiquement celle du format immédiatement supérieur.
+							Les enveloppes peuvent être à fenêtre ou imprimées.
+
+						</li>
+						<li>
+							Pour les enveloppes à fenêtre : vous devrez choisir si l’adresse sera imprimée directement sur le document ou sur une première page dédiée pour l’adresse (porte-adresse). C’est selon votre souhait mais notez que l’impression de l’adresse sur le document peut en altérer une partie. Vous pouvez constater l’emplacement des rectangles qui seront insérés dans l’exemple fourni.
+						</li>
+						<li>
+							Il est également possible d’insérer vous-même les champs de fusion (avec une option de champ personnalisé), à l’endroit dédié pour les champs de fusion des adresses comme dans l’exemple fourni, de sorte qu’à l’impression les adresses expéditeur et destinataire s’adapteront à l’emplacement des fenêtres de l’enveloppe. En revanche,  il est de votre entière responsabilité de vous assurer que les adresses sont insérées au bon endroit.
+							Pour les enveloppes imprimées : les adresses de l’expéditeur et du destinataire seront simplement imprimées sur l’enveloppe. Si vous souhaitez tout de même imprimer l’adresse sur la première page de votre envoi, il existe une option <strong>surimpression ainsi</strong> ainsi nous saurons qu’il faudra aussi imprimer l’adresse sur le document.
+						</li>
+						<li>
+							Vous pouvez également choisir d’ajouter ou non le code barre (soir la référence) sur la lettre. 
+						</li>
+						<li>
+							Il existe aussi une sélection si vous souhaitez imprimer l’adresse expéditeur soit sur le document et/ou l’enveloppe et/ou le porte-adresse et/ou en surimpression. Si vous cocher « non » pas l’option, l’expéditeur ne sera pas imprimé.
+						</li>
+					</ul>
+
+
+
+
+					<h3 id="section10aide" class="blue">10. La prévisualisation des lettres</h3>
+					<img src="/Images/help/step10.png" class="imgMargin img-responsive">
+					<p>
+						Ici vous pourrez voir un exemple de 4 lettres si votre envoi comporte plus de 4 destinataires ou  le nombre exact de destinataires si votre envoi en comporte moins de 4.
+					</p>
+					<p class="mb-20 mt-20">
+						<a class="btn btn-success" href="../../../../Files/step8a10_correct_adresses_exemples_avec_expediteur.csv" download="correct_adresses_exemples_avec_expediteur.csv">Télécharger le CSV <span class="glyphicon glyphicon-save"></span></a>
+					</p>
+					<p>
+						Vous aurez également une estimation du coût de votre publipostage. A cette étape toutes les lettres n’ont pas encore été générées et le prix est donc à titre indicatif. Par exemple, il est possible que vous ayez beaucoup de champs de fusion dans votre fichier docx/doc ce qui augmenterait possiblement le nombre de pages de la lettre (la plupart des lettres ont une page mais certaines en ont deux). Donc nous faisons une estimation du nombre de pages mais nous ne pouvons pas prédire le nombre exact pour chaque lettre.
+
+					</p>
+					<p>
+						Dans les situations sans de champ de fusion ou si le document principal est un PDF, le prix sera celui indiqué à l’estimation.
+					</p>
+
+					<h3 id="section11aide" class="blue">11.  La validation-> l’envoi de la requête pour le publipostage</h3>
+					<img src="/Images/help/end.png" class="imgMargin img-responsive">
+					<p>
+						En allant validant la page, vous confirmez que la prévisualisation vous convient et que vous souhaitez la génération de votre publipostage. Vous recevrez un e-mail de confirmation vous indiquant que nous avons bien reçu votre demande de publipostage.
+					</p>
+
+					<h3 id="section12aide" class="blue">12. L’organisation du règlement</h3>
+
+					<p>
+						Un membre de l’équipe Service Postal vous contactera peu de temps après afin de vous transmettre la facture qui devra être réglée rapidement pour que le publipostage soit mis en production.
+					</p>
+
+					<h3 id="section13aide" class="blue">13. Le règlement</h3>
+
+					<p>
+						Après avoir procédé au paiement tel qu'il vous aura été indiqué par notre collègue soit par e-mail soit par téléphone, nous pourrons commencer la production de votre publipostage/
+						Vous pourrez vérifier l'état d'avancement dans la pages "mes mailings".
+					</p>
+
+				</div>
+			</div>
+		</div>
+</section>

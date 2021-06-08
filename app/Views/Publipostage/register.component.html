@@ -1,0 +1,120 @@
+﻿<div class="modal" id="RegisterModal" tabindex="-1" role="dialog" aria-labelledby="RegisterModal" aria-hidden="false">
+    <div class="modal-dialog register-modal">
+        <div class="modal-content">
+            <div class="modal-header" id="modal_register">
+                <button type="button" class="close" #closeModal data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title blue">INSCRIPTION</h3>
+            </div>
+            <div class="modal-body">
+                <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="alert alert-danger" *ngIf="errorMessage!=''">{{errorMessage}}</div>
+                            <p>Pour payer et envoyer un courrier avec notre site, vous devez être connecté.</p>
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !Useremail.valid }">
+                                <label for="email-reg" class="control-label">Merci de saisir votre adresse Email:</label>
+                                <input type="text" class="form-control" email="true" name="Useremail" [(ngModel)]="model.Useremail" #Useremail="ngModel" placeholder="Email" required />
+                                <!--<div *ngIf="f.submitted && !Useremail.valid" class="help-block">Email is required</div>-->
+                                <div *ngIf="f.submitted && Useremail.errors?.email" class="help-block">Adresse Email invalide</div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <p>Pour complémenter votre inscription merci de renseigner le champs ci-dessous:</p>
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !LastName.valid }">
+                                <!--<label for="lastName">Last Name</label>-->
+                                <input type="text" class="form-control" name="LastName" [(ngModel)]="model.LastName" #LastName="ngModel" required title="Prenom" placeholder="Prenom" />
+                                <!--<div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>-->
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !FirstName.valid }">
+                                <!--<label for="lastName">Last Name</label>-->
+                                <input type="text" class="form-control" name="FirstName" [(ngModel)]="model.FirstName" #FirstName="ngModel" required title="Nom" placeholder="Nom" />
+                                <!--<div *ngIf="f.submitted && !firstName.valid" class="help-block">Last Name is required</div>-->
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !Confemail.valid }">
+                                <!--<label for="username">Username</label>-->
+                                <input type="text" class="form-control" [(ngModel)]="model.Confemail" #Confemail="ngModel"  name="email-confirmation" title="Confirmation Adresse Email*" placeholder="Confirmation Adresse Email*" required />
+                                <!--<div *ngIf="f.Confemail && !Confemail.valid"  email="true" class="help-block">Confirmemail is required</div>-->
+                                <div *ngIf="f.Confemail && Confemail.errors?.email" class="help-block">Confirmemail not valid.</div>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !Userpassword.valid }">
+                                <!--<label for="password">Password</label>-->
+
+                                <input type="password" class="form-control" name="Userpassword" [(ngModel)]="model.Userpassword" #Userpassword="ngModel" title="Mot de passe*" placeholder="Mot de passe*" required />
+                                <!--<div *ngIf="f.submitted && !Userpassword.valid" class="help-block">Password is required</div>-->
+								<p class="text-muted">Votre mot de passe doit contenir 6 - 20 caractères avec des lettres et des chiffres, aucun espace ni caractères spéciaux ni Emoji.</p>
+                            </div>
+							<password-strength-meter [password]="model.Userpassword"></password-strength-meter>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !Confpassword.valid }">
+                                <!--<label for="password">Password</label>-->
+                                <input type="password" class="form-control" name="Confpassword" [(ngModel)]="model.Confpassword" #Confpassword="ngModel" title="Confimation Mot de passe*" placeholder="Confimation Mot de passe*" required />
+                                <!--<div *ngIf="f.submitted && !Confpassword.valid" class="help-block">Password is required</div>-->
+                            </div>
+
+                            <div class="form-group row options-reg">
+                                <div class="col-md-6 ">
+                                    <label class="pointer"><input type="radio" [(ngModel)]="model.UserTypeID"  name="usertype" value="4"> Particulier</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="pointer"><input type="radio" [(ngModel)]="model.UserTypeID" name="usertype" value="5"> Professionnel</label>
+                                </div>
+                            </div>
+
+							<div *ngIf="model.UserTypeID === '5'">
+								<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !Siren.valid }">
+									<!--<label for="password">Password</label>-->
+									<input type="text" maxlength="9" class="form-control" name="siren" [(ngModel)]="model.Siren" #Siren="ngModel" title="Siren" placeholder="Siren" required />
+									<!--<div *ngIf="Siren.valid && Siren.touched" class="help-block">Siren must be 9 digits</div>-->
+								</div>
+								<div class="form-group long">
+									<input type="checkbox"  name="acceptComercials" class="input-top" [(ngModel)]="model.AcceptComercials" #AcceptComercials="ngModel" title="AcceptComercials">
+									<label class="pointer">
+										J'accepte d'être contacter pour  des offres commerciales
+									</label>
+								</div>
+							</div>
+                            <div class="form-group">
+								<input type="checkbox" name="newsletter" class="input-top"> <label class="pointer">Souscrire à notre newsletter</label>
+                            </div>
+							<div class="form-group long">
+								<input type="checkbox" name="" class="input-top">
+								<label class="pointer montserrat-medium">
+								<a href="https://www.servicepostal.com/societe/conditions-generales" target="_blank">J'accepte les conditions d'utilisations</a>
+                                et la <a href="https://www.servicepostal.com/politique-de-confidentialite/" target="_blank">politique de confidentialité</a>
+								</label>
+							</div>
+                            <p>
+                                Votre adresse email ne sera pas communiquée à des tiers
+                            </p>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn-blue">Inscription</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                <!--<a [routerLink]="['/login']" class="btn btn-link">Cancel</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="modal-footer">
+                <div class="login-help">
+                    <a class="pointer connexion-modal-link" data-dismiss="modal" data-target="#LoginModal" data-toggle="modal"><span class="new-sprite-publi new-sprite-publi-connexion-modal"></span> Connexion</a>
+                    <a class="pointer forgot-password" data-dismiss="modal" data-target="#PasswordModal" data-toggle="modal"><span class="new-sprite-publi new-sprite-publi-password-modal"></span> Mot de passe oublié ?</a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    dataLayer.push({
+        'event': 'inscription'
+    });
+</script>

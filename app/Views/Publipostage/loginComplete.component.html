@@ -1,0 +1,162 @@
+﻿<div class="loginModalInside">
+    <div class="modal-dialog login-modal" *ngIf="segment == 1">
+        <div class="modal-content">
+            <div class="modal-header" id="modal_login">
+                <h3 class="modal-title blue">Connexion</h3>
+            </div>
+			<div class="modal-body">
+				<alert></alert>
+				<p>Pour payer et envoyer un courrier avec notre site, vous devez être connecté.</p>
+				<form (ngSubmit)="loginForm.form.valid && login()" #loginForm="ngForm" novalidate>
+					<label for="username" class="control-label">Merci de saisir votre adresse Email</label>
+					<div class="form-group" [ngClass]="{ 'has-error': loginForm.submitted && !username.valid }">
+
+						<input type="text" class="form-control" email="true" name="username" [(ngModel)]="loginModel.username" #username="ngModel" title="Adresse Email" placeholder="Adresse Email" required />
+
+						<div *ngIf="loginForm.submitted && username.errors?.email" class="help-block">Adresse Email invalide</div>
+					</div>
+					<label for="password" class="control-label">Merci de saisir votre adresse mot de passe</label>
+					<div class="form-group" [ngClass]="{ 'has-error': loginForm.submitted && !password.valid }">
+
+						<input type="password" class="form-control" name="password" [(ngModel)]="loginModel.password" #password="ngModel" title="Mot de passe" placeholder="Mot de passe" required />
+
+					</div>
+					<div class="form-group">
+						<button [disabled]="loading" class="btn-blue">Connexion</button>
+						<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+						<!--<a [routerLink]="['/register']" class="btn btn-link">Register</a>-->
+					</div>
+				</form>
+			</div>
+            <div class="modal-footer">
+                <div class="login-help">
+                    <a class="pointer register" (click)="setSegment(2)"><span class="new-sprite-publi new-sprite-publi-logo-modal"></span> Inscription</a>
+                    <a class="pointer forgot-password" (click)="setSegment(3)"><span class="new-sprite-publi new-sprite-publi-password-modal"></span> Mot de passe oublié ?</a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog register-modal" *ngIf="segment == 2">
+        <div class="modal-content">
+            <div class="modal-header" id="modal_register">
+                <h3 class="modal-title blue">INSCRIPTION</h3>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="register.form.valid && register()" #register="ngForm" novalidate>
+                    <div class="row">
+						<div class="col-sm-6">
+							<div class="alert alert-danger" *ngIf="errorMessage!=''">{{errorMessage}}</div>
+							<p>Pour payer et envoyer un courrier avec notre site, vous devez être connecté.</p>
+							<div class="form-group" [ngClass]="{ 'has-error': register.submitted && !Useremail.valid }">
+								<label for="email-reg" class="control-label">Merci de saisir votre adresse Email:</label>
+								<input type="text" class="form-control" email="true" name="Useremail" [(ngModel)]="regModel.Useremail" #Useremail="ngModel" placeholder="Email" required />
+
+								<div *ngIf="register.submitted && Useremail.errors?.email" class="help-block">Adresse Email invalide</div>
+							</div>
+						</div>
+
+                        <div class="col-sm-6">
+                            <p>Pour complémenter votre inscription merci de renseigner le champs ci-dessous:</p>
+                            <div class="form-group" [ngClass]="{ 'has-error': register.submitted && !LastName.valid }">
+                                <!--<label for="lastName">Last Name</label>-->
+                                <input type="text" class="form-control" name="LastName" [(ngModel)]="regModel.LastName" #LastName="ngModel" required title="Prenom" placeholder="Prenom" />
+                                <!--<div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>-->
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': register.submitted && !FirstName.valid }">
+                                <!--<label for="lastName">Last Name</label>-->
+                                <input type="text" class="form-control" name="FirstName" [(ngModel)]="regModel.FirstName" #FirstName="ngModel" required title="Nom" placeholder="Nom" />
+                                <!--<div *ngIf="f.submitted && !firstName.valid" class="help-block">Last Name is required</div>-->
+                            </div>
+
+							<div class="form-group" [ngClass]="{ 'has-error': register.submitted && !Confemail.valid }">
+								<!--<label for="username">Username</label>-->
+								<input type="text" class="form-control" [(ngModel)]="regModel.Confemail" #Confemail="ngModel" id="email-confirmation-full" name="email-confirmation" title="Confirmation Adresse Email*" placeholder="Confirmation Adresse Email*" required />
+
+								<div *ngIf="register.Confemail && Confemail.errors?.email" class="help-block">Confirmemail not valid.</div>
+							</div>
+							<div class="form-group" [ngClass]="{ 'has-error': register.submitted && !Userpassword.valid }">
+								<!--<label for="password">Password</label>-->
+								<input type="password" class="form-control" name="Userpassword" [(ngModel)]="regModel.Userpassword" #Userpassword="ngModel" title="Mot de passe*" placeholder="Mot de passe*" required />
+
+							</div>
+
+							<div class="form-group" [ngClass]="{ 'has-error': register.submitted && !Confpassword.valid }">
+								<!--<label for="password">Password</label>-->
+								<input type="password" class="form-control" name="Confpassword" [(ngModel)]="regModel.Confpassword" #Confpassword="ngModel" title="Confimation Mot de passe*" placeholder="Confimation Mot de passe*" required />
+
+							</div>
+
+							<div class="form-group row options-reg">
+								<div class="col-md-6 ">
+									<label class="pointer"><input type="radio" [(ngModel)]="regModel.UserTypeID" name="usertype" value="4"> Particulier</label>
+								</div>
+								<div class="col-md-6">
+									<label class="pointer"><input type="radio" [(ngModel)]="regModel.UserTypeID" name="usertype" value="5"> Professionnel</label>
+								</div>
+							</div>
+
+							<div *ngIf="regModel.UserTypeID === '5'" class="form-group">
+								<!--<label for="password">Password</label>-->
+								<input type="text" class="form-control" name="siren" [(ngModel)]="regModel.Siren" #Siren="ngModel" title="Siren" placeholder="Siren" />
+
+							</div>
+
+							<div class="form-group">
+								<input type="checkbox" name="newsletter" id="newsletter-full" class="input-top"> <label for="newsletter" class="pointer">Souscrire à notre newsletter</label>
+							</div>
+
+
+                            <p>
+                                Votre adresse email ne sera pas communiquée à des tiers
+                            </p>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn-blue">Inscription</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                <!--<a [routerLink]="['/login']" class="btn btn-link">Cancel</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="login-help">
+                    <a class="pointer connexion-modal-link" (click)="setSegment(1)"><span class="new-sprite-publi new-sprite-publi-connexion-modal"></span> Connexion</a>
+                    <a class="pointer forgot-password" (click)="setSegment(3)"><span class="new-sprite-publi new-sprite-publi-password-modal"></span> Mot de passe oublié ?</a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<div class="modal-dialog password-modal " *ngIf="segment == 3">
+		<div class="modal-content">
+			<div class="modal-header" id="modal_password">
+				<h3 class="modal-title blue">RÉ-INITIALISATION MOT DE PASSE</h3>
+			</div>
+			<div class="alert alert-success" *ngIf="passwordModel.Message=='OK'">Un email est envoyé à votre adresse e-mail mot de passe réinitialisé.</div>
+			<div class="alert alert-danger" *ngIf="passwordModel.Message=='NO USER'">Utilisateur n'est pas enregistré.</div>
+			<div class="modal-body">
+				<form name="form" (ngSubmit)="passwordForm.form.valid && sendemailpassword()" #passwordForm="ngForm" novalidate>
+					<div class="form-group" [ngClass]="{ 'has-error': passwordForm.submitted && !Useremail.valid }">
+						<input type="text" class="form-control" required email="true" name="Useremail" [(ngModel)]="passwordModel.Useremail" #Useremail="ngModel" title="Adresse Email" placeholder="Adresse Email*">
+						<div *ngIf="passwordForm.submitted && Useremail.errors?.email" class="help-block">Adresse Email invalide</div>
+					</div>
+					<div class="button-group">
+						<button type="submit" [disabled]="loading" class="btn-blue">Ré-initialiser mon mot de passe</button>
+						<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="login-help">
+					<a class="pointer connexion-modal-link" (click)="setSegment(1)"><span class="new-sprite-publi new-sprite-publi-connexion-modal"></span> Connexion</a>
+					<a class="pointer register" (click)="setSegment(2)"><span class="new-sprite-publi new-sprite-publi-logo-modal"></span> Inscription</a>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+

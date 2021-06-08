@@ -1,0 +1,285 @@
+﻿<section class="main-content">
+    <div class="content">
+        <div class="mailing-wrapper">
+            <h3 class="page-title">HISTORIQUE DE MES Mailings</h3>
+            <!--<div class="mailing-search">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="checkboxes-mes-mailing">
+                            <span>
+                                <input type="checkbox" name="" id="check-nom">
+                                <label for="check-nom">dans son nom</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" name="" id="check-adresse">
+                                <label for="check-adresse">dans sa adresse</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" name="" id="check-reference">
+                                <label for="check-reference">dans sa reference</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 pull-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Rechercher...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                        <button type="button" class="btn-white-tiny">Effacer les critères de sélection</button>
+                    </div>
+                </div>
+            </div>-->
+            <div class="mailings-wrapper">
+                <div class="mailings-header clearfix hidden-xs hidden-sm">
+                    <div class="date-header">
+                        Date
+                    </div>
+                    <div class="type-header">
+                        Type de courrier
+                    </div>
+                    <!--<div class="reference-header">
+                        Référence client
+                    </div>-->
+                    <div class="etat-header hidden-xs">
+                        Etat
+                    </div>
+                    <div class="options-header hidden-xs">
+                        Options d'impression
+                    </div>
+                    <div class="facture-header hidden-xs">
+                        Facture
+                    </div>
+					<div class="template-doc-header hidden-xs">
+						Document principal
+					</div>
+					<div class="address-doc-header hidden-xs">
+						Fichier d'adresses
+					</div>
+					<div class="annex-header hidden-xs">
+						Annexe(s)
+					</div>
+                    <div class="pages-header">
+                        Nb de courriers
+                    </div>
+					<div class="calendrier-header">
+						Calendrier
+					</div>
+                </div>
+                <div class="mailings-box relative">
+                    <div class="loading-message" [hidden]="!showLoading">
+                        <img src="Images/spin.svg" width="32" />
+                    </div>
+                    <div class="no-data" *ngIf="mesMailing.length == 0">Aucune donnée !</div>
+                    <div class="mailing-item relative" *ngFor="let mailing of mesMailing | paginate: mailingPagingConfig; let i = index" [ngClass]="{'archived': mailing.Deleted == true }">
+					<div class="loading-download" [hidden]="!mailing.WaitDownloadInvoice">
+                        Le téléchargement du document va démarrer <img src="Images/load.svg" width="32" />
+					</div>
+                        <div class="mailings-title">
+                            <div class="item-section date">
+                                {{mailing.CreateDate | datex:''}} <i class="tablet-block"> {{mailing.CreateDate | datex:'time'}} </i>
+                            </div>
+                            <div class="item-section type-of-letter" [ngSwitch]="mailing.LetterTypeID">
+                                <div *ngSwitchCase="1">LRAR  <span><img src="../Images/lrarbck.png" class="mobile-block"></span></div>
+                                <div *ngSwitchCase="2">LR  <span><img src="../../Images/lrbck.png" class="mobile-block"></span></div>
+                                <div *ngSwitchCase="3">Prioritaire  <span><img src="../../Images/prioritairebck.png" class="mobile-block"></span></div>
+                                <div *ngSwitchCase="4">Verte  <span><img src="../../Images/lettrevertebck.png" class="mobile-block"></span></div>
+                                <div *ngSwitchCase="5">Ecopli  <span><img src="../../Images/ecoplibck.png" class="mobile-block"></span></div>
+                                <div *ngSwitchCase="6">Suivi  <span><img src="../../Images/ecoplibck.png" class="mobile-block"></span></div>
+                            </div>
+                            <!--<div class="item-section reference">
+                                {{mailing.ReferenceNumber}}
+                            </div>-->
+                            <div class="item-section etat" [ngSwitch]="mailing.AdminStatusID">
+								<span *ngSwitchCase="8" popoverPlacement="top" popover="En attente règlement" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-pending"></span>
+                                <span *ngSwitchCase="9" popoverPlacement="top" popover="En attente règlement" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-pending"></span>
+                                <span *ngSwitchCase="10" popoverPlacement="top" popover="En attente règlement" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-pending"></span>
+                                <span *ngSwitchCase="11" popoverPlacement="top" popover="En attente règlement" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-pending"></span>
+                                <span *ngSwitchCase="12" popoverPlacement="top" popover="Impression en cours" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-printing"></span>
+                                <span *ngSwitchCase="14" popoverPlacement="top" popover="Affranchissement en cours" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-inprogress"></span>
+                                <span *ngSwitchCase="15" popoverPlacement="top" popover="Courrier remis en poste" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-sent"></span>
+                                <span *ngSwitchCase="16" popoverPlacement="top" popover="Annulé" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-suspended"></span>
+                                <span *ngSwitchDefault popoverPlacement="top"  popover="??" [popoverOnHover]="true">??</span>
+                            </div>
+                            <div class="item-section option">
+                                <div>
+                                    <img src="../../Images/dlone.png" *ngIf="mailing.EnvelopID == 0 || mailing.EnvelopID == 5" popoverPlacement="top" popover="A4 plié en trois" [popoverOnHover]="true" />
+                                    <img src="../../Images/c4one.png" *ngIf="mailing.EnvelopID == 1 || mailing.EnvelopID == 6" popoverPlacement="top" popover="A4 non plié" [popoverOnHover]="true" />
+                                    <img src="../../Images/c5one.png" *ngIf="mailing.EnvelopID == 2 || mailing.EnvelopID == 7" popoverPlacement="top" popover="A4 plié en deux" [popoverOnHover]="true" />
+
+                                    <img src="../../Images/bandwup.png" *ngIf="mailing.ColorID == 0" popoverPlacement="top" popover="Noir et blanc" [popoverOnHover]="true" />
+                                    <img src="../../Images/colorup.png" *ngIf="mailing.ColorID == 1" popoverPlacement="top" popover="Couleur" [popoverOnHover]="true" />
+
+                                    <img src="../../Images/rectobck.png" *ngIf="mailing.RectoVersoID == 0" popoverPlacement="top" popover="Recto" [popoverOnHover]="true" />
+                                    <img src="../../Images/rectoversopbck.png" *ngIf="mailing.RectoVersoID == 1" popoverPlacement="top" popover="Recto-verso" [popoverOnHover]="true" />
+                                </div>
+                            </div>
+                            <div class="item-section facture">
+                                <a (click)="getFacture(mailing.OrderID)" [hidden]="!(mailing.GenerationStatus == 2 && subscriptionSPTypeID == 0)" href="javascript:void(0);"><span class="glyphicon glyphicon-calendar font20" popoverPlacement="top" popover="Facture" [popoverOnHover]="true"></span></a>
+                                <a (click)="getFacture(mailing.OrderID)" [hidden]="!(mailing.GenerationStatus == 2 && subscriptionSPTypeID != 0)" href="javascript:void(0);"><span class="glyphicon glyphicon-calendar font20" popoverPlacement="top" popover="Mailing Report" [popoverOnHover]="true"></span></a>
+                                <a #downloadFacture [href]="hrefFactureUrl" [download]="hrefFactureName" [hidden]="true" class="download-document"></a>
+                                <a [hidden]="mailing.GenerationStatus == 2" href="javascript:void(0);">
+									<span aria-hidden="true" popoverPlacement="top" popover="En attente règlement" [popoverOnHover]="true" class="new-sprite-publi new-sprite-publi-pending"></span>
+								</a>
+                            </div>
+							<div class="item-section template-doc">
+								<a (click)="getMainDoc(mailing.OrderID)" href="javascript:void(0);"><span class="glyphicon glyphicon-book font20" popoverPlacement="top" popover="Document principal" [popoverOnHover]="true"></span></a>
+								<a #downloadMainDoc [href]="hrefMainDocUrl" [download]="hrefMainDocName" [hidden]="true" class="download-document"></a>
+
+							</div>
+							<div class="item-section address-doc">
+								<a (click)="getCSV(mailing.OrderID)" href="javascript:void(0);"><span class="glyphicon glyphicon-list font20" popoverPlacement="top" popover="Adresse document" [popoverOnHover]="true"></span></a>
+								<a #downloadCSV [href]="hrefCSVUrl" [download]="hrefCSVName" [hidden]="true" class="download-document"></a>
+
+							</div>
+							<div class="item-section annex-doc">
+								<a (click)="getAnnex(mailing.OrderID)" href="javascript:void(0);"><span class="glyphicon glyphicon-file font20" popoverPlacement="top" popover="Annex document/s" [popoverOnHover]="true"></span></a>
+								<a #downloadAnnex [href]="hrefAnnexUrl" [download]="hrefAnnexName" [hidden]="true" class="download-document"></a>
+							</div>
+                            <div class="item-section pages-number">
+                                {{mailing.LetterCount}}
+                            </div>
+							<div class="item-section calendrier-doc">
+								{{mailing.ScheduledDate | date:'dd-MM-yyyy'}}
+							</div>
+                            <ng-container *ngIf="mailing.Deleted == true">
+                                <a href="javascript:;" class="archive hidden-xs" popoverPlacement="top" popover="Restaurer" [popoverOnHover]="true" (click)="archiveMailingToggle(mailing.CensoredID)"><span class="glyphicon glyphicon-folder-open"></span></a>
+                            </ng-container>
+                            <ng-container *ngIf="mailing.Deleted == false">
+                                <a href="javascript:;" class="archive hidden-xs" popoverPlacement="top" popover="Archiver" [popoverOnHover]="true" (click)="archiveMailingToggle(mailing.CensoredID)"><span class="glyphicon glyphicon-trash"></span></a>
+                            </ng-container>
+							<a href="javascript:;" class="view-modal hidden-xs" [hidden]="mailing.AdminStatusID < 12" popoverPlacement="left" popover="Visualiser les lettres" [popoverOnHover]="true"><span class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#AllMailingsModal" (click)="viewAllDestinations(mailing.CensoredID, mailing.AdminStatusID, mailing.LetterTypeID)"></span></a>
+							<a href="javascript:;" class="view-modal hidden-xs" [hidden]="mailing.AdminStatusID >= 12"><span></span></a>
+                            <!--<a href="javascript:;" class="download hidden-xs" popoverPlacement="top" popover="Télécharger le mailing" [popoverOnHover]="true"><span></span></a>-->
+                            <div class="clear"></div>
+                            <a class="arrow-down-mailing visible-xs pointer" (click)="toggle[i] = !toggle[i]"><span [ngClass]="{'rotate180': toggle[i] }"></span></a>
+                        </div>
+                        <div class="mobile-operations" [hidden]="!toggle[i]">
+                            <a href="javascript:;" class="prevent archive-mobile" (click)="archiveMailing(mailing.CensoredID)"><span class="glyphicon glyphicon-trash"></span> Archiver</a>
+							<a href="javascript:;" class="prevent view-modal-mobile" [hidden]="mailing.AdminStatusID < 12" data-toggle="modal" data-target="#AllMailingsModal"><span class="glyphicon glyphicon-eye-open" (click)="viewAllDestinations(mailing.CensoredID, mailing.AdminStatusID, mailing.LetterTypeID)"></span> Visualiser les lettres</a>
+							<a href="javascript:;" class="prevent view-modal-mobile" [hidden]="mailing.AdminStatusID >= 12"><span></span></a>
+                            <!--<a href="javascript:;" class="prevent download-document"><span></span> Télécharger le document</a>-->
+                        </div>
+
+                    </div>
+                </div>
+                <div class="cgv">
+                    <label for="cgv">Afficher les mailings archivées <input type="checkbox" id="cgv" [checked]="showArchived" (change)="toggleShowArchived()"></label>
+                </div>
+                <div class="text-center">
+					<pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="onPageChangeMailing($event)" id="mailings"></pagination-controls>
+                </div>
+
+            </div>
+        </div>
+        <div class="legends">
+            Légende de l'état:
+            <ul>
+                <li>
+                    <!--<span class="sprite sprite-legend1"></span>-->
+					<span class="new-sprite-publi new-sprite-publi-pending"></span>
+                    <span class="small">En attente règlement</span>
+                </li>
+                <li>
+					<span class="new-sprite-publi new-sprite-publi-printing"></span>
+                    <span class="small">Impression en cours</span>
+                </li>
+                <li>
+					<span class="new-sprite-publi new-sprite-publi-inprogress"></span>
+                    <span class="small">Affranchissement en cours</span>
+                </li>
+                <li>
+					<span class="new-sprite-publi new-sprite-publi-sent"></span>
+                    <span class="small">Courrier remis en poste</span>
+                </li>
+				<li>
+					<span class="new-sprite-publi new-sprite-publi-suspended"></span>
+					<span class="small">Annulé</span>
+				</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="AllMailingsModal" tabindex="-1" role="dialog" aria-labelledby="AllMailingsModal" aria-hidden="false">
+    <div class="modal-dialog all-mailing-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title blue">Liste des courriers de ce mailing</h3>
+            </div>
+            <div class="modal-body">
+                <div class="all-mailings">
+                    <div class="all-mailings-header">
+                        Destinataire <span>Gérer</span>
+                    </div>
+                    <div class="relative minh40">
+                        <div class="loading-message h100" *ngIf="letters.length < 1">
+                            <img src="Images/spin.svg" width="32" />
+                        </div>
+                        <div class="one-mailing" *ngFor="let letter of letters | paginate: lettersPagingConfig">
+                            {{letter.Destination.Address.Firstname}}&nbsp;&nbsp;
+                            {{letter.Destination.Address.Lastname}}&nbsp;&nbsp;
+                            {{letter.Destination.Address.Address1}}&nbsp;&nbsp;
+                            {{letter.Destination.Address.City}}&nbsp;&nbsp;
+                            {{letter.Destination.Address.ZipPostalCode}}&nbsp;&nbsp;
+                            {{letter.Destination.Address.CountryID | country: countries}}
+							<div *ngIf="letter.ClientReference != null">
+								Référence client: <strong>{{letter.ClientReference}}</strong>
+							</div>
+                            
+							<a href="javascript:;" *ngIf="letter.PostNumberForLetter != null && letter.PostNumberForLetter != '' && showPostNumberForLetter==true" class="link-to-post" [attr.href]="postLink + letter.PostNumberForLetter" target="_blank" popoverPlacement="left" popover="Suivi" [popoverOnHover]="true"><span></span></a>
+                            <a href="javascript:;" class="prevent download" [href]="letter.HrefURL" [download]="letter.HrefName" popoverPlacement="left" popover="Télécharger un courrier" [popoverOnHover]="true"><span></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="gotopage-box">
+							<span>Page</span>
+							<input type="number" class="form-control" min="1" max="{{lettersPagingConfig.totalItems/lettersPagingConfig.itemsPerPage}}" [(ngModel)]="goToPage" minle />
+							<button type="button" class="btn-blue" (click)="goToPageLetters()">Aller à</button>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="onPageChangeLetter($event)" id="letters"></pagination-controls>
+					</div>
+				</div>
+				
+               
+            </div>
+            <!--
+                    <nav>
+                        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                            <li class="disabled previous"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="setPage(1)">First</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="setPage(pager.currentPage - 1)"><span aria-hidden="true">«</span></a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="setPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="setPage(pager.currentPage + 1)"><span aria-hidden="true">»</span></a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="setPage(pager.totalPages)">Last</a>
+                            </li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li class="next"><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                        </ul>
+                        <div class="total-letters">Afficher {{pager.startIndex}} à {{pager.endIndex}} de {{letters.length}}</div>
+                    </nav>
+                -->
+        </div>
+    </div>
+</div>

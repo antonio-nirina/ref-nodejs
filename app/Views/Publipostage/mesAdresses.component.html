@@ -1,0 +1,393 @@
+﻿<section class="main-content">
+    <div class="content">
+        <div class="mailing-wrapper">
+
+            <div class="mailing-search">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h3 class="page-title">ADRESSES DESTINATAIRES</h3>
+                    </div>
+                    <div class="col-sm-4 pull-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [(ngModel)]="keyword" placeholder="Rechercher un destinataire...">
+                            <i class="fa  fa-times remove-search" *ngIf="keyword != ''" (click)="removeSearch()"></i>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" (click)="searchAddress()" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="group-select mt-20">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{(selectedAddressGroup)? selectedAddressGroup.GroupName : "Toutes mes adresses"}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li (click)="onSelectGroup()">
+                                        <a class="pointer"> Toutes mes adresses</a>
+                                    </li>
+                                    <li *ngFor="let addressGroup of addressGroups" (click)="onSelectGroup(addressGroup)">
+                                        <a class="pointer">{{addressGroup.GroupName}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="pointer btn btn-white-tiny-nf" data-toggle="modal" data-target="#NewGroup">Créer un répertoire d'adresse</a>
+                    </div>
+                    <div class="col-sm-4 pull-right">
+                        <a href="#" (click)="addNewAddress()" class="prevent btn btn-white-tiny" data-toggle="modal" data-target="#NewAdress" title="Ajouter un destinataire">+ Ajouter un destinataire</a>
+                        <a href="#" class="prevent btn btn-white-tiny" data-toggle="modal" data-target="#PublipostageInsert" title="Ajouter des adresses à partir d'un fichier" (click)="initTabs()">+ AJOUT D'ADRESSES D'UN FICHIER</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="mess-adresses relative">
+            <div class="mes-adresses-group-name">
+                {{(selectedAddressGroup)? selectedAddressGroup.GroupName : "Toutes mes adresses"}}
+                <a *ngIf="selectedAddressGroup" class="pointer edit-group" data-target="#EditGroup" data-toggle="modal" title="Modifier le répertoire" (click)="editAddressGroupName()"><span></span></a>
+                <a *ngIf="selectedAddressGroup" class="pointer delete-group" title="Delete Group" (click)="deleteAddressGroup()"><span></span></a>
+            </div>
+            <div class="mess-adresses-header clearfix hidden-xs hidden-sm">
+                <div class="nom-header">
+                    Nom & Prénom
+                </div>
+                <div class="societe-header">
+                    Société
+                </div>
+                <div class="adresse-header">
+                    Adresse
+                </div>
+                <div class="complement-header">
+                    Complément d’adresse
+                </div>
+                <div class="code-postal-header">
+                    Code Postal
+                </div>
+                <div class="city-header">
+                    Ville
+                </div>
+                <div class="country-header">
+                    Pays
+                </div>
+                <div class="gerer-header">
+                    Gérer
+                </div>
+            </div>
+            <div class="relative">
+                <div class="no-data" *ngIf="addresses?.length == 0">Aucune donnée !</div>
+                <div class="loading-message h100 minh-50" [hidden]="!showLoading">
+                    <img src="Images/spin.svg" width="32" />
+                </div>
+                <div *ngFor="let adr of addresses | paginate: PagingConfig; let i = index" class="mess-adresses-item clearfix" [ngClass]="{'archived': adr.Deleted == true }">
+                    <div class="nom">
+                        {{adr.Firstname}} {{adr.Lastname}}
+                    </div>
+                    <div class="societe">
+                        {{adr.Company}}
+                    </div>
+                    <div class="second-informations" [hidden]="!toggle[i]">
+                        <div class="adresse">
+                            {{adr.Address1}}
+                        </div>
+                        <div class="complement">
+                            {{adr.Address2}}
+                        </div>
+                        <div class="code-postal">
+                            {{adr.ZipPostalCode}}
+                        </div>
+                        <div class="city">
+                            {{adr.City}}
+                        </div>
+                        <div class="country">
+                            {{adr.CountryID | country: countries}}
+                        </div>
+                        <a href="#" (click)="onSelect(adr)" class="prevent edit-adress" data-toggle="modal" data-target="#EditAdress" title="Modifier l'adresse">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <button (click)="archiveDestinationAddressToggle(adr)" type="button" class="archive-button">
+                            <ng-container *ngIf="adr.Deleted == true">
+                                <!--<span class="unarchive-new" popoverPlacement="top" popover="Restaurer" [popoverOnHover]="true"></span>-->
+                                <span class="glyphicon glyphicon-folder-open font18" popoverPlacement="top" popover="Restaurer" [popoverOnHover]="true"></span>
+                            </ng-container>
+                            <ng-container *ngIf="adr.Deleted == false">
+                                <span class="glyphicon glyphicon-trash font18" popoverPlacement="top" popover="Archive" [popoverOnHover]="true"></span>
+                                <!--<span class="archive-new" popoverPlacement="top" popover="Archive" [popoverOnHover]="true"></span>-->
+                            </ng-container>
+
+
+                        </button>
+                    </div>
+                    <a class="prevent arrow-down-adress visible-xs visible-sm" (click)="toggle[i] = !toggle[i]" [ngClass]="{'rotate180': toggle[i] }"><span></span></a>
+                </div>
+            </div>
+            <div class="cgv">
+                <label for="cgv">Afficher les adresses archivées <input type="checkbox" id="cgv" [checked]="showArchived" (change)="toggleShowArchived()"></label>
+            </div>
+
+
+			<pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="onPageChange($event)" id="destinaires"></pagination-controls>
+
+                <nav class="pagination-mess-adresses clearfix">
+
+                    <span class="pages-of">
+                        Afficher {{pageSize*(PagingConfig.currentPage - 1) + 1}} à {{PagingConfig.totalItems > pageSize*PagingConfig.currentPage? pageSize*PagingConfig.currentPage: PagingConfig.totalItems}} de <span>{{PagingConfig.totalItems}}</span>
+                    </span>
+                    <span class="show-number-of-items">
+                        Nombre d'enregistrement:
+                        <select [(ngModel)]="pageSize" (change)="changePageSize($event.target.value)">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                        </select>
+                    </span>
+                </nav>
+            </div>
+    </div>
+</section>
+
+<div class="modal" id="EditAdress" tabindex="-1" role="dialog" aria-labelledby="EditAdress" aria-hidden="false">
+    <div class="modal-dialog edit-adress-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="reloadAddressForm()">×</button>
+                <h3 class="modal-title blue">Modifier un destinataire</h3>
+            </div>
+            <div class="modal-body">
+                <addressFormDestination *ngIf="selectedAddress" [adr]="selectedAddress" [addressGroups]="addressGroups" [user]="user" (reloadParent)="onSelectGroup(selectedAddressGroup)"></addressFormDestination>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="NewAdress" tabindex="-1" role="dialog" aria-labelledby="NewAdress" aria-hidden="false">
+    <div class="modal-dialog new-adress-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="reloadAddressForm()">×</button>
+                <h3 class="modal-title blue">+ Ajouter un destinataire</h3>
+            </div>
+            <div class="modal-body">
+                <addressFormDestination *ngIf="selectedAddress" [adr]="selectedAddress" [addressGroups]="addressGroups" [user]="user" (reloadParent)="onSelectGroup(selectedAddressGroup)"></addressFormDestination>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="EditGroup" tabindex="-1" role="dialog" aria-labelledby="EditGroup" aria-hidden="false">
+    <div class="modal-dialog new-adress-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title blue">Modifier le répertoire</h3>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngIf="selectedAddressGroup">
+                    <div class="form-group">
+                        <label for="edit_nom_groupe">Nom du répertoire</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedAddressGroup.GroupName">
+                    </div>
+                    <div class="buttons-box">
+                        <button type="button" [disabled]="selectedAddressGroup.GroupName==''" class="btn-blue-tiny" (click)="changeGroupName()" data-dismiss="modal" aria-hidden="true">
+                            Sauvegarder
+                        </button>
+                        <button type="button" class="btn-white" data-dismiss="modal" aria-hidden="true">
+                            Annuler
+                        </button>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal in" id="PublipostageInsert" tabindex="-1" role="dialog" aria-labelledby="PublipostageInsert" aria-hidden="false">
+    <div class="modal-dialog publipostage-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" #closeModal class="close" data-dismiss="modal" aria-hidden="true" (click)="ResetUploadCSV()">×</button>
+                <h3 class="modal-title blue">AJOUT D'ADRESSES D'UN FICHIER</h3>
+            </div>
+            <div class="modal-body upload-file-errors">
+                <div class="step-box">
+                    <tabs [allowClickOnTabs]="false">
+                        <tab [tabTitle]="'1 Sélection du fichier'">
+                            <div>
+                                <div [hidden]="hideErrorMessageAdr" class="alert alert-danger" [innerHTML]="errorMessageAdr"></div>
+                                <div [hidden]="hideOkMessageAdr" class="alert alert-success">Le fichier est chargé avec succès</div>
+                            </div>
+                            <!--<div class="upload-file" *ngIf="((filesAdr.length > 0) && (uploadedCSVFile == ''));">
+                                <div class="progress-bar-container">
+                                    <div class="bar" [style.width]="filesAdr[0].progress.data.percentage + '%'" [ngClass]="{ 'green': filesAdr[0].progress.data.percentage === 100 }">{{filesAdr[0].progress.data.percentage}} %</div>
+                                </div>
+                            </div>-->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="import-box-modal" id="dropzone"
+                                         ngFileDrop
+                                         (uploadOutput)="check($event)"
+                                         [uploadInput]="uploadInput"
+                                         [ngClass]="{ 'drop-container': tree, 'is-drop-over': dragOverAdr }">
+                                        <div>
+                                            <label for="uploadfilebutton" class="prevetn import-file-btn">
+                                                <span class="glyphicon glyphicon-cloud-upload"></span>
+                                                Sélectionner ou faire glisser un fichier (CSV ou XLS)
+                                                <input type="file" #uploadfilebutton id="uploadfilebutton" style="visibility:hidden;"
+                                                       ngFileSelect
+                                                       (uploadOutput)="check($event)"
+                                                       [uploadInput]="uploadInput" multiple />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="preview-template" style="display: none;"></div>
+                            <a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+                                <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                            </a>
+                            <a href="javascript:;" class="prevent btn-blue proceed-btn" (click)="selectTab(1)" *ngIf="!hideOkMessageAdr">
+                                Continuer <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                            <div class="clear"></div>
+
+
+                        </tab>
+                        <tab [tabTitle]="'2 Adresses'" [isDisabled]="(uploadedCSVFile == '')">
+                            <div class="alert alert-danger" *ngIf="!addressForm.valid">Les adresses ne sont pas correctes. Veuillez les corriger</div>
+                            <div class="alert alert-success" *ngIf="addressForm.valid">Vous avez l'adresse correcte avec succès, vous pouvez continuer</div>
+                            <form [formGroup]="addressForm" (ngSubmit)="onSubmit(addressForm.value)" novalidate>
+                                <table class="table table-bordered address-list-publipostage type-of-adresses">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Société</th>
+                                            <th>Adresse</th>
+                                            <th>Complément d’adresse</th>
+                                            <th>Code Postal</th>
+                                            <th>Ville</th>
+                                            <th>Pays</th>
+                                            <th>Gérer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody my-tbody-forGroups *ngFor="let adr of incorrectAddresses; let i = index" [index]="i" [(adrFr)]="addressForm" [address]="adr" [countries]="countries" [(list)]="incorrectAddresses"></tbody>
+
+                                </table>
+                                <a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+                                    <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                                </a>
+                                <button type="submit" [disabled]="!addressForm.valid" class="prevent btn-blue proceed-btn">Continuer <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                <div class="clear"></div>
+                            </form>
+                        </tab>
+                        <tab [tabTitle]="'3 Répertoire'" [isDisabled]="(uploadedCSVFile == '')">
+                            <h5>Sélectionner un répertoire d'adresses</h5>
+                            <div class="form-group adress-multiselect">
+                                <div class="new-multiselect">
+                                    <div class="d-inline-block">
+                                        <leo-dropdown-treeview [config]="configAddressGroup" [items]="addressGroupsMultiselectItems" (selectedChange)="(addressGroupsMultiselectValues = $event)">
+                                        </leo-dropdown-treeview>
+                                    </div>
+                                </div>
+                                <!--<div class="alert alert-success" role="alert">
+                                    Selected address groups IDs:
+                                    <div>{{addressGroupsMultiselectValues}}</div>
+                                </div>-->
+                                <a class="pointer btn btn-white-tiny-nf pull-right" data-toggle="modal" data-target="#NewGroup">Créer un répertoire d'adresse</a>
+                                <div class="clear"></div>
+                                <a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+                                    <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                                </a>
+                                <button type="submit" (click)="selectTab(3)" class="prevent btn-blue proceed-btn">Continuer <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                <div class="clear"></div>
+                            </div>
+                        </tab>
+                        <tab [tabTitle]="'4 IMPORTER LES ADRESSES'">
+                            <div class="selected-groups">
+                                <ng-container *ngIf="(addressGroupsMultiselectValues && addressGroupsMultiselectValues.length == 0)">
+                                    <div class="alert alert-warning">
+										Aucun répertoire d'adresses sélectionné. Les adresses seront chargés sans répertoire.
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="(addressGroupsMultiselectValues && addressGroupsMultiselectValues.length != 0)">
+                                    <span>Selected groups:</span>
+                                    <ul>
+                                        <li *ngFor="let ag of addressGroups" [hidden]="!addressGroupsMultiselectValues.includes(ag.AddressGroupID)">
+                                            {{ag.GroupName}}
+                                        </li>
+                                    </ul>
+                                </ng-container>
+                            </div>
+
+                            <div class="title-modal">Prévisualisation des données destinataire</div>
+                            <table class="table table-bordered address-list-publipostage type-of-adresses">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Société</th>
+                                        <th>Adresse</th>
+                                        <th>Complément d’adresse</th>
+                                        <th>Code Postal</th>
+                                        <th>Ville</th>
+                                        <th>Pays</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let adr of previewAddress">
+                                    <tr>
+                                        <td>{{adr.FirstName}}</td>
+                                        <td>{{adr.LastName}}</td>
+                                        <td>{{adr.Company}}</td>
+                                        <td>{{adr.Address1}}</td>
+                                        <td>{{adr.Address2}}</td>
+                                        <td>{{adr.ZipPostalCode}}</td>
+                                        <td>{{adr.City}}</td>
+                                        <td>{{adr.CountryID | country: countries}}</td>
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+
+                            <a href="javascript:;" class="btn-blue back-btn" (click)="goBack()">
+                                <span class="glyphicon glyphicon-chevron-left"></span> Retour
+                            </a>
+                            <div class="btn-import-adresses clearfix">
+                                <button type="button" class="prevent btn-blue-big import-file-btn" (click)="importAddresses(); ResetUploadCSV()" data-dismiss="modal">IMPORTER LES ADRESSES <span class="glyphicon glyphicon-chevron-right"></span></button>
+                            </div>
+                        </tab>
+                    </tabs>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="NewGroup" tabindex="-1" role="dialog" aria-labelledby="NewAdress" aria-hidden="false">
+    <div class="modal-dialog new-adress-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title blue">+ Créer un répertoire d'adresse</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit_nom_groupe">Nom du répertoire</label>
+                    <input type="text" class="form-control" id="edit_nom_groupe" [(ngModel)]="newGroupName" required>
+                </div>
+                <div class="buttons-box">
+                    <button type="button" [disabled]="newGroupName==''" class="btn-blue-tiny" (click)="insertAddressGroup(newGroupName)" data-dismiss="modal" aria-hidden="true">
+                        Sauvegarder
+                    </button>
+                    <button type="button" class="btn-white" data-dismiss="modal" aria-hidden="true">
+                        Annuler
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

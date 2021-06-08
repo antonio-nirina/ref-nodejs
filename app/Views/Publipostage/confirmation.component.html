@@ -1,0 +1,63 @@
+﻿<!--<modal-reglement></modal-reglement>-->
+<section class="main-content" id="confirmation">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="steps hidden-xs hidden-sm">
+				<div class="step">1 Préparer</div>
+				<div class="step"><span class="prev-arrow"></span> 2 Prévisualiser</div>
+				<div class="step active">3 Confirmation</div>
+				<div class="clear"></div>
+			</div>
+			<div class="content">
+				<div class="confirmation-text clearfix">
+					<span class="sprite sprite-success-conf"></span>
+					<p>
+						<span>Félicitation</span>
+						Votre demande de publipostage est maintenant enregistrée. Un équipier Service Postal va prendre contact avec vous rapidement pour valider le règlement. 
+					</p>
+				</div>
+
+				<p class="email-conf">
+					Un email de confirmation vient d’être adressé à votre boîte: {{user?.Useremail}}
+				</p>
+				<div class="pull-content">
+					<div class="confirm-blocks clearfix">
+						<div class="block ml-10p">
+							<p>Publipostage <br /> soumis</p>
+							<p class="sprt"><span class="sprite sprite-first-step"></span></p>
+							<div class="track first"><span class="sprite sprite-done"></span></div>
+						</div>
+						<div class="block">
+							<p>Règlement <br /> validé</p>
+							<p class="sprt"><span class="sprite sprite-second-step"></span></p>
+							<div class="track"><span class="sprite sprite-wait"></span></div>
+						</div>
+						<div class="block">
+							<p>Impression <br /> terminée</p>
+							<p class="sprt"><span class="sprite sprite-third-step"></span></p>
+							<div class="track off"><span class="sprite sprite-dot"></span></div>
+						</div>
+						<div class="block">
+							<p>Publipostage <br /> posté</p>
+							<p class="sprt"><span class="sprite sprite-fourth-step"></span></p>
+							<div class="track off"><span class="sprite sprite-dot"></span></div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<br>
+				<br>
+			</div>
+		</div>
+		<div class="col-md-4 aside-section">
+			<aside class="sidebar banners">
+				<a href="https://www.servicepostal.com/envoyer-lettre-en-ligne/preparer-courrier" class="sp-banner" target="_blank">
+					<img src="../../../../Images/sp-banner.png" class="img-responsive" />
+				</a>
+				<a [routerLink]="['/home']" class="pp-banner">
+					<img src="../../../../Images/pp-banner.png" class="img-responsive" />
+				</a>
+			</aside>
+		</div>
+	</div>
+</section>

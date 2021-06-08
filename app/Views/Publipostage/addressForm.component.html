@@ -1,0 +1,125 @@
+﻿<form [formGroup]="addressInsertForm" (ngSubmit)="addressInsertForm.valid && onSubmit()" novalidate>
+	<div class="alert alert-danger" *ngIf="(addressInsertForm.touched && addressInsertForm.invalid) || (adr.IsPrimaryAddress && addressInsertForm.invalid)">
+
+        <div *ngIf="addressInsertForm.controls.Firstname.errors?.maxlength">
+            Prenom ne doit pas contenir plus de 18 caractères
+        </div>
+        <div *ngIf="addressInsertForm.controls.Lastname.errors?.maxlength">
+            Nom ne doit pas contenir plus de 18 caractères
+        </div>
+        <div *ngIf="addressInsertForm.controls.Company.errors?.maxlength">
+            Raison sociale ne doit pas contenir plus de 38 caractères
+        </div>
+        <div *ngIf="addressInsertForm.controls.Address1.errors?.maxlength">
+            Adresse ne doit pas contenir plus de 38 caractères
+        </div>
+
+        <div *ngIf="addressInsertForm.controls.Address2.errors?.maxlength">
+            Complément d'adresse ne doit pas contenir plus de 38 caractères
+        </div>
+        <div *ngIf="addressInsertForm.controls.ZipPostalCode.errors?.maxlength && !addressInsertForm.hasError('zipCodeLenght')">
+            Code Postal ne doit pas contenir plus de 10 caractères
+        </div>
+        <div *ngIf="addressInsertForm.controls.City.errors?.maxlength">
+            Ville ne doit pas contenir plus de 27 caractères
+        </div>
+        <div *ngIf="addressInsertForm.hasError('zipCodeLenght')">
+            Le code postal doit comporter 5 chiffres pour France
+        </div>
+        <div *ngIf="addressInsertForm.hasError('noSender')">
+            Le prénom, le nom ou la société est obligatoire
+        </div>
+        <div *ngIf="addressInsertForm.controls.Address1.hasError('required')">
+            L'adresse est obligatoire
+        </div>
+        <!--<div *ngIf="addressInsertForm.hasError['City']">
+            Le ville est obligatoire1
+        </div>-->
+        <div *ngIf="addressInsertForm.controls.City.hasError('required')">
+            Le ville est obligatoire
+        </div>
+        <div *ngIf="addressInsertForm.hasError('noCountry')">
+            Le pays est obligatoire
+        </div>
+    </div>
+	<!--  -->
+	<div class="loading-message-mon" *ngIf="isLoading">
+		<img src="Images/spin.svg" width="32" />
+	</div>
+	<div class="row font12">
+		<div class="col-sm-12">
+			<div class="mon-form">
+				<select class="form-control" [formControl]="addressInsertForm.controls['Civilite']">
+					<option [ngValue]="0">Choisir civilite</option>
+                    <option [ngValue]=null></option>
+					<option *ngFor="let x of civilites" [ngValue]="x.CiviliteID">
+						{{x.CiviliteName}}
+					</option>
+				</select>
+				<div class="row">
+					<div class="col-md-6">
+						<input type="text"  class="form-control" name="name" placeholder="Nom**" [formControl]="addressInsertForm.controls['Firstname']">
+						<!--<div *ngIf="addressInsertForm.hasError('noSender') && addressInsertForm.touched" class="help-block">Le prénom, le nom ou la société est obligatoire</div>-->
+					</div>
+					<div class="col-md-6">
+						<input type="text"  class="form-control" name="name" placeholder="Prénom**" [formControl]="addressInsertForm.controls['Lastname']">
+						<!--<div *ngIf="addressInsertForm.hasError('noSender') && addressInsertForm.touched" class="help-block">Le prénom, le nom ou la société est obligatoire</div>-->
+					</div>
+				</div>
+				<input type="text"  class="form-control" name="name" placeholder="Raison sociale**" [formControl]="addressInsertForm.controls['Company']">
+				<!--<div *ngIf="addressInsertForm.hasError('noSender') && addressInsertForm.touched" class="help-block">Le prénom, le nom ou la société est obligatoire</div>-->
+
+				<input type="text" required class="form-control" name="name" placeholder="N°, rue" [formControl]="addressInsertForm.controls['Address1']">
+				<!--<div *ngIf="addressInsertForm.controls.Address1.hasError('required') && addressInsertForm.touched" class="help-block">Address is required</div>-->
+
+				<input type="text" class="form-control" name="name" placeholder="Complément d'adresse" [formControl]="addressInsertForm.controls['Address2']">
+
+				<div class="row">
+					<div class="col-md-4">
+						<input type="text" class="form-control" name="name" placeholder="Code Postal" [formControl]="addressInsertForm.controls['ZipPostalCode']" (input)="onZipChange($event.target.value)">
+						<!--<div *ngIf="addressInsertForm.hasError('zipCodeLenght')" class="help-block">Le code postal doit comporter 5 chiffres</div>-->
+					</div>
+					<div class="col-md-8">
+						<select class="selectDest form-control" required [formControl]="addressInsertForm.controls['City']" name="selectDestName" (click)="onCitySelected()">
+							<option *ngFor="let x of cities" [ngValue]="x.Libelle">
+								{{x.Libelle}}
+							</option>
+						</select>
+						<input class="form-control ville" required maxlength="27" name="City" [formControl]="addressInsertForm.controls['City']" placeholder="Ville" tabindex="1" type="text">
+					</div>
+				</div>
+				<div class="row mob-mt-45">
+					<div class="col-md-12">
+						<select class="form-control" required [formControl]="addressInsertForm.controls['CountryID']">
+							<option [ngValue]="null">Choisir le pays, s'il vous plaît</option>
+							<option *ngFor="let x of countries" [ngValue]="x.CountryID">
+								{{x.CountryName}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<!--<div *ngIf="addressInsertForm.hasError('noCountry') && addressInsertForm.touched" class="help-block">Le pays est obligatoire</div>-->
+				<p><i>**Remplir un des champs: Nom, Prénom ou Société</i></p>
+			</div>
+		</div>
+	</div>       
+	<button type="button" *ngIf="parentContoroller != 'home'" [disabled]="(adr.IsPrimaryAddress || adr.AddressID == null)" (click)="choisirPrincipal()" class="btn-blue-tiny pointer-events-none">
+		Choisir comme expéditeur principal
+	</button>
+	<button type="button" *ngIf="parentContoroller != 'home'" [disabled]="(adr.IsPrimaryAddress || adr.AddressID == null)" (click)="deleteSenderAddress()" class="btn-blue-tiny pointer-events-none mobile-half mobile-fleft">
+		Supprimer
+	</button>
+	<button type="button" *ngIf="auth.userLoggedIn" [disabled]="!addressInsertForm.valid" (click)="onSubmitMethod()"  class="btn-blue-tiny mobile-fright">
+		Enregistrer les modifications
+	</button>
+	<button type="button" *ngIf="parentContoroller == 'home' && !auth.userLoggedIn" [disabled]="!addressInsertForm.valid" [hidden]="adr != null && adr.AddressID != null && adr.AddressID != -1" (click)="addAddrerssToMailing()"  class="btn-blue-tiny">
+		Appliquer l'expéditeur
+	</button>
+	<button type="button" *ngIf="parentContoroller == 'home' && !auth.userLoggedIn" [hidden]="adr == null || adr.AddressID == null || adr.AddressID == -1" (click)="addAddrerssToMailing()"  class="btn-blue-tiny mobile-half mobile-fright ">
+		Modifier <span class="glyphicon glyphicon-edit"></span>
+	</button>
+	<div class="clear"></div>
+</form>
+
+<!--<p>addressForm value: {{ addressForm.value | json}}</p>"
+<p>addressForm status: {{ addressForm.status | json }}</p>-->

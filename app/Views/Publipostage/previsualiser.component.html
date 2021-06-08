@@ -1,0 +1,337 @@
+﻿
+<!--<modal-reglement></modal-reglement>-->
+<section class="main-content">
+    <div class="row">
+        <div class="col-md-4 aside-section">
+            <aside class="sidebar">
+                <div class="sticky affix-top">
+                    <div *ngIf="(_model != null)">
+                        <mon-mailing [mailingGroup]="_model" [letterTypes]="letterTypes" [dateLaPoste]="dateString" [parentContoroller]="controllerName"></mon-mailing>
+                        <!--<a id="envoyer" class="btn-blue-big mb-10" data-toggle="modal" data-target="#payment">Payer et envoyer</a>-->
+                        <!--<div class="prix" id="montant"> PRIX estimate total all letters {{_model.PriceEstimate}}€ HT<br>--><!--<small>7.14€ TTC pour les particuliers</small></div>-->
+                        <!--<button id="envoyer" class="btn-blue-big mb-10" (click)="confirmPublipostage()">Confirmation</button>-->
+                        <div class="schedule-date">
+
+
+                            <div class="send-or-pay">
+                                <confirmation-login [(redirect_route)]="redirect_route" (outputEvent)="onComponentChange($event)"></confirmation-login>
+                            </div>
+                            <div class="pull-right delay-sending" [ngClass]="{'opened-date': showDelaySending}">
+                                <a href="javascript:;" class="prevent btn btn-primary" (click)="showDelaySending = !showDelaySending">
+                                    <i class="arrow-down-delay "></i>
+                                    <span class="mobile-sprite mobile-sprite-delay"></span>
+                                </a>
+                            </div>
+                            <div class="clear"></div>
+
+                            <div class="show-schedule-date">
+                                <div [ngClass]="{'opened-box-date': showDelaySending}">
+                                    <span type="button" class="close-schedule-date" aria-hidden="true" (click)="showDelaySending = !showDelaySending">x</span>
+                                    <fieldset>
+                                        <legend><b> Décaler la date d'envoi </b></legend>
+
+                                        <div class="input-schedule">
+                                            <button *ngIf="!isScheduled" type="button" class="btn-orange" (click)="setScheduleDate()">PLANIFIER</button>
+                                            <button *ngIf="isScheduled" type="button" class="btn-orange" (click)="dp.clearDate(); cancelScheduledDate();">ANNULLER</button>
+                                            <div class="input-group">
+                                                <input class="form-control" style="float:none" placeholder="Décaler la date d'envoi" ngx-mydatepicker name="mydate"
+                                                       [(ngModel)]="ScheduledDate" [options]="dateOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)" [readonly]="true" />
+
+                                                <span class="input-group-btn">
+                                                    <!--<button *ngIf="isScheduled" type="button" class="btn btn-default" (click)="dp.clearDate(); cancelScheduledDate();">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </button>-->
+                                                    <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()" [disabled]="isScheduled">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+</aside>
+        </div>
+        <div class="col-md-8">
+            <div class="steps hidden-xs hidden-sm">
+                <a [routerLink]="['/home']">
+                    <div class="step">1 Préparer</div>
+                </a>
+                <div class="step active"><span class="prev-arrow"></span> 2 Prévisualiser <span class="next-arrow"></span></div>
+                <a href="javascript:;" id="previsuliserLink" popoverPlacement="bottom" popover="Se connecter pour accéder"
+                   [popoverOnHover]="!auth.userLoggedIn" 
+                   [ngClass]="{'disableLink': true}" 
+                   (click)="confirmPublipostage()">
+                    <div class="step">3 Confirmation</div>                    
+                    <div class="clear"></div>
+                </a>
+                              
+            </div>
+            <div class="content">
+                <div class="heading">
+                    <h2>PRÉVISUALISER VOTRE COURRIER</h2>
+                    <input type="hidden" name="timerMes" id="timerMes" value="En finalisant votre courrier maintenant, il sera posté aujourd'hui avant 18h">
+                    <h3 class="blue"> En finalisant votre courrier <span id="cntdwn">avant  <b>28</b>mn <b>7</b>s, </span>il <span id="postheader">sera posté aujourd'hui avant 18h</span></h3>
+                    <hr>
+                </div>
+                <ul class="bullets">
+                    <li class="first">
+                        <h3 class="blue">Vos Documents</h3>
+                        <div id="pdf-preview" class="hidden-xs">
+
+                            <iframe frameborder="0" width="100%"  webkitallowfullscreen mozallowfullscreen allowfullscreen height="600" [attr.src]="hrefUrl" type="application/pdf"></iframe>
+
+                            <!--<embed src="hrefUrl" width="100%" />-->
+                        </div>
+                        <div class="navDoc hidden-xs">
+							<ul>
+								<li>
+									<a href="javascript:;" class="prevent first-page" id="leftArrowFirst" (click)="first()">
+										<span class="glyphicon glyphicon-backward"></span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="prevent previous-page" id="leftArrow" (click)="previous()">
+										<span class="glyphicon glyphicon-triangle-left"></span>
+									</a>
+								</li>
+								<li>
+									<input type="number" min="1" max="4" name="inputIndex" value="{{letterNumber}}" id="inputIndex" onchange="updateIFrame(this)">
+								</li>
+								<li>
+									<a href="javascript:;" class="prevent next-page" id="rightArrow" (click)="next()">
+										<span class="glyphicon glyphicon-triangle-right"></span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="prevent last-page" id="rightArrowLast" (click)="last()">
+										<span class="glyphicon glyphicon-forward"></span>
+									</a>
+								</li>
+							</ul>
+                        </div>
+						<div class="show-download-files static">
+							<a [href]="hrefUrl" [download]="hrefName">
+								<span class="glyphicon glyphicon-download-alt"></span> Télécharger le document
+							</a>
+						</div>
+                   
+                    </li>
+                    <li *ngIf="(_model != null &&_model.LetterTypeID < 3)">
+                        
+                        <h3 class="blue">Votre formulaire</h3>
+                        <div class="formulaire hidden-xs hidden-sm" [ngClass]="{'type2': _model?.LetterTypeID == 2}">
+                            <div class="field clientref" *ngIf="selectedLetter.ClientReference != null">
+                                <input id="letter_OrdinaryLetter_ClientReference" name="letter.OrdinaryLetter.ClientReference" placeholder="INSÉRER UNE RÉF. CLIENT" type="text" [ngModel]="selectedLetter.ClientReference">
+                            </div>
+                            <div class="field clientref-left">
+                                {{selectedLetter?.Destination?.Address?.Company}}
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Lastname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address 
+                                          && selectedLetter.Destination.Address.Company">
+                                        <br>{{selectedLetter?.Destination?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address 
+                                          && !selectedLetter.Destination.Address.Company">
+                                        {{selectedLetter?.Destination?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                  
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Firstname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Lastname">
+                                        {{selectedLetter?.Destination?.Address?.Firstname}}
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && !selectedLetter.Destination.Address.Lastname">
+                                        <br>{{selectedLetter?.Destination?.Address?.Firstname}}
+                                    </span>
+                                </span>
+                                <br>{{selectedLetter?.Destination?.Address?.Address1}}
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Address2 ">
+                                    <br>{{selectedLetter?.Destination?.Address?.Address2}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && (selectedLetter.Destination.Address.ZipPostalCode ||
+                                    selectedLetter.Destination.Address.City )">
+                                    <br>{{selectedLetter?.Destination?.Address?.ZipPostalCode}}&nbsp;{{selectedLetter?.Destination?.Address?.City}}
+                                </span>
+
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && 
+                                      selectedLetter.Destination.Address && 
+                                      selectedLetter.Destination.Address.CountryID && 
+                                       selectedLetter.Destination.Address.CountryID !=1">
+                                    <br>{{selectedLetter?.Destination?.Address?.CountryID | country: countries}}
+                                </span>
+                            </div>
+                            <div class="field clientref-left-top">
+                                {{selectedLetter?.Sender?.Address?.Company}}
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Lastname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Company">
+                                        <br>{{selectedLetter?.Sender?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && 
+                                          !selectedLetter.Sender.Address.Company">
+                                        {{selectedLetter?.Sender?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                   
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Firstname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Lastname">
+                                        {{selectedLetter?.Sender?.Address?.Firstname}}
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && !selectedLetter.Sender.Address.Lastname">
+                                        <br> {{selectedLetter?.Sender?.Address?.Firstname}}
+                                    </span>
+                                </span>
+
+                                <br>{{selectedLetter?.Sender?.Address?.Address1}}
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Address2 ">
+                                    <br>{{selectedLetter?.Sender?.Address?.Address2}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && (selectedLetter.Sender.Address.ZipPostalCode ||
+                                    selectedLetter.Sender.Address.City )">
+                                    <br>{{selectedLetter?.Sender?.Address?.ZipPostalCode}}&nbsp;{{selectedLetter?.Sender?.Address?.City}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && 
+                                      selectedLetter.Sender.Address && 
+                                      selectedLetter.Sender.Address.CountryID && 
+                                       selectedLetter.Sender.Address.CountryID !=1">
+                                    <br>{{selectedLetter?.Sender?.Address?.CountryID | country: countries}}
+                                </span>
+                            </div>
+                        </div>
+                        <a href="#" class="download-document visible-xs visible-sm">
+                            <span></span> Télécharger l'aperçu du formulaire
+                        </a>
+                    </li>
+                    <li class="last">
+                        
+                        <h3 class="blue">Votre enveloppe</h3>
+                        <!--<div Class="envelope hidden-xs recommande-ar">-->
+                        <div [ngClass]="{'hidden-xs': true, 'envelope': true, 'recommande-ar': _model?.LetterTypeID == 1, 'recommande': _model?.LetterTypeID == 2, 'prioritaire': _model?.LetterTypeID == 3, 'verte': _model?.LetterTypeID == 4, 'ecopli': _model?.LetterTypeID == 5, 'suivi': _model?.LetterTypeID == 6 }">
+                            <div id="senderLogo" class="senderlogo"></div>
+                            <div class="field flrar" *ngIf="recommande"> RECOMMANDE</div>
+
+                            <div class="field fr1ar" *ngIf="r1ar"> R1 &nbsp;AR</div>
+                            <div class="field fr1" *ngIf="r1"> R1 </div>
+                            <div class="field flp" *ngIf="flp"> LETTRE</div>
+                            <div class="field fprioritaire" *ngIf="prioritaire"> PRIORITAIRE</div>
+                            <div class="field flv" *ngIf="flv">LETTRE</div>
+                            <div class="field fverte" *ngIf="verte">VERTE</div>
+                            <div class="field fecopli" *ngIf="ecopli">ECOPLI</div>
+                            <div class="field fsuivi" *ngIf="suivi">SUIVI</div>
+                            <!--<div class="field fdate"> {{ScheduledDate == null? (estimateDateLaPoste | date:'dd-MM-yyyy') : ScheduledDate.formatted}}</div>-->
+                            <div class="field fdate"> {{estimateDateLaPoste | date:'dd-MM-yyyy'}}</div>
+                            <div class="field famount"> {{selectedLetter?.PricePostOffice}}</div>
+                            <div *ngIf="_model != null && _model.SenderNotPrinted == false" class="field text-left fadress">
+                                {{selectedLetter?.Sender?.Address?.Company}}
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Lastname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Company">
+                                        <br>{{selectedLetter?.Sender?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address &&
+                                          !selectedLetter.Sender.Address.Company">
+                                        {{selectedLetter?.Sender?.Address?.Lastname}}&nbsp;
+                                    </span>
+
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Firstname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Lastname">
+                                        {{selectedLetter?.Sender?.Address?.Firstname}}
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && !selectedLetter.Sender.Address.Lastname">
+                                        <br> {{selectedLetter?.Sender?.Address?.Firstname}}
+                                    </span>
+                                </span>
+                                <br>{{selectedLetter?.Sender?.Address?.Address1}}
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && selectedLetter.Sender.Address.Address2 ">
+                                    <br>{{selectedLetter?.Sender?.Address?.Address2}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && selectedLetter.Sender.Address && (selectedLetter.Sender.Address.ZipPostalCode ||
+                                    selectedLetter.Sender.Address.City )">
+                                    <br>{{selectedLetter?.Sender?.Address?.ZipPostalCode}}&nbsp;{{selectedLetter?.Sender?.Address?.City}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Sender && 
+                                      selectedLetter.Sender.Address && 
+                                      selectedLetter.Sender.Address.CountryID && 
+                                       selectedLetter.Sender.Address.CountryID !=1">
+                                    <br>{{selectedLetter?.Sender?.Address?.CountryID | country: countries}}
+                                </span>
+                              
+                                <!--<div class="previsualiser-lettertype"> LRAR </div>-->
+                            </div>
+                            <div class="field text-left famountpreuve"> <img src="/Images/qr-code.jpg" width="16"> <span> {{selectedLetter?.PricePostOffice}} - 383388 - {{countPapers(selectedLetter?.NumberOfPages)}}f-{{selectedLetter?.NumberOfPages}} </span></div>
+                            <div class="field text-left fdestadress">
+                                {{selectedLetter?.Destination?.Address?.Company}}
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address &&
+                                       selectedLetter.Destination.Address.Lastname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address 
+                                          && selectedLetter.Destination.Address.Company">
+                                        <br>{{selectedLetter?.Destination?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address 
+                                          && !selectedLetter.Destination.Address.Company">
+                                        {{selectedLetter?.Destination?.Address?.Lastname}}&nbsp;
+                                    </span>
+                                  
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Firstname">
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Lastname">
+                                        {{selectedLetter?.Destination?.Address?.Firstname}}
+                                    </span>
+                                    <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && !selectedLetter.Destination.Address.Lastname">
+                                        <br>{{selectedLetter?.Destination?.Address?.Firstname}}
+                                    </span>
+                                </span>
+                                <br>{{selectedLetter?.Destination?.Address?.Address1}}
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && selectedLetter.Destination.Address.Address2 ">
+                                    <br>{{selectedLetter?.Destination?.Address?.Address2}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Destination && selectedLetter.Destination.Address && (selectedLetter.Destination.Address.ZipPostalCode ||
+                                    selectedLetter.Destination.Address.City )">
+                                    <br>{{selectedLetter?.Destination?.Address?.ZipPostalCode}}&nbsp;{{selectedLetter?.Destination?.Address?.City}}
+                                </span>
+                                <span *ngIf="selectedLetter && selectedLetter.Destination &&
+                                      selectedLetter.Destination.Address &&
+                                      selectedLetter.Destination.Address.CountryID &&
+                                       selectedLetter.Destination.Address.CountryID !=1">
+                                    <br>{{selectedLetter?.Destination?.Address?.CountryID | country: countries}}
+                                </span>
+                                
+                            </div>
+                        </div>
+
+                        <a href="#" class="download-document visible-xs">
+                            <span></span> Télécharger la envelope
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--<div class="modal fade" id="MainAddressModal" tabindex="-1" role="dialog" aria-labelledby="MainAddressModal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">MODIFIER ADRESSE PRINCIPALE</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+					In order to proccess this Publipostage, please fill all mandatory fields
+				</p>
+				<adress-principale></adress-principale>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn-blue" [disabled]="!addressInsertForm.valid" (click)="onSubmitMethod()">SAUVEGARDER</button>
+			</div>
+		</div>
+	</div>
+</div>-->

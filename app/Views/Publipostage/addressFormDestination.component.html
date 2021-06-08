@@ -1,0 +1,114 @@
+﻿<form [formGroup]="addressForm" (ngSubmit)="addressForm.valid && onSubmit()" novalidate>
+    <div class="alert alert-danger" *ngIf="addressForm.invalid || serverError">
+        <div *ngIf="addressForm.hasError('noSender')">
+            Le prénom, le nom ou la société est obligatoire
+        </div>
+        <div *ngIf="addressForm.controls.Address1.hasError('required')">
+			L'adresse est nécessaire
+        </div>
+        <div *ngIf="addressForm.hasError('zipCodeLenght')">
+            Le code postal doit comporter 5 chiffres
+        </div>
+        <!--<div *ngIf="addressForm.hasError['City']">
+            Le ville est obligatoire1
+        </div>-->
+        <div *ngIf="addressForm.controls['City'].value == '' || addressForm.controls['City'].value == null">
+            Le ville est obligatoire
+        </div>
+        <div *ngIf="addressForm.hasError('noCountry')">
+            Le pays est obligatoire
+        </div>
+        <div *ngIf="serverError">
+            Le serveur ne peut pas accepter ces données
+        </div>
+    </div>
+    <!--  -->
+    <div class="adress-form-box">
+        <div class="adress-form-content">
+
+            <div class="form-group">
+                <label for="edit_Pays">Civilite</label>
+                <select class="form-control" [formControl]="addressForm.controls['Civilite']">
+                    <option [ngValue]=null></option>
+                    <option *ngFor="let x of civilites" [ngValue]="x.CiviliteID">
+                        {{x.CiviliteName}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="edit_nom">Nom</label> 
+                <input type="text" class="form-control" maxlength="18" [formControl]="addressForm.controls['Firstname']">
+            </div>
+            <div class="form-group"> 
+                <label for="edit_prenom">Prénom</label> 
+                <input type="text" class="form-control" maxlength="18" [formControl]="addressForm.controls['Lastname']">
+            </div>
+
+            <div class="form-group"> 
+                <label for="edit_societe">Société</label> 
+                <input type="text" class="form-control" maxlength="38" [formControl]="addressForm.controls['Company']">
+            </div>
+
+            <div class="form-group">
+                <label for="edit_Adresse">Adresse</label>
+                <input type="text" required class="form-control" maxlength="38" [formControl]="addressForm.controls['Address1']">
+            </div>
+
+            <div class="form-group">
+                <label for="edit_Adresse2">Complément d’adresse</label>
+                <input type="text" class="form-control" maxlength="38" [formControl]="addressForm.controls['Address2']">
+            </div>
+
+            <div class="form-group">
+                <label for="CodePostal">Code Postal</label>
+                <input type="text" class="form-control" maxlength="10" [formControl]="addressForm.controls['ZipPostalCode']" (input)="onZipChange($event.target.value)">
+            </div>
+
+            <div class="form-group">
+                <label for="edit_City">Ville</label>
+                <div class="relative h34">
+                    <select class="selectDest2 form-control" required [formControl]="addressForm.controls['City']" (click)="onCitySelected()">
+                        <option *ngFor="let x of cities" [ngValue]="x.Libelle">
+                            {{x.Libelle}}
+                        </option>
+                    </select>
+                    <input class="form-control ville" required maxlength="27" [formControl]="addressForm.controls['City']" tabindex="1" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="edit_Pays">Pays</label>
+                <select class="form-control" required [formControl]="addressForm.controls['CountryID']">
+                    <option *ngFor="let x of countries" [ngValue]="x.CountryID">
+                        {{x.CountryName}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group adress-multiselect">
+                <label for="insert">Ajouter/retirer un ou plusieurs groupes d'adresses</label>
+                <div class="new-multiselect">
+                    <div class="d-inline-block">
+                        <leo-dropdown-treeview [config]="configAddressGroup" [items]="addressGroupsMultiselectItems" (selectedChange)="addressGroupsMultiselectValues = $event">
+                        </leo-dropdown-treeview>
+                    </div>
+                </div>
+                <!--<div class="alert alert-success" role="alert">
+                    Selected address groups IDs:
+                    <div>{{addressGroupsMultiselectValues}}</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="buttons-box">
+        <button [disabled]="!addressForm.valid" type="button" (click)="onSubmitMethod()" class="btn-blue-tiny" aria-hidden="true">
+            Sauvegarder
+        </button>
+        <button type="button" class="btn-white" data-dismiss="modal" aria-hidden="true" #closeDestinationModal (click)="ngOnChanges()">
+            Annuler
+        </button>
+    </div>
+    <div class="clear"></div>
+</form>
+
+
+<!--<p>addressForm value: {{ addressForm.value | json}}</p>
+<p>addressForm status: {{ addressForm.status | json }}</p>-->

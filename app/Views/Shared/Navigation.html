@@ -1,0 +1,105 @@
+﻿<nav>
+    <ul class="clearfix">
+        <li *ngIf="auth.userLoggedIn"><a [routerLink]="['/home']" (click)="newMailingGroup()" class="btn-white-menu" style="width:167px;">Nouveau mailing</a></li>
+        <li *ngIf="auth.userLoggedIn"><a [routerLink]="['/mesMailing']" class="btn-white-menu"   style="width:129px;">Mes mailing</a></li>
+        <li *ngIf="auth.userLoggedIn" class="dropdown">
+			<button href="javascript:void(0);" class="btn-white-menu dropdown-toggle" type="button" id="showMessAdresses" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="width:135px;">Mes Adresses 
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="showMessAdresses">
+				<li><a [routerLink]="['/expediteurs']">Expéditeurs</a></li>
+				<li><a [routerLink]="['/mesAdresses']">Destinataires</a></li>
+			</ul>
+		</li>
+
+        <li *ngIf="auth.userLoggedIn"><a [routerLink]="['/devis']" class="btn-white-menu" style="width:132px;">Devis</a></li>
+        <li *ngIf="!auth.userLoggedIn"><a [routerLink]="['/home']" (click)="newMailingGroup()" class="btn-white-menu" style="width:167px;">Nouveau mailing</a></li>
+        <li *ngIf="!auth.userLoggedIn"><a data-target="#LoginModal" (click)="savelink('mesMailing')" data-toggle="modal" class="btn-white-menu disabled pointer" popoverPlacement="top" popover="Se connecter pour accéder" [popoverOnHover]="true" style="width:129px;">Mes mailing</a></li>
+        <li *ngIf="!auth.userLoggedIn"><a data-target="#LoginModal" (click)="savelink('mesAdresses')" data-toggle="modal" class="btn-white-menu disabled pointer" popoverPlacement="top" popover="Se connecter pour accéder" [popoverOnHover]="true" style="width:135px;">Mes Adresses <span class="caret"></span></a></li>
+        <!--<li><a data-target="#LoginModal" (click)="savelink('monCompte')"  data-toggle="modal" class="btn-white-menu disabled pointer"   popoverPlacement="top" popover="Se connecter pour accéder" [popoverOnHover]="true" style="width:132px;">Mon Compte</a></li>-->
+        <li *ngIf="!auth.userLoggedIn"><a [routerLink]="['/devis']" class="btn-white-menu" style="width:132px;">Devis</a></li>
+        <li class="aide"><a [routerLink]="['/aide']" class="btn-white-menu pull-right" style="width:120px;">Aide</a></li>
+        <li id="ddContact" class="right-menu half-size relative dropdown mr-0">
+            <button type="button" class="prevent btn-white-menu dropdown-toggle" id="contact2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contact <span class="caret"></span></button>
+            <div class="dropdown-menu" id="contact" aria-labelledby="contact2">
+                <form name="form" (ngSubmit)="f.form.valid && sendEmail()" #f="ngForm" novalidate>
+                    <div class="frame">
+                        <div class="loading" style="display: none;">
+                            <img src="/Images/ajax-loading.gif" width="40" height="40" alt="">
+                        </div>
+                        <h4>Contact</h4>
+                        <p class="color">Nous écrire par mail</p>
+                        <p>
+                            Pour nous contacter, renseigner les champs
+                            suivants et cliquer sur envoyer.
+                        </p>
+                        <hr>
+                        <!--<p  class="alert alert-success"></p>-->
+
+                        <div class="relative message-info-box">
+                            <div id="infoMessage" class="message-contact" [hidden]="!removeMesg">
+                                <p class="alert alert-success mb-40">
+                                    {{model.message}} <br />
+                                    Merci de nous avoir contacté. <br />
+                                    Votre adresse e-mail vient de nous être transmises
+
+                                </p>
+                                <p>
+                                    Si vous souhaitez envoyer un deuxième message veuillez cliquer ici pour <a href="#" class="prevent bold-mont" (click)="removeMesg = !removeMesg">nous contacter</a>
+                                </p>
+
+                            </div>
+
+                            <label>Destinataire</label>
+
+                            <input class="form-control" [(ngModel)]="model.emailTo" #emailTo="ngModel" name="emailTo" type="text" disabled>
+                            <label>Vos coordonnées</label>
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !FullName.valid }">
+                                <input class="form-control" required [(ngModel)]="model.FullName" #FullName="ngModel" name="FullName" placeholder="Prenom, Nom *" type="text">
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !Subject.valid }">
+                                <input class="form-control" required [(ngModel)]="model.Subject" #Subject="ngModel" name="Subject" placeholder="Sujet *" type="text">
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !uemail.valid }">
+                                <input class="form-control" email="true" required [(ngModel)]="model.uemail" #uemail="ngModel" name="uemail" placeholder="Adresse Email *" type="text">
+                                <div *ngIf="f.submitted && uemail.errors?.email" class="help-block">Adresse Email invalide</div>
+                            </div>
+
+                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !EmailContent.valid }">
+                                <textarea class="form-control" required cols="30" [(ngModel)]="model.EmailContent" #EmailContent="ngModel" name="EmailContent" rows="5"></textarea>
+                            </div>
+
+
+
+                            <div class="form-group clearfix">
+                                <span class="small">* champs obligatoires</span>
+                                <button [disabled]="loading" [hidden]="removeMesg" class="btn-blue pull-right">Envoyer</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                                <!--<a [routerLink]="['/login']" class="btn btn-link">Cancel</a>-->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="frame-blue">
+                        <h4>Nous contacter par téléphone</h4>
+                        <p>
+                            Pour nous contacter par téléphone, appellez nous au
+                            <span>09 50 09 50 00 </span> (15cts/mn) du lundi au vendredi
+                            (hors jours fériés) de 09h00 à 18h00.
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li class="right-menu half-size"><a class="btn-white-menu" href="#" data-target="#videoTutorial" data-toggle="modal">Découvrir</a></li>
+        <!--<li class="pull-right"><a [routerLink]="['/aide']" class="btn-white-menu pull-right" style="width:120px;">Aide</a></li>-->
+    </ul>
+</nav>
+
+
+
+<modal-login></modal-login>

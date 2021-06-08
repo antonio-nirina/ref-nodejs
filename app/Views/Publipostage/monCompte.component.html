@@ -1,0 +1,615 @@
+﻿<div class="gradient-bg-new montserrat">
+	<section class="main-content mon-compte-page">
+
+		<div class="new-wrapper">
+			<div class="welcome-title clearfix">
+
+				<!-- ngIf="" if user has subscription -->
+				<div *ngIf="subscription != null" class="account-type">
+					ABONNEMENT {{subname}}
+					<span class="account-type-date">
+						<span class="glyphicon glyphicon-calendar"></span> DATE D'ABONNEMENT : {{subscription.SubscriptionDate | datex:''}}
+					</span>
+				</div>
+				Bienvenue <strong class="bold-mont blue-color">{{_model.FirstName}} {{_model.LastName}}</strong>
+			</div>
+
+			<a href="https://www.servicepostal.com/" class="blue-box-bg">
+				<div class="row">
+					<div class="col-md-5 col-sm-6">
+						<div class="blue-box-bg-title">
+							J’envoie <strong class="bold-mont">mes</strong> <span class="orange-color">lettres recommandees</span> <br />
+							<strong class="semibold-mont">depuis chez moi en 2 minutes chrono</strong>
+							<p class="blue-box-bg-subtitle mt-10">
+								<img src="../../../../Images/ServicePostal-128x128t.png" alt="Service Postal un clic" class="img-responsive" />
+							</p>
+						</div>
+					</div>
+					<div class="col-md-7 col-sm-6">
+						<div class="blue-box-bg-img relative">
+							<img src="../../../../Images/unclic.png" alt="Service Postal un clic" class="img-responsive" />
+						</div>
+					</div>
+				</div>
+			</a>
+
+			<div class="tabs-content-wrapper">
+				<div class="smaller-gutter">
+					<ul class="row" role="tablist">
+						<li role="presentation" class="col-md-4  active" [ngClass]="{'col-md-3': subscription != null}">
+							<a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab" class="tabs-content-links">
+								<span class="new-sprite-publi new-sprite-publi-gear"></span> PARAMÈTRES DU COMPTE
+								<i class="arrow-top-show"></i>
+							</a>
+						</li>
+						<li *ngIf="subscription != null" role="presentation" class="col-md-3">
+							<a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab" class="tabs-content-links">
+								<span class="new-sprite-publi new-sprite-publi-invoices"></span> FACTURES
+								<i class="arrow-top-show"></i>
+							</a>
+						</li>
+						<li role="presentation" class="col-md-4" [ngClass]="{'col-md-3': subscription != null}">
+							<a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" class="tabs-content-links">
+								<span class="new-sprite-publi new-sprite-publi-gear"></span> préférences d'envoi
+								<i class="arrow-top-show"></i>
+							</a>
+						</li>
+                        <li role="presentation" class="col-md-4" [ngClass]="{'col-md-3': subscription != null}">
+                            <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" class="tabs-content-links">
+                                <span class="new-sprite-publi new-sprite-publi-gear"></span> Adresse principale
+                                <i class="arrow-top-show"></i>
+                            </a>
+                        </li>
+					</ul>
+				</div>
+				<div class="tab-content tabs-content-box">
+					<div role="tabpanel" class="tab-pane active" id="tab1">
+						<div class="tabs-content-boxes relative">
+							<div class="tabs-content-boxes-title">
+								MODIFIER LES INFORMATIONS D'IDENTIFICATION
+							</div>
+							<div class="tabs-content-boxes-section">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="information-box">
+											<div class="information-box-title">
+												<span class="new-sprite-publi new-sprite-publi-email"></span> ADRESSE EMAIL
+											</div>
+
+											<div class="form-group relative">
+												<input type="text" class="new-form-control disabled" name="name" [(ngModel)]="_model.Useremail" disabled/>
+												<span class="new-sprite-publi new-sprite-publi-email-grey"></span>
+											</div>
+											<form name="formEmail" #fEmail="ngForm" novalidate>
+												<div class="form-group relative" [ngClass]="{ 'has-error': fEmail.submitted && !username.valid }">
+													<input type="text" class="new-form-control" email="true" name="username" [(ngModel)]="newEmail" #username="ngModel" placeholder="Nouvelle adresse Email" required />
+													<div *ngIf="fEmail.touched && username.errors?.email" class="help-block-error">Adresse Email invalide</div>
+													<span class="new-sprite-publi new-sprite-publi-email-grey"></span>
+												</div>
+                                                <div [hidden]="hideErrorMessageEmail || newEmail!='' || oldPassword!='' || newPassword!=''" class="alert alert-danger" [innerHTML]="errorMessageEmail">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                </div>
+                                                <div [hidden]="hideOkMessageEmail || newEmail!='' || oldPassword!='' || newPassword!=''" class="alert alert-success">
+													Votre adresse e-mail a été changée
+                                                </div>
+												<div class="form-group">
+													<button type="button" class="btn-blue-new mt-20" [disabled]="!fEmail.form.valid" (click)="setNewEmail()">ENREGISTRER LES MODIFICATIONS</button>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="information-box">
+											<div class="information-box-title">
+												<span class="new-sprite-publi new-sprite-publi-pass"></span> MOT DE PASSE
+											</div>
+											<form name="formPassword" #fPass="ngForm" novalidate>
+												<div class="form-group relative">
+													<input type="password" class="new-form-control" name="name" placeholder="Mot de passe actuel" [(ngModel)]="oldPassword" #oldpassword="ngModel" required />
+													<span class="new-sprite-publi new-sprite-publi-pass-grey"></span>
+												</div>
+												<div class="form-group relative">
+													<input type="password" class="new-form-control" name="name" placeholder="Nouveau mot de passe" [(ngModel)]="newPassword" #newpassword="ngModel" required />
+													<span class="new-sprite-publi new-sprite-publi-pass-grey"></span>
+												</div>
+                                                <div [hidden]="hideErrorMessagePassword || oldPassword!='' || newPassword!='' || newEmail!=''" class="alert alert-danger" [innerHTML]="errorMessagePassword">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                </div>
+                                                <div [hidden]="hideOkMessagePassword || oldPassword!='' || newPassword!='' || newEmail!=''" class="alert alert-success">
+													Votre mot de passe a été changé
+                                                </div>
+												<div class="form-group">
+													<button type="button" class="btn-blue-new mt-20" [disabled]="!fPass.touched || oldPassword == '' || newPassword == ''" (click)="setNewPassword()">ENREGISTRER LES MODIFICATIONS</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div *ngIf="subscription != null" role="tabpanel" class="tab-pane" id="tab2">
+						<div class="tabs-content-boxes relative">
+
+							<div class="tabs-content-boxes-title">
+								MES FACTURES MENSUELLES
+							</div>
+                            <div class="loading-message opacity-load h100" [hidden]="!showLoading">
+                                <img src="Images/spin.svg" width="32" />
+                            </div>
+                            <a #downloadFacture [href]="hrefFactureUrl" [download]="hrefFactureName" [hidden]="true" class="download-document"></a>
+							<div class="tabs-content-boxes-section padd20-0">
+								<div class="row">
+									<div class="col-md-7 col-lg-6 col-sm-6">
+										<div class="row select-year">
+											<div class="col-md-6">
+												<label>Sélectionner une année pour voir les factures correspondantes:</label>
+											</div>
+											<div class="col-md-6">
+												<select class="form-control" (change)="getFactureMonths($event.target.value);facturesYear = $event.target.value">
+													<!--<option [value]="2018">2018</option>
+													<option [value]="2017">2017</option>
+													<option [value]="2016">2016</option>
+													<option [value]="2015">2015</option>-->
+
+													<option *ngFor="let year of allYears" [ngValue]="year" [selected]="year == lastyear">
+														{{year}}
+													</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6 col-md-5 col-lg-6 col-sm-6">
+										<div class="factures-box">
+											<div class="factures-box-title">
+												factures {{facturesYear}}
+											</div>
+											<div class="" *ngFor="let month of factureMonths">
+												<div class="factures-item">
+													<span class="glyphicon glyphicon-eye-open" (click)="getFacture(month.value, facturesYear)"></span> {{month.name | capitalize}}
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="tab3">
+						<div class="tabs-content-boxes">
+							<div class="alert alert-success" [hidden]="!showChangeMsgDoc">
+								Les préférences ont été enregistrées
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="factures-box">
+										<div class="factures-box-title">
+											PRÉFÉRENCES DOCUMENT
+										</div>
+										<div class="pref-item-box mt-20">
+											<!--<div class="title-pref blue-color">
+												Lorsque j'envoie un courrier...
+											</div>
+											<p>
+												Ajouter à mon carnet d'adresses les
+												nouveaux destinataires et expéditeurs :
+											</p>
+											<label for="pref-oui">
+												<input type="radio" id="pref-oui" name="23"> Oui, toujours ajouter
+											</label>
+											<label for="pref-no">
+												<input checked="checked" id="pref-no" name="23" type="radio"> Non, ne jamais les ajouter
+											</label>
+											<label for="pref-quoi">
+												<input  type="radio" id="pref-quoi" name="23"> Me demander quoi faire, à chaque fois
+											</label>
+											<hr>
+											<div class="title-pref blue-color">
+												Mon type de courrier habituel est
+											</div>
+											
+											<select class="form-control">
+												<option selected="selected" value="1">Lettre recommandée avec AR</option>
+												<option value="2">Lettre recommandée sans AR</option>
+												<option value="3">Lettre prioritaire</option>
+												<option value="4">Lettre Verte</option>
+												<option value="5">Lettre simple ecopli</option>
+											</select>
+											<hr>-->
+											<div class="title-pref blue-color">
+												Options d'impression des documents
+											</div>
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="pref-blanc">
+                                                        <input type="radio" name="color" id="pref-blanc" [(ngModel)]="preferences.ColorID" [value]="0" (ngModelChange)="updatePreferences()" />En noir et blanc
+													</label>
+													<!--<label for="pref-pas">
+														<input type="radio" id="pref-pas"> Pas de préférence
+													</label>-->
+												</div>
+												<div class="col-xs-6">
+													<label for="pref-color">
+                                                        <input type="radio" name="color" id="pref-color" [(ngModel)]="preferences.ColorID" [value]="1" (ngModelChange)="updatePreferences()" /> En couleur
+													</label>
+												</div>
+											</div>
+											<hr>
+											<div class="title-pref blue-color">
+												Options d'impression des documents
+											</div>
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="pref-recto">
+                                                        <input type="radio" name="recto" id="pref-recto" [(ngModel)]="preferences.RectoVersoID" [value]="0" (ngModelChange)="updatePreferences()" />Recto
+													</label>
+													<!--<label for="pref-pas2">
+														<input  type="radio" id="pref-pas2"> Pas de préférence
+													</label>-->
+												</div>
+												<div class="col-xs-6">
+													<label for="pref-rectov">
+                                                        <input type="radio" name="recto" id="pref-rectov" [(ngModel)]="preferences.RectoVersoID" [value]="1" (ngModelChange)="updatePreferences()" />Recto-verso
+													</label>
+												</div>
+											</div>
+											<hr>
+                                            <div class="title-pref blue-color">
+												Options pour l'annexe liées
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label for="pref-AnnexLinked">
+                                                        <input id="pref-AnnexLinked" name="AnnexLinked" [(ngModel)]="preferences.AnnexLinked" type="radio" [value]="true" (ngModelChange)="updatePreferences()"> Oui
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label for="pref-AnnexLinked-non">
+                                                        <input id="pref-AnnexLinked-non" name="AnnexLinked" [(ngModel)]="preferences.AnnexLinked" type="radio" [value]="false" (ngModelChange)="updatePreferences()"> Non
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <hr>
+											<!--<div class="title-pref blue-color">
+												Type d'enveloppe
+											</div>
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="pref-imprime">
+														<input checked="checked" id="pref-imprime" type="radio"> Enveloppe Imprimée 
+													</label>
+												</div>
+												<div class="col-xs-6">
+													<label for="pref-fenetre">
+														<input type="radio" id="pref-fenetre"> Enveloppe à fenêtre
+													</label>
+												</div>
+											</div>-->
+											<hr>
+                                            <div class="title-pref blue-color">
+                                                Mentions postales
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label for="pref-avec">
+                                                        <input id="pref-avec" name="senderprinted" [(ngModel)]="preferences.PrintSenderOnEnvelope" type="radio" [value]="true" (ngModelChange)="updatePreferences()"> Avec pavé expéditeur
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label for="pref-pave">
+                                                        <input id="pref-pave" name="senderprinted" [(ngModel)]="preferences.PrintSenderOnEnvelope" type="radio" [value]="false" (ngModelChange)="updatePreferences()"> Sans pavé expéditeur
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div *ngIf="preferences.EnvelopeID > 3">
+                                                <div class="title-pref blue-color">
+                                                    Bloc adresse Expéditeur et destinataire
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-avec">
+                                                            <input id="pref-avec" name="extrastitched" [(ngModel)]="preferences.ExtraStitched" type="radio" [value]="false" (ngModelChange)="updatePreferences()"> Ne pas ajouter
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-pave">
+                                                            <input id="pref-pave" name="extrastitched" [(ngModel)]="preferences.ExtraStitched" type="radio" [value]="true" (ngModelChange)="updatePreferences()"> Ajouter
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+											
+
+                                            <div *ngIf="preferences.EnvelopeID < 3">
+                                                <div class="title-pref blue-color">
+                                                    Enveloppe à fenêtre : ajout d'un porte adresse
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-porte">
+                                                            <input id="pref-porte" name="porte" [(ngModel)]="preferences.PorteAdress" type="radio" [value]="true" (ngModelChange)="updatePreferences()"> Oui
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-porteno">
+                                                            <input id="pref-porteno" name="porte" [(ngModel)]="preferences.PorteAdress" type="radio" [value]="false" (ngModelChange)="updatePreferences()"> Non
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                    <label for="pref-porte-null">
+                                                        <input id="pref-porte-null" name="porte" [(ngModel)]="preferences.PorteAdress" type="radio" [value]="null" (ngModelChange)="updatePreferences()"> Non avec uniquement des champs de fusion
+                                                    </label>
+                                                </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                            
+											<div class="title-pref blue-color">
+												Ajout du code barre sur les pages des documents
+											</div>
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="pref-barcode">
+                                                        <input id="pref-barcode" name="barcode" [(ngModel)]="preferences.BarCode" type="radio" [value]="true" (ngModelChange)="updatePreferences()"> Oui
+													</label>
+												</div>
+												<div class="col-xs-6">
+													<label for="pref-barcode-non">
+                                                        <input id="pref-barcode-non" name="barcode" [(ngModel)]="preferences.BarCode" type="radio" [value]="false" (ngModelChange)="updatePreferences()"> Non
+													</label>
+												</div>
+											</div>
+											<hr>
+											<div class="title-pref blue-color">
+												Mon enveloppe préférée
+											</div>
+											<select class="form-control" name="EnvelopeID" [(ngModel)]="preferences.EnvelopeID" (change)="updatePreferences()">
+												<option [ngValue]="0" [selected]="preferences.EnvelopeID == 0">Pour feuilles A4 plié en trois</option>
+												<option [ngValue]="1" [selected]="preferences.EnvelopeID == 1">Pour feuilles A4 plié en deux</option>
+												<option [ngValue]="2" [selected]="preferences.EnvelopeID == 2">Pour feuilles A4 non plié</option>
+												<option [ngValue]="5" [selected]="preferences.EnvelopeID == 3">Pour feuilles A4 plié en trois - Imprimé</option>
+												<option [ngValue]="6" [selected]="preferences.EnvelopeID == 4">Pour feuilles A4 plié en deux - Imprimé</option>
+												<option [ngValue]="7" [selected]="preferences.EnvelopeID == 5">Pour feuilles A4 non plié - Imprimé</option>
+											</select>
+											<hr>
+                                            <div class="title-pref blue-color">
+												Email de notification
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label for="pref-NotificationEmail">
+                                                        <input id="pref-NotificationEmail" name="NotificationEmail" [(ngModel)]="preferences.NotificationEmail" type="radio" [value]="true" (ngModelChange)="updatePreferences()"> Oui
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label for="pref-NotificationEmail-non">
+                                                        <input id="pref-NotificationEmail-non" name="NotificationEmail" [(ngModel)]="preferences.NotificationEmail" type="radio" [value]="false" (ngModelChange)="updatePreferences()"> Non
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <hr>
+											<!--<div class="title-pref blue-color">
+												Options
+											</div>
+											<label for="pref-coordon">
+												<input type="checkbox" id="pref-coordon">
+												<input type="hidden" value="false"> Imprimer le logo de l'entreprise sur l'enveloppe dans l'encart expediteur
+											</label>
+											<label for="pref-coordon2">
+												<input checked="checked" id="pref-coordon2"  type="checkbox" value="true">
+												<input type="hidden" value="false"> Réinitialiser ma réponse à la demande sur le recto/verso
+											</label>
+											<label for="pref-coordon3">
+                                                <input type="checkbox" name="NotificationEmail" [(ngModel)]="preferences.NotificationEmail" (ngModelChange)="updatePreferences()"> Notifications par email
+											</label>
+											<label for="pref-coordon4">
+												<input type="checkbox" id="pref-coordon4" name="newsletter"  checked=""> Souscrire à notre newsletter (deux envois par mois maximum)
+												<br>
+											</label>-->
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+                                    <div class="factures-box">
+                                        <div class="factures-box-title">
+                                            PRÉFÉRENCES ANNEX
+                                        </div>
+                                        <div class="pref-item-box mt-20">
+                                            <div *ngIf="preferences.AnnexLinked == false">
+                                                <div class="title-pref blue-color">
+													Options d'impressions de l'annexe - identiques au document
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-blancAccomp">
+                                                            <input type="radio" name="accompColor" id="pref-blancAccomp" [(ngModel)]="preferences.AccompColorID" [value]="0" (ngModelChange)="updatePreferences()" />En noir et blanc
+                                                        </label>
+                                                        <!--<label for="pref-pas">
+                                                            <input type="radio" id="pref-pas"> Pas de préférence
+                                                        </label>-->
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-couleurAccomp">
+                                                            <input type="radio" name="accompColor" id="pref-colorAccomp" [(ngModel)]="preferences.AccompColorID" [value]="1" (ngModelChange)="updatePreferences()" /> En couleur
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-rectovAccomp">
+                                                            <input type="radio" name="accompRecto" id="pref-rectoAccomp" [(ngModel)]="preferences.AccompRectoVersoID" [value]="0" (ngModelChange)="updatePreferences()" />Recto
+                                                        </label>
+                                                        <!--<label for="pref-pas2">
+                                                            <input  type="radio" id="pref-pas2"> Pas de préférence
+                                                        </label>-->
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <label for="pref-rectoAccomp">
+                                                            <input type="radio" name="accompRecto" id="pref-versoAccomp" [(ngModel)]="preferences.AccompRectoVersoID" [value]="1" (ngModelChange)="updatePreferences()" />Recto-verso
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="preferences.AnnexLinked == true">
+                                                <div class="title-pref blue-color">
+                                                    Options d'impression de annex - same as for documents
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div role="tabpanel" class="tab-pane" id="tab4">
+                        <div class="tabs-content-boxes relative">
+                            <div class="tabs-content-boxes-title">
+                                MODIFIER ADRESSE PRINCIPALE
+                            </div>
+                            <div class="tabs-content-boxes-section">
+                                <div class="row">
+									<div class="light-blue-wrapper">
+										<p class="mt-20 price-title-campaign">Pour recevoir un devis détaillé de ce publipostage par Email, veuillez svp remplir le formulaire ci-dessous</p>
+										<form>
+											<!-- [formGroup]="addressInsertForm" (ngSubmit)="addressInsertForm.valid && onSubmit()" novalidate -->
+											<div class="row mb-20 mt-20">
+												<div class="col-sm-6">
+													<div class="form-group">
+														<input type="hidden" [formControl]="addressInsertForm.controls['AddressID']" />
+														<select class="form-control" [formControl]="addressInsertForm.controls['Civilite']">
+															<option value="" disabled selected>Civilite</option>
+															<!--<option [ngValue]=null></option>-->
+															<option *ngFor="let x of civilites" [ngValue]="x.CiviliteID">
+																{{x.CiviliteName}}
+															</option>
+														</select>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="name" placeholder="Nom*" [formControl]="addressInsertForm.controls['Firstname']">
+														<div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+														<div *ngIf="addressInsertForm.hasError('firstNameMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="name1" placeholder="Prénom*" [formControl]="addressInsertForm.controls['Lastname']">
+														<div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+														<div *ngIf="addressInsertForm.hasError('lastNameMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+													</div>
+													<div class="form-group">
+														<input type="email" class="form-control" name="name2" placeholder="Email*" [formControl]="addressInsertForm.controls['Email']" required email>
+														<div *ngIf="addressInsertForm.hasError('noEmail') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Email est obligatoire</div>
+														<div *ngIf="!addressInsertForm.controls['Email'].valid && (addressInsertForm.touched || primarySenderAddress != null) && !addressInsertForm.hasError('noEmail')" class="help-msg">Email non valide</div>
+														<div *ngIf="addressInsertForm.hasError('emailMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="name3" placeholder="Téléphone*" [formControl]="addressInsertForm.controls['PhoneNumber']">
+														<div *ngIf="addressInsertForm.hasError('noPhoneNumber') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Téléphone est obligatoire</div>
+														<div *ngIf="addressInsertForm.hasError('phoneMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<input type="text" class="form-control" name="name4" placeholder="Société*" [formControl]="addressInsertForm.controls['Company']">
+														<div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+														<div *ngIf="addressInsertForm.hasError('companyMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="name5" placeholder="Complément d'identité" [formControl]="addressInsertForm.controls['CompanyComplement']">
+														<div *ngIf="addressInsertForm.hasError('companyComplMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="name6" placeholder="Adresse*" [formControl]="addressInsertForm.controls['Address1']">
+														<div *ngIf="addressInsertForm.hasError('noAddress') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Address est obligatoire</div>
+														<div *ngIf="addressInsertForm.hasError('address1Max')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="name7" placeholder="Complément d'adresse" [formControl]="addressInsertForm.controls['Address2']">
+														<div *ngIf="addressInsertForm.hasError('address2Max')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-md-4">
+															<input type="text" class="form-control" name="name8" placeholder="Code Postal" [formControl]="addressInsertForm.controls['ZipPostalCode']" (input)="onZipChange($event.target.value)">
+															<div *ngIf="addressInsertForm.hasError('zipCodeLenght') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le code postal doit comporter 5 chiffres</div>
+															<div *ngIf="addressInsertForm.hasError('zipMaxLength')" class="help-msg">L'entrée ne doit pas contenir plus de {{10}} caractères</div>
+														</div>
+														<div class="col-md-8">
+															<div class="field-for-pays">
+																<div class="relative h34">
+																	<select class="selectDest form-control" name="name83" [formControl]="addressInsertForm.controls['City']" required (click)="onCitySelected()">
+																		<option *ngFor="let x of cities" [ngValue]="x.Libelle">
+																			{{x.Libelle}}
+																		</option>
+																	</select>
+																	<input class="form-control ville" maxlength="27" name="name82" [formControl]="addressInsertForm.controls['City']" placeholder="Ville" tabindex="1" type="text" required>
+																</div>
+																<div class="help-msg" *ngIf="(addressInsertForm.controls['City'].value == '' || addressInsertForm.controls['City'].value == null)  && (addressInsertForm.touched || primarySenderAddress != null)">
+																	Le ville est obligatoire
+																</div>
+																<div *ngIf="addressInsertForm.hasError('cityMaxLength')" class="help-msg">L'entrée ne doit pas contenir plus de {{27}} caractères</div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<select class="form-control" name="name9" [formControl]="addressInsertForm.controls['CountryID']">
+															<option *ngFor="let x of countries" [ngValue]="x.CountryID">
+																{{x.CountryName}}
+															</option>
+														</select>
+														<div *ngIf="addressInsertForm.hasError('noCountry') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le pays est obligatoire</div>
+													</div>
+
+												</div>
+											</div>
+										</form>
+									</div>
+
+                                    <div class="pull-right">
+                                        <button type="button" class="btn-blue" [disabled]="!addressInsertForm.valid" (click)="onSubmitMethod()">SAUVEGARDER</button>
+                                        <button id="openModalButton" #openModalButton [hidden]="true" data-toggle="modal" data-target="#SendMeDetails">Open Modal</button>
+                                    </div>
+                                    <div [hidden]="hideOkMessageAdr" class="alert alert-success pull-left">
+                                        L'adresse principal est enregistrée
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <!--<div class="pull-left">
+                                        <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                                    </div>-->
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+
+		</div>
+		<!--<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<div class="heading">
+						<h2>Mon compte</h2>
+						<h3 class="blue">Coordonnées expéditeur par défaut</h3>
+					</div>
+					<hr>
+					<tabsSender (tabChanged)="selectedTabChanged($event)">
+						<tab *ngFor="let address of senderAddresses; let i = index" [tabTitle]="i+1+'  ' + (address.Firstname != null ? address.Firstname : '') +' ' + (address.Lastname != null ? address.Lastname : '')" class="tabs-moncompte">
+							<a class="tab-pane fade in active" role="tabpanel" id="principal">
+								<addressForm [adr]="address" [countries]="countries" [user]="_model" [selectedSenderAdr]="selectedSenderAddress"></addressForm>
+							</a>
+						</tab>
+						<tab [tabTitle]="'+ Nouvel expéditeur'">
+							<a class="tab-pane fade in active" role="tabpanel" id="principal">
+								<addressForm [adr]="newSenderAddress" [countries]="countries" [user]="_model" (reloadTabs)="reloadTabsNewAddressAdded()"></addressForm>
+							</a>
+						</tab>
+					</tabsSender>
+				</div>
+			</div>
+		</div>-->
+	</section>
+</div>

@@ -1,0 +1,627 @@
+﻿<div id="SendMeDetails" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">DEVIS ENVOYÉ</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					Le devis a été envoyé vers votre adresse Email
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="text-center mt-20 mb-20">
+					<a [routerLink]="['/home']" class="btn-blue" data-dismiss="modal">DÉMARRER MON PUBLIPOSTAGE</a>
+                    <a [href]="hrefUrl" [download]="hrefName" class="btn-blue">
+                        <span class="glyphicon glyphicon-download-alt"></span> Télécharger le devis
+                    </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="overlay-tarifs" [hidden]="(curentState == 1) || (curentState == 7)"></div>
+<div class="row">
+    <div class="col-md-12">
+		<div class="content">
+			<div class="heading">
+				<h2>Calculez le coût d’envoi d'un mailing - publipostage</h2>
+			</div>
+
+			<hr>
+			<ul id="campaign-breadcrumb">
+				<li [ngClass]="{ 'current': (curentState == 1), 'current-first': true}">
+					<span>1. Caractéristiques</span>
+				</li>
+
+				<li [ngClass]="{ 'current': (curentState == 2)}" class="option2">
+					<span>2. Options d'impression</span>
+				</li>
+
+				<li [ngClass]="{ 'current': (curentState == 3)}" class="option3">
+					<span>3. Type d'enveloppe</span>
+				</li>
+
+				<li [ngClass]="{ 'current': (curentState == 4)}" class="option4">
+					<span>4. Format d'enveloppe</span>
+				</li>
+				<li [ngClass]="{ 'current': (curentState == 5)}" class="option5">
+					<span>5. Affranchissement</span>
+				</li>
+				<li [ngClass]="{ 'current': (curentState == 6)}" class="option6">
+					<span>6. Calendrier d'envoi</span>
+				</li>
+				<li [ngClass]="{ 'current': (curentState == 7), 'current-last': true}" class="option7">
+					<span>7. Estimation du prix</span>
+				</li>
+			</ul>
+			<hr>
+            <div [ngClass]="{ 'poschanged': (curentState != 1) && (curentState != 7), 'campaign-step-box': true}">
+                <div class="campaign-step camp-first">
+                    <div [ngClass]="{ 'active-step': (curentState == 1), 'campaign-step-title': true }">
+                        1. Caractéristiques
+                        <!--<span class="close">&times;</span>-->
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 1)" [@focusPanel]='state'>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Nombre de plis</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" min="1" [(ngModel)]="_model.NumberOfLetters" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Nombre de pages</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" min="1" max="80" [(ngModel)]="_model.NumberOfPages" (ngModelChange)="checkIfEnveloppeShouldChange()" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Pays</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select [(ngModel)]="_model.DestinationCountryID" class="form-control">
+                                    <option *ngFor="let country of countries" [ngValue]="country.CountryID">{{country.CountryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+							<button type="button" class="btn-blue" (click)="next()">
+							Suite
+							</button>
+						</div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+                <div class="campaign-step camp-first">
+                    <div [ngClass]="{ 'active-step': (curentState == 2), 'campaign-step-title': true }">
+                        2. Options d'impression
+                        <span class="close close-devis" (click)="start()">&times;</span>
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 2)" [@focusPanel]='state'>
+                        <div class="row" id="new-options">
+                            <div class="col-sm-12 col-border">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="radio">
+                                            <label for="blanc" id="show-bw">
+                                                <input type="radio" id="blanc" name="letter.OrdinaryLetter.ColorID" [(ngModel)]="_model.MailingGroup.ColorID" [value]="0" />Noir et blanc
+                                                <br><span class="e-sprite e-sprite-bw hidden-xs"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="radio">
+                                            <label for="color" id="show-color">
+                                                <input type="radio" id="color" name="letter.OrdinaryLetter.ColorID" [(ngModel)]="_model.MailingGroup.ColorID" [value]="1" /> Couleur
+                                                <br><span class="e-sprite e-sprite-color hidden-xs"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="radio">
+                                            <label for="recto">
+                                                <input type="radio" id="recto" name="letter.OrdinaryLetter.RectoVersoID" [(ngModel)]="_model.MailingGroup.RectoVersoID" [value]="0" (ngModelChange)="checkIfEnveloppeShouldChange()" />Recto
+                                                <br>
+                                                <span class="e-sprite e-sprite-bw hidden-xs bw-envelope-recto" *ngIf="_model.MailingGroup.ColorID == 0"></span>
+                                                <span class="e-sprite e-sprite-color hidden-xs color-envelope-recto" *ngIf="_model.MailingGroup.ColorID == 1"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="radio">
+                                            <label for="verso">
+                                                <input type="radio" id="verso" name="letter.OrdinaryLetter.RectoVersoID" [(ngModel)]="_model.MailingGroup.RectoVersoID" [value]="1" (ngModelChange)="checkIfEnveloppeShouldChange()" />Recto-verso
+                                                <br>
+                                                <span class="e-sprite e-sprite-verso-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0"></span>
+                                                <span class="e-sprite e-sprite-verso-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1"></span>
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn-blue" (click)="next()">Suite</button>
+                        </div>
+                        <div class="pull-left">
+                            <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+                <div class="campaign-step camp-first">
+                    <div [ngClass]="{ 'active-step': (curentState == 3), 'campaign-step-title': true }">
+                        3. Type d'enveloppe
+                        <span class="close close-devis" (click)="start()">&times;</span>
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 3)" [@focusPanel]='state'>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label for="envelope-printed" id="printed-envelop">
+                                        <input data-val="true" data-val-required="The PrintedEnvelope field is required." id="envelope-printed" name="letter.OrdinaryLetter.Envelope.PrintedEnvelope" [(ngModel)]="_model.MailingGroup.PrintedEnvelope" type="radio" [value]="true" (ngModelChange)="updatePrintedEnveloppe()"> Enveloppe Imprimée
+                                        <br>
+                                        <span class="e-sprite e-sprite-dl-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-dl-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-dl-nosender hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label for="envelope-window" id="show-envelop-options">
+                                        <input id="envelope-window" name="letter.OrdinaryLetter.Envelope.PrintedEnvelope" data-val="false" [(ngModel)]="_model.MailingGroup.PrintedEnvelope" type="radio" [value]="false" (ngModelChange)="updatePrintedEnveloppe()"> Enveloppe à fenêtre
+                                        <br>
+                                        <span class="e-sprite e-sprite-windows-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-windows-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-windows-nosender hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="envelope-windows-options" [ngClass]="{'hidePopover': _model.MailingGroup.PorteAdress == false }" *ngIf="_model.MailingGroup.PrintedEnvelope == false" id="envelop-windows">
+                            <h4 class="blue">Enveloppe à fenêtre : ajout d'un porte adresse</h4>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="radio">
+                                        <label for="adresse-oui">
+                                            <input checked="checked" id="adresse-oui" name="letter.OrdinaryLetter.PorteAdress" [(ngModel)]="_model.MailingGroup.PorteAdress" type="radio" [value]="true" (ngModelChange)="checkIfEnveloppeShouldChange()" > Oui
+                                            <br>
+                                            <span class="e-sprite e-sprite-porte-adresse-oui-color hidden-xs color-envelope" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                            <span class="e-sprite e-sprite-porte-adresse-oui-bw hidden-xs bw-envelope" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                            <span class="e-sprite e-sprite-porte-adresse-oui-nosender ns-envelope hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="radio tooltip-message" id="stiched" popoverPlacement="top" popover="Vous n'avez pas sélectionné l'option Ajout d'un porte adresse. En conséquence, les blocs adresses Expéditeur et Destinataire vont être automatiquement ajoutées à la première page de vos documents. Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi" [popoverOnHover]="true">
+                                        <label for="adresse-no" class="show-message-porte">
+                                            <input id="adresse-no" name="letter.OrdinaryLetter.PorteAdress" [(ngModel)]="_model.MailingGroup.PorteAdress" type="radio" [value]="false" (ngModelChange)="checkIfEnveloppeShouldChange()" > Non
+                                            <br>
+                                            <span class="e-sprite e-sprite-porte-adresse-color hidden-xs color-envelope" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                            <span class="e-sprite e-sprite-porte-adresse-bw hidden-xs bw-envelope" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                            <span class="e-sprite e-sprite-porte-adresse-nosender ns-envelope hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true"></span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div *ngIf="_model.MailingGroup.MainDocumentName.split('.').pop().toLowerCase() != 'pdf'" class="col-sm-4">
+                                    <div class="radio">
+                                        <label for="adresse-null">
+                                            <input id="adresse-null" name="letter.OrdinaryLetter.PorteAdress" [(ngModel)]="_model.MailingGroup.PorteAdress" type="radio" [value]="null" (ngModelChange)="checkIfEnveloppeShouldChange()" >Non - Champs de fusion
+                                            <br>
+                                            <span class="e-sprite e-sprite-porte-adresse-color hidden-xs color-envelope" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                            <span class="e-sprite e-sprite-porte-adresse-bw hidden-xs bw-envelope" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                            <span class="e-sprite e-sprite-porte-adresse-nosender ns-envelope hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p class="porte-adrese-description" *ngIf="_model.MailingGroup.PorteAdress == false">
+                                        Vous n'avez pas sélectionné l'option Ajout d'un porte adresse. En conséquence, les blocs adresses Expéditeur et Destinataire vont être automatiquement ajoutées à la première page de vos documents.
+                                        <br>Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi
+                                    </p>
+                                    <p class="alert alert-danger fontsize13" id="non-porte" *ngIf="_model.MailingGroup.PorteAdress == false"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Attention: L'adresse destinataire va être automatiquement ajoutée sur la première page du document</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="visible-printed-envelope" *ngIf="_model.MailingGroup.PrintedEnvelope == true" [ngClass]="{'hidePopover': _model.MailingGroup.ExtraStitched == true }">
+                            <h4 class="blue">Bloc adresse Expéditeur et destinataire</h4>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="radio">
+                                        <label for="les-blocs-no">
+                                            <input checked="checked" id="les-blocs-no" name="letter.OrdinaryLetter.ExtraStitched" [(ngModel)]="_model.MailingGroup.ExtraStitched" type="radio" [value]="false" > Ne pas ajouter
+                                            <br>
+                                            <span class="e-sprite e-sprite-porte-adresse-noadress hidden-xs"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="radio tooltip-message" popoverPlacement="top" popover="En sélectionnant cette option, les blocs adresses Expéditeur et Destinataire seront automatiquement ajoutés à la première page de vos documents.Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi" [popoverOnHover]="true" id="block">
+                                                <label for="les-blocs">
+                                                    <input id="les-blocs" name="letter.OrdinaryLetter.ExtraStitched" [(ngModel)]="_model.MailingGroup.ExtraStitched" type="radio" [value]="true" > Ajouter
+                                                    <br>
+                                                    <span class="e-sprite e-sprite-porte-adresse-color hidden-xs color-envelope" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                                    <span class="e-sprite e-sprite-porte-adresse-bw hidden-xs bw-envelope" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                                    <span class="e-sprite e-sprite-porte-adresse-nosender ns-envelope hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="porte-adrese-description2" *ngIf="_model.MailingGroup.ExtraStitched == true">
+                                                Vous n'avez pas sélectionné l'option Ajout d'un porte adresse. En conséquence, les blocs adresses Expéditeur et Destinataire vont être automatiquement ajoutées à la première page de vos documents.
+                                                <br>Veuillez laisser cette zone blanche pour ne pas perdre de contenu et vérifier la prévisualisation avant l'envoi
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <p class="alert alert-danger fontsize13" id="bloc-info" *ngIf="_model.MailingGroup.ExtraStitched == true"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> Attention: L'adresse destinataire va être automatiquement ajoutée sur la première page du document</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn-blue" (click)="next()">Suite</button>
+                        </div>
+                        <div class="pull-left">
+                            <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+                <div class="campaign-step camp-first">
+                    <div [ngClass]="{ 'active-step': (curentState == 4), 'campaign-step-title': true }">
+                        4. Format d'enveloppe
+                        <span class="close close-devis" (click)="start()">&times;</span>
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 4)" [@focusPanel]='state'>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label for="dl">
+                                        <input type="radio" id="dl" #dl name="letter.OrdinaryLetter.EnvelopeID" [(ngModel)]="_model.MailingGroup.EnvelopID" [value]="_model.MailingGroup.PrintedEnvelope? 5 : 0" /> A4 plié en trois
+                                        <br>DL (11x22 cm)
+                                        <br>
+                                        <!-- printed -->
+                                        <span class="e-sprite e-sprite-dl-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false && _model.MailingGroup.PrintedEnvelope == true"></span>
+                                        <span class="e-sprite e-sprite-dl-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false && _model.MailingGroup.PrintedEnvelope == true"></span>
+                                        <span class="e-sprite e-sprite-dl-nosender hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true && _model.MailingGroup.PrintedEnvelope == true"></span>
+
+                                        <!-- window -->
+                                        <span class="e-sprite e-sprite-windows-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.PrintedEnvelope == false && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-windows-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.PrintedEnvelope == false && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-windows-nosender hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true && _model.MailingGroup.PrintedEnvelope == false"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label for="c5">
+                                        <input type="radio" id="c5" #c5 name="letter.OrdinaryLetter.EnvelopeID" [(ngModel)]="_model.MailingGroup.EnvelopID" [value]="_model.MailingGroup.PrintedEnvelope? 6 : 1" />A4 plié en deux
+                                        <br>C5 (16.2x22.9 cm)
+                                        <br>
+                                        <!-- printed -->
+                                        <span class="e-sprite e-sprite-c5-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false && _model.MailingGroup.PrintedEnvelope == true"></span>
+                                        <span class="e-sprite e-sprite-c5-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false && _model.MailingGroup.PrintedEnvelope == true"></span>
+                                        <span class="e-sprite e-sprite-c5-nosender hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true && _model.MailingGroup.PrintedEnvelope == true"></span>
+
+                                        <!-- window -->
+                                        <span class="e-sprite e-sprite-c5-bw-window hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.PrintedEnvelope == false && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-c5-color-window hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.PrintedEnvelope == false && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-c5-nosender-window hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true && _model.MailingGroup.PrintedEnvelope == false"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="radio">
+                                    <label for="c4">
+                                        <input type="radio" id="c4" name="letter.OrdinaryLetter.EnvelopeID" [(ngModel)]="_model.MailingGroup.EnvelopID" [value]="_model.MailingGroup.PrintedEnvelope? 7 : 2" /> A4 non plié
+                                        <br>C4 (22.9x32.4 cm)
+                                        <br>
+                                        <!-- printed -->
+                                        <span class="e-sprite e-sprite-c4-color hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.SenderNotPrinted == false && _model.MailingGroup.PrintedEnvelope == true"></span>
+                                        <span class="e-sprite e-sprite-c4-bw hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.SenderNotPrinted == false && _model.MailingGroup.PrintedEnvelope == true"></span>
+                                        <span class="e-sprite e-sprite-c4-nosender hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true && _model.MailingGroup.PrintedEnvelope == true"></span>
+
+                                        <!-- window -->
+                                        <span class="e-sprite e-sprite-c4-bw-window hidden-xs" *ngIf="_model.MailingGroup.ColorID == 0 && _model.MailingGroup.PrintedEnvelope == false && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-c4-color-window hidden-xs" *ngIf="_model.MailingGroup.ColorID == 1 && _model.MailingGroup.PrintedEnvelope == false && _model.MailingGroup.SenderNotPrinted == false"></span>
+                                        <span class="e-sprite e-sprite-c4-nosender-window hidden-xs" *ngIf="_model.MailingGroup.SenderNotPrinted == true && _model.MailingGroup.PrintedEnvelope == false"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+							<button type="button" class="btn-blue" (click)="next()">Suite 
+								<span [hidden]="showLoadingBtn" class="inline-loader"><img src="../../../../Images/load.svg" /></span>
+							</button>
+						</div>
+                        <div class="pull-left">
+                            <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="campaign-step camp-first">
+                    <div [ngClass]="{ 'active-step': (curentState == 5), 'campaign-step-title': true }">
+                        5. Affranchissement
+                        <span class="close close-devis" (click)="start()">&times;</span>
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 5)" [@focusPanel]='state'>
+                        <div class="choose-type">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                    <a (click)="_model.MailingGroup.LetterTypeID=1" [ngClass]="{ 'selected-type': _model.MailingGroup.LetterTypeID==1, 'pointer letter-type': true}">
+                                        Lettre recommandée avec AR (J+1)
+                                        <span><img src="../../../Images/lrarbck.png"></span>
+                                        <span class="description-type">La lettre recommandée avec accusé de réception (LRAR) permet à l'expéditeur de recevoir la preuve de bonne réception du pli, signée par le destinataire.</span>
+                                        <span class="price-type">{{pricesLetterType[0] | number : '1.2-2'}} € HT</span>
+                                    </a>
+
+                                </div><div class="col-sm-6 col-md-4" [hidden]="_model.DestinationCountryID != 1">
+                                    <a [ngClass]="{ 'selected-type': _model.MailingGroup.LetterTypeID==2, 'pointer letter-type': true}" (click)="_model.MailingGroup.LetterTypeID=2">
+                                        Lettre recommandée sans AR (J+1)
+                                        <span><img src="../../../Images/lrbck.png"></span>
+                                        <span class="description-type">La lettre recommandée sans accusé de réception permet à l'expéditeur de s'assurer de la bonne réception du pli par le destinataire</span>
+                                        <span class="price-type">{{pricesLetterType[1] | number : '1.2-2'}} € HT</span>
+                                    </a>
+
+                                </div><div class="col-sm-6 col-md-4">
+                                    <a [ngClass]="{ 'selected-type': _model.MailingGroup.LetterTypeID==3, 'pointer letter-type': true}" (click)="_model.MailingGroup.LetterTypeID=3">
+                                        Lettre prioritaire (J+1)
+                                        <span><img src="../../../Images/prioritairebck.png"></span>
+                                        <span class="description-type">La lettre prioritaire est délivrée en moyenne à j+1</span>
+                                        <span class="price-type">{{pricesLetterType[2] | number : '1.2-2'}} € HT</span>
+                                    </a>
+
+                                </div><div class="col-sm-6 col-md-4" [hidden]="_model.DestinationCountryID != 1">
+									<a [ngClass]="{ 'selected-type': _model.MailingGroup.LetterTypeID==4, 'pointer letter-type': true}" (click)="_model.MailingGroup.LetterTypeID=4">
+										Lettre verte (J+2)
+										<span><img src="../../../Images/lettrevertebck.png"></span>
+										<span class="description-type">La lettre verte est un moyen de communiquer en limitant les coûts d’envoi et les impacts sur l’environnement.
+Elle est délivrée en moyenne à j+2</span>
+										<span class="price-type">{{pricesLetterType[3] | number : '1.2-2'}} € HT</span>
+									</a>
+
+                                </div><div class="col-sm-6 col-md-4" [hidden]="_model.DestinationCountryID != 1">
+                                    <a [ngClass]="{ 'selected-type': _model.MailingGroup.LetterTypeID==5, 'pointer letter-type': true}" (click)="_model.MailingGroup.LetterTypeID=5">
+                                        Lettre simple ecopli (J+4)
+                                        <span><img src="../../../Images/ecoplibck.png"></span>
+                                        <span class="description-type">La lettre simple écopli est un bon moyen de communiquer à bas coût et est délivrée en moyenne à j+4</span>
+                                        <span class="price-type">{{pricesLetterType[4] | number : '1.2-2'}} € HT</span>
+                                    </a>
+
+                                </div><div class="col-sm-6 col-md-4" [hidden]="_model.DestinationCountryID != 1">
+                                    <a [ngClass]="{ 'selected-type': _model.MailingGroup.LetterTypeID==6, 'pointer letter-type': true}" (click)="_model.MailingGroup.LetterTypeID=6">
+                                        Lettre suivi (J+2)
+                                        <span><img src="../../../Images/courrier-suivi.jpg"></span>
+                                        <span class="description-type">Avec la Lettre suivie, vous pouvez suivre l'acheminement et la distribution de vos envois importants.</span>
+                                        <span class="price-type">{{pricesLetterType[5] | number : '1.2-2'}} € HT</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn-blue" (click)="next()">Suite</button>
+                        </div>
+                        <div class="pull-left">
+                            <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="campaign-step delai-step">
+                    <div [ngClass]="{ 'active-step': (curentState == 6), 'campaign-step-title': true }">
+                        6. Calendrier d'envoi
+                        <span class="close close-devis" (click)="start()">&times;</span>
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 6)" [@focusPanel]='state'>
+                        <h4>Définissez le calendrier d'envoi de vos courriers.</h4>
+                        <p *ngIf="endDate != '0'">
+                            Le délai de production de votre envoi est de {{ endDate }} jours.
+                        </p>
+                        <p *ngIf="endDate == '0'">
+							Le délai devra être préciser après règlement
+                        </p>
+                        <div class="row margin-bottom30">
+                            <div class="col-sm-3 mob-mb-20">
+                                <div class="rect">
+                                    <img src="../../../../Images/enveloppe.svg" />
+                                </div>
+                                <span class="text-rect">Date de commande souhaitée le : 
+									<span class="block-span">
+										<strong class="blue">{{dateToday.toJSON().slice(0,10).split('-').reverse().join('/')}}</strong>
+									</span>
+								</span>
+								<div class="clear"></div>
+							</div>
+							<!--<div class="col-sm-3 mob-mb-20">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Choisissez une date" ngx-mydatepicker name="mydate"
+                                           [(ngModel)]="model" [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" (click)="dp.clearDate()">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>-->
+                            <div class="col-sm-3 mob-mb-20">
+                                <div class="rect">
+                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                </div>
+                                <span class="text-rect">Dépôt à la poste le : <strong class="blue">{{dateInPostOffice}}</strong></span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="col-sm-3 mob-mb-20">
+								
+								<div class="rect">
+									<img src="../../../../Images/mail.png" height="35" />
+								</div>
+								<span class="text-rect">Date prévue de livraison <strong class="blue">{{dateDelivered}}</strong>
+								</span>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="pull-right">
+                            <button type="button" class="btn-blue" (click)="next()">Suite</button>
+                        </div>
+                        <div class="pull-left">
+                            <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+
+                <div class="campaign-step camp-last">
+                    <div [ngClass]="{ 'active-step': (curentState == 7), 'campaign-step-title': true }">
+                        7. Estimation du prix
+                        <span class="close close-devis" (click)="start()">&times;</span>
+                    </div>
+                    <div class="campaign-step-description" [hidden]="!(curentState == 7)" [@focusPanel]='state'>
+                        <div class="campaign-price">
+                            Le prix estimé pour cet envoi est de<span id="Estimation"> {{pricesLetterType[_model.MailingGroup.LetterTypeID - 1] | number : '1.2-2'}}</span> € HT
+                        </div>
+						<div class="no-gutter mt-20" *ngIf="!auth.userLoggedIn">
+							<div class="user-section row">
+								<div class="col-sm-6">
+									<div class="new-user no-gutter">
+										<div class="row">
+											<div class="col-xs-3 text-right">
+												<img src="../../../../Images/info.png" />
+											</div>
+											<div class="col-xs-8">
+												<span>Un compte utilisateur sera créé au moment <br /> de la demande d'envoi de devis</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="existing-user">
+										Déjà utilisateur ? <a href="#" class="btn-orange-new" data-target="#LoginModal" data-toggle="modal" (click)="savelink('/devis')">CONNEXION</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                        <div class="light-blue-wrapper">                            
+                            <p class="mt-20 price-title-campaign">Pour recevoir un devis détaillé de ce publipostage par Email, veuillez svp remplir le formulaire ci-dessous</p>
+                            <form [formGroup]="addressInsertForm" (ngSubmit)="addressInsertForm.valid && onSubmit()" novalidate>
+                                  <div class="row mb-20 mt-20">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <!--<label for="nom" class="control-label col-sm-4">Nom du publipostage</label>-->
+                                            <input type="text" class="form-control" placeholder="Intitulé du publipostage" [formControl]="addressInsertForm.controls['Title']">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="Nom*" [formControl]="addressInsertForm.controls['Firstname']">
+                                            <div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+                                            <div *ngIf="addressInsertForm.hasError('firstNameMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Prénom*" [formControl]="addressInsertForm.controls['Lastname']">
+                                            <div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+                                            <div *ngIf="addressInsertForm.hasError('lastNameMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email*" [formControl]="addressInsertForm.controls['Email']" required email>
+                                            <div *ngIf="addressInsertForm.hasError('noEmail') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Email est obligatoire</div>
+                                            <div *ngIf="!addressInsertForm.controls['Email'].valid && (addressInsertForm.touched || primarySenderAddress != null) && !addressInsertForm.hasError('noEmail')" class="help-msg">Email non valide</div>
+                                            <div *ngIf="addressInsertForm.hasError('emailMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+                                        </div>
+                                        <div *ngIf="primarySenderAddress == null" class="form-group">
+                                            <input type="password" class="form-control" placeholder="définir un mot de passe*" [formControl]="addressInsertForm.controls['Password']"  autocomplete="new-password">
+                                            <div *ngIf="addressInsertForm.hasError('noPassword') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Mot de passe est obligatoire</div>
+                                            <div *ngIf="wrongPassword" class="help-msg">Incorrect Mot de passe</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Téléphone*" [formControl]="addressInsertForm.controls['PhoneNumber']">
+                                            <div *ngIf="addressInsertForm.hasError('noPhoneNumber') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Téléphone est obligatoire</div>
+                                            <div *ngIf="addressInsertForm.hasError('phoneMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Société*" [formControl]="addressInsertForm.controls['Company']">
+                                            <div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+                                            <div *ngIf="addressInsertForm.hasError('companyMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Complément d'identité" [formControl]="addressInsertForm.controls['CompanyComplement']">
+                                            <div *ngIf="addressInsertForm.hasError('companyComplMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Adresse*" [formControl]="addressInsertForm.controls['Address1']">
+                                            <div *ngIf="addressInsertForm.hasError('noAddress') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Address est obligatoire</div>
+                                            <div *ngIf="addressInsertForm.hasError('address1Max')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Complément d'adresse" [formControl]="addressInsertForm.controls['Address2']">
+                                            <div *ngIf="addressInsertForm.hasError('address2Max')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" name="name" placeholder="Code Postal" [formControl]="addressInsertForm.controls['ZipPostalCode']" (input)="onZipChange($event.target.value)">
+                                                 <div *ngIf="addressInsertForm.hasError('zipCodeLenght') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le code postal doit comporter 5 chiffres</div>
+                                                <div *ngIf="addressInsertForm.hasError('zipMaxLength')" class="help-msg">L'entrée ne doit pas contenir plus de {{10}} caractères</div>
+                                            </div>
+                                            <div class="col-md-8">
+												<div class="field-for-pays">
+													<div class="relative h34">
+														<select class="selectDest form-control" [formControl]="addressInsertForm.controls['City']" required name="selectDestName" (click)="onCitySelected()">
+															<option *ngFor="let x of cities" [ngValue]="x.Libelle">
+																{{x.Libelle}}
+															</option>
+														</select>
+														<input class="form-control ville" maxlength="27" name="City" [formControl]="addressInsertForm.controls['City']" placeholder="Ville" type="text" required>
+													</div>
+                                                    <div class="help-msg" *ngIf="(addressInsertForm.controls['City'].value == '' || addressInsertForm.controls['City'].value == null)  && (addressInsertForm.touched || primarySenderAddress != null)">
+                                                        Le ville est obligatoire
+                                                    </div>
+                                                    <div *ngIf="addressInsertForm.hasError('cityMaxLength')" class="help-msg">L'entrée ne doit pas contenir plus de {{27}} caractères</div>
+												</div>
+                                            </div>
+                                        </div>
+										<div class="form-group">
+											<select class="form-control" [formControl]="addressInsertForm.controls['CountryID']">
+												<option *ngFor="let x of countries" [ngValue]="x.CountryID">
+													{{x.CountryName}}
+												</option>
+											</select>
+											<div *ngIf="addressInsertForm.hasError('noCountry') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le pays est obligatoire</div>
+										</div>
+										
+									</div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="pull-right">
+                            <button type="button" class="btn-blue" [disabled]="!addressInsertForm.valid" (click)="onSubmitMethod()">Recevoir le devis</button>
+                            <button id="openModalButton" #openModalButton [hidden]="true" data-toggle="modal" data-target="#SendMeDetails">Open Modal</button>
+                        </div>
+                        <div class="pull-left">
+                            <button type="button" class="btn-blue" (click)="previous()">Retour</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+﻿<div class="overlay" [ngClass]="{'over': showMobileMenu }" (click)="showMobileMenu=!showMobileMenu"></div>
+<div class="mobile-menu visible-mobile-tablet" [ngClass]="{'open': showMobileMenu }">
+	<nav>
+		<div class="mobile-menu-header">
+			<a [routerLink]="['/home']" class="mobile-menu-header-logo">
+				<img src="/Images/publipostagelogo2.png" height="40" alt="">
+			</a>
+			<div class="mobile-menu-dropdown">
+				<ul>
+					<li><a href="http://xipe.com/"><span><img src="/Images/xipe-logo2.png" height="20" alt="alternate text"></span> XIPE</a></li>
+					<li class="active"><a href="/"><span><img src="/Images/ServicePostal-128x128t.png" height="20" alt=""></span> SERVICE POSTAL</a></li>
+
+				</ul>
+			</div>
+		</div>
+		<ul id="main-mobile-menu-list">
+			<li *ngIf="!auth.userLoggedIn"><a data-target="#LoginModal" data-toggle="modal">connexion</a></li>
+			<li class="envoi active"><a [routerLink]="['/home']"><span></span>  Envoi de mailing</a></li>
+			<li *ngIf="!auth.userLoggedIn" class="grey-link"><a [routerLink]="['/login']">MES MAILING</a></li>
+			<li *ngIf="!auth.userLoggedIn"><a [routerLink]="['/login']">MES ADRESSES</a></li>
+			<li *ngIf="!auth.userLoggedIn"><a [routerLink]="['/login']">Expéditeurs</a></li>
+			<li *ngIf="auth.userLoggedIn"><a [routerLink]="['/mesMailing']">MES MAILING</a></li>
+			<li *ngIf="auth.userLoggedIn"><a [routerLink]="['/mesAdresses']">MES ADRESSES</a></li>
+			<li *ngIf="auth.userLoggedIn"><a [routerLink]="['/expediteurs']">Expéditeurs</a></li>
+			<li><a [routerLink]="['/monCompte']">MON COMPTE</a></li>
+			<li class="services"><a [routerLink]="['/aide']">AIDE</a></li>
+			<!--<li class="tarifs"><a [routerLink]="['/devis']"><span></span>  tarifs</a></li>-->
+			<li class="contact"><a [routerLink]="['/contact']"><span></span>  contact</a></li>
+		</ul>
+	</nav>
+</div>
+
+<header>
+	<div class="mobile-header-blue visible-xs visible-sm">
+		<div class="container">
+			<a href="javascript:;" class="open-mobile-menu" (click)="showMobileMenu=!showMobileMenu"></a>
+			<h3 class="title-header-blue">PRÉPARER UN MAILING (1/3)</h3>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="header-service hidden-xs hidden-sm">
+		<div class="container relative">
+			<div class="left-part-header dropdown">
+				<a [routerLink]="['/home']"> <img src="/Images/publipostagelogo2.png" height="50" alt="Service Postal"> </a>
+				<!--<h1 class="main-title">Mailing - PUBLIPOSTAGE</h1>-->
+				<span class="new-sprite-publi new-sprite-publi-other-app dropdown-toggle open-other-apps" type="button" id="showDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+				<div class="header-dropdown-menu dropdown-menu" aria-labelledby="showDropdown">
+
+					<ul>
+						<li>
+							<a href="https://www.servicepostal.com/" target="_blank"> <img src="/Images/ServicePostal-128x128t.png" height="55" alt=""> <span>Service <i>Postal</i></span> </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<login [(redirect_route)]="redirect_route" (outputEvent)="onComponentChange($event)"></login>
+
+			<div class="clear"></div>
+		</div>
+	</div>
+</header>
+
+<video-tutorial></video-tutorial>
+<modal-login [(redirect_route)]="redirect_route"></modal-login>
+<modal-register [(redirect_route)]="redirect_route"></modal-register>
+<modal-password-forget></modal-password-forget>

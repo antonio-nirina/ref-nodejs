@@ -1,0 +1,92 @@
+﻿<div class="light-blue-wrapper">
+	<p class="mt-20 price-title-campaign">Pour recevoir un devis détaillé de ce publipostage par Email, veuillez svp remplir le formulaire ci-dessous</p>
+	<form> <!-- [formGroup]="addressInsertForm" (ngSubmit)="addressInsertForm.valid && onSubmit()" novalidate -->
+		<div class="row mb-20 mt-20">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<input type="hidden" [formControl]="addressInsertForm.controls['AddressID']" />
+					<select class="form-control" [formControl]="addressInsertForm.controls['Civilite']">
+						<option value="" disabled selected>Civilite</option>
+						<option [ngValue]=null></option>
+						<option *ngFor="let x of civilites" [ngValue]="x.CiviliteID">
+							{{x.CiviliteName}}
+						</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="name" placeholder="Nom*" [formControl]="addressInsertForm.controls['Firstname']">
+					<div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+					<div *ngIf="addressInsertForm.hasError('firstNameMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="name1" placeholder="Prénom*" [formControl]="addressInsertForm.controls['Lastname']">
+					<div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+					<div *ngIf="addressInsertForm.hasError('lastNameMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{18}} caractères</div>
+				</div>
+				<div class="form-group">
+					<input type="email" class="form-control" name="name2" placeholder="Email*" [formControl]="addressInsertForm.controls['Email']" required email>
+					<div *ngIf="addressInsertForm.hasError('noEmail') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Email est obligatoire</div>
+					<div *ngIf="!addressInsertForm.controls['Email'].valid && (addressInsertForm.touched || primarySenderAddress != null) && !addressInsertForm.hasError('noEmail')" class="help-msg">Email non valide</div>
+					<div *ngIf="addressInsertForm.hasError('emailMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="name3" placeholder="Téléphone*" [formControl]="addressInsertForm.controls['PhoneNumber']">
+					<div *ngIf="addressInsertForm.hasError('noPhoneNumber') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Téléphone est obligatoire</div>
+					<div *ngIf="addressInsertForm.hasError('phoneMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<input type="text" class="form-control" name="name4" placeholder="Société*" [formControl]="addressInsertForm.controls['Company']">
+					<div *ngIf="addressInsertForm.hasError('noSender') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le prénom, le nom ou la société est obligatoire</div>
+					<div *ngIf="addressInsertForm.hasError('companyMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="name5" placeholder="Complément d'identité" [formControl]="addressInsertForm.controls['CompanyComplement']">
+					<div *ngIf="addressInsertForm.hasError('companyComplMax')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="name6" placeholder="Adresse*" [formControl]="addressInsertForm.controls['Address1']">
+					<div *ngIf="addressInsertForm.hasError('noAddress') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Address est obligatoire</div>
+					<div *ngIf="addressInsertForm.hasError('address1Max')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="name7" placeholder="Complément d'adresse" [formControl]="addressInsertForm.controls['Address2']">
+					<div *ngIf="addressInsertForm.hasError('address2Max')" class="help-msg">L'entrée ne doit pas contenir plus de {{38}} caractères</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-4">
+						<input type="text" class="form-control" name="name8" placeholder="Code Postal" [formControl]="addressInsertForm.controls['ZipPostalCode']" (input)="onZipChange($event.target.value)">
+						<div *ngIf="addressInsertForm.hasError('zipCodeLenght') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le code postal doit comporter 5 chiffres</div>
+						<div *ngIf="addressInsertForm.hasError('zipMaxLength')" class="help-msg">L'entrée ne doit pas contenir plus de {{10}} caractères</div>
+					</div>
+					<div class="col-md-8">
+						<div class="field-for-pays">
+							<div class="relative h34">
+								<select class="selectDest form-control" name="name83" [formControl]="addressInsertForm.controls['City']" required (click)="onCitySelected()">
+									<option *ngFor="let x of cities" [ngValue]="x.Libelle">
+										{{x.Libelle}}
+									</option>
+								</select>
+								<input class="form-control ville" maxlength="27" name="name82" [formControl]="addressInsertForm.controls['City']" placeholder="Ville" tabindex="1" type="text" required>
+							</div>
+							<div class="help-msg" *ngIf="(addressInsertForm.controls['City'].value == '' || addressInsertForm.controls['City'].value == null)  && (addressInsertForm.touched || primarySenderAddress != null)">
+								Le ville est obligatoire
+							</div>
+							<div *ngIf="addressInsertForm.hasError('cityMaxLength')" class="help-msg">L'entrée ne doit pas contenir plus de {{27}} caractères</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<select class="form-control" name="name9" [formControl]="addressInsertForm.controls['CountryID']">
+						<option *ngFor="let x of countries" [ngValue]="x.CountryID">
+							{{x.CountryName}}
+						</option>
+					</select>
+					<div *ngIf="addressInsertForm.hasError('noCountry') && (addressInsertForm.touched || primarySenderAddress != null)" class="help-msg">Le pays est obligatoire</div>
+				</div>
+
+			</div>
+		</div>
+	</form>
+</div>
